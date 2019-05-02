@@ -1,0 +1,33 @@
+.DS_Store
+node_modules
+/packages/**/dist/
+!/projects/
+/projects/*
+!/projects/esri-leaflet-example/
+!/projects/leaflet-example/
+/dist
+robots.txt
+
+/tests/e2e/reports/
+selenium-debug.log
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+.INTERNALREADME.md
+TODO

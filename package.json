@@ -1,0 +1,17 @@
+{
+  "name": "vue-mapp-kit",
+  "version": "2.0.0",
+  "description": "A wonderful collection of all things maps.",
+  "main": "index.js",
+  "repository": "",
+  "author": "",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "projects/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.13.0"
+  }
+}

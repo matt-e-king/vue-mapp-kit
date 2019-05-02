@@ -1,0 +1,25 @@
+{
+  "name": "@vue-mapp-kit/utils",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/main.js",
+  "repository": "https://bitbucket.org/smallmelo/mapp-kit-2",
+  "author": "melo@smallmelo.com",
+  "license": "MIT",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build-bundle": "vue-cli-service build --target lib --name utils './src/main.js'",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.1.1",
+    "@vue/cli-plugin-eslint": "^3.1.1",
+    "@vue/cli-service": "^3.1.1",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
