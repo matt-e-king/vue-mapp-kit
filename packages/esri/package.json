@@ -14,6 +14,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "esri-loader": "^2.9.2",
     "vue": "^2.6.4",
     "vuex": "^3.1.0"
   },
@@ -29,7 +30,6 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "esri-loader": "^2.6.0",
     "vue-template-compiler": "^2.5.21",
     "webpack-node-externals": "^1.7.2"
   }
