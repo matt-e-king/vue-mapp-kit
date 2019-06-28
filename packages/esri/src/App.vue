@@ -3,20 +3,44 @@
     <div id="mainMap">
       <e-map :properties="mapProps" v-if="showMapView" :key="1">
         <!-- the default slot of e-map spits out the map object -->
-          <e-map-view
-            :properties="{
-              container: 'mainMap',
-              zoom: 3,
-              center: [-80, 35]
-            }">
-            <e-graphic :properties="getPolygonProps"/>
+        <e-map-view
+          :properties="{
+            container: 'mainMap',
+            zoom: 3,
+            center: [-80, 35]
+          }">
+        
+          <!--
+            have to change e-map-view to this first:
+            extent: {
+              // autocasts as new Extent()
+              xmin: -9177811,
+              ymin: 4247000,
+              xmax: -9176791,
+              ymax: 4247784,
+              spatialReference: 102100
+            }
+          -->
+          
+          <!-- <e-feature-layer :properties="{ 
+            url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
+          }"/> -->
+          <e-graphic :properties="getPolygonProps"/>
 
-            <e-basemap-toggle :properties="{ nextBasemap: 'hybrid' }"></e-basemap-toggle>
-          </e-map-view>
-
-          <e-graphics-layer>
+          <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
             <e-graphic :properties="getPolylineProps"/>
           </e-graphics-layer>
+
+          <e-geo-json-layer :properties="getGeoJSONProps"/>
+
+          <e-basemap-toggle 
+            :properties="{ nextBasemap: 'hybrid' }"
+            position="bottom-right"/>
+
+          <e-layer-list/>
+        </e-map-view>
+
+        <!-- <e-portal-item :properties="{ id: '8444e275037549c1acab02d2626daaee' }"/> -->
       </e-map>
 
       <e-map :properties="map2Props" v-else :key="2">
@@ -51,6 +75,16 @@ export default {
   },
 
   computed: {
+    getGeoJSONProps() {
+      return {
+        url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson',
+        copyright: "USGS Earthquakes",
+        popupTemplate: {
+          title: "Earthquake Info",
+          content: "Magnitude {mag} {type} hit {place} on {time:DateString}"
+        }
+      }
+    },
     getSceneMapProps() {
       return {
         container: "mainMap",
