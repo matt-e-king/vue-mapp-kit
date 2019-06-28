@@ -16,17 +16,24 @@ export default {
   // constructor handles created()
   mixins: [constructorMixin],
 
+  props: {
+    position: {
+      type: String,
+      default: 'top-right'
+    }
+  },
+
   data() {
     return {
       module: {
         BasemapToggle: null
-      }
+      } 
     }
   },
 
   methods: {
     afterInitHook() {
-      this.getMapView().ui.add(this.module.BasemapToggle, "top-right");
+      this.getMapView().ui.add(this.module.BasemapToggle, this.position);
     }
   },
 
