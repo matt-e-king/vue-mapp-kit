@@ -18,15 +18,17 @@ export default {
 
   created() {
     this.loaderInit()
-      .then(result => result)
       .then(loadedModules => {
         const moduleKeys = Object.keys(this.module)
         
         moduleKeys.forEach((name, index) => {
           const module = loadedModules[index]
+          
+          console.log(name, { ...this.properties, ...this.mergeProps })
 
-          if (name == 'Map') console.log(this.properties)
-          this.module[name] = new module({ ...this.properties, ...this.mergeProps })
+          this.module[name] = this.noInstantiation
+            ? module
+            : new module({ ...this.properties, ...this.mergeProps })
 
           if (this.module[name].when) {
             this.module[name].when(() => {
