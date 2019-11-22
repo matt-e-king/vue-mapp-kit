@@ -3,21 +3,13 @@
 <script>
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
 import constructorMixin from '@/mixins/constructorMixin'
+import injectMapViewMixin from '@/mixins/injectMapViewMixin'
 
 export default {
   name: 'e-graphic',
 
-  inject: {
-    getMapView: {
-      default: () => {}
-    },
-    getGraphicsLayer: {
-      default: () => {}
-    }
-  },
-
   // constructor handles created()
-  mixins: [constructorMixin],
+  mixins: [constructorMixin, injectMapViewMixin],
 
   data() {
     return {
@@ -29,19 +21,13 @@ export default {
 
   methods: {
     afterInitHook() {
-      const {
-        $options: {
-          name
-        } = {}
-      } = this.$parent
+      const parentView = this.addTo ? this.addTo : this.getMapView().graphics
 
-      if (name === 'e-map-view') {
-        this.getMapView().graphics.add(this.module.Graphic)
-      } else {
-        this.getGraphicsLayer().add(this.module.Graphic)
-      }
+      if (!parentView) console.error('[EGraphic] no parent collection found')
+      
+      parentView.add(this.module.Graphic)
     }
-  }
+  },
 }
 </script>
 

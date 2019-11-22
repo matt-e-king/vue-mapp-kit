@@ -3,6 +3,7 @@ import { loadModules } from 'esri-loader'
 export const MODULE_LOOKUP = {
   'GeoJSONLayer': 'esri/layers/GeoJSONLayer',
   'FeatureLayer': 'esri/layers/FeatureLayer',
+  'GroupLayer': 'esri/layers/GroupLayer',
   'Graphic': 'esri/Graphic',
   'GraphicsLayer': 'esri/layers/GraphicsLayer',
   'Layer': 'esri/layers/Layer',
@@ -22,7 +23,7 @@ export const getModules = async (m) => {
   const requiresArray = modules.map(module => MODULE_LOOKUP[module])
 
   try {
-    const response = loadModules(requiresArray)
+    const response = await loadModules(requiresArray)
 
     return response
   } catch(error) {

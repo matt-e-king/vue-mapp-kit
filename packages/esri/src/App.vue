@@ -3,53 +3,100 @@
     <div id="mainMap">
       <e-map :properties="mapProps" v-if="showMapView" :key="1">
         <!-- the default slot of e-map spits out the map object -->
-        <e-map-view
-          :properties="{
-            container: 'mainMap',
-            zoom: 3,
-            center: [-80, 35]
-          }">
-        
-          <!--
-            have to change e-map-view to this first:
-            extent: {
-              // autocasts as new Extent()
-              xmin: -9177811,
-              ymin: 4247000,
-              xmax: -9176791,
-              ymax: 4247784,
-              spatialReference: 102100
-            }
-          -->
-          
-          <!-- <e-feature-layer :properties="{ 
-            url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
-          }"/> -->
-          <e-graphic :properties="getPolygonProps"/>
+        <template #default="{ map }">
+          <e-map-view
+            :add-to="map"
+            :properties="{
+              container: 'mainMap',
+              zoom: 3,
+              center: [-80, 35]
+            }">
+            
+            <!-- <e-portal-item :add-to="map" :properties="{ id: '8444e275037549c1acab02d2626daaee' }"/> -->
 
-          <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
-            <e-graphic :properties="getPolylineProps"/>
-          </e-graphics-layer>
 
-          <e-geo-json-layer :properties="getGeoJSONProps"/>
+            <!-- <e-graphic :properties="getPolylineProps"/>
+            <e-graphic :properties="getPolygonProps"/> -->
 
-          <e-basemap-toggle 
-            :properties="{ nextBasemap: 'hybrid' }"
-            position="bottom-right"/>
+            <!-- <e-layer-list />
 
-          <e-layer-list/>
-        </e-map-view>
+            <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
+              <template #default="{ graphicsLayer }">
+                <e-graphic :add-to="graphicsLayer" :properties="getPolylineProps"/>
+                <e-graphic :add-to="graphicsLayer" :properties="getPolygonProps"/>
+              </template>
+            </e-graphics-layer>
+
+            <e-geo-json-layer :properties="getGeoJSONProps"/> -->
+
+            <!--
+              have to change e-map-view to this first:
+              extent: {
+                // autocasts as new Extent()
+                xmin: -9177811,
+                ymin: 4247000,
+                xmax: -9176791,
+                ymax: 4247784,
+                spatialReference: 102100
+              }
+            -->
+
+            <!-- <e-feature-layer :properties="{ 
+              url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
+            }"/> -->
+
+            <!-- <template #default="{ mapView }">
+              <e-group-layer :properties="{ title: 'Graphics!' }">
+                <template #default="{ groupLayer }">
+                  <e-graphics-layer :add-to="groupLayer" :properties="{ title: 'Graphics Layer! '}">
+                    <template :add-to="groupLayer" #default="{ graphicsLayer }">
+                      <e-graphic :add-to="graphicsLayer" :properties="getPolylineProps"/>
+                      <e-graphic :add-to="graphicsLayer" :properties="getPolygonProps"/>
+                    </template>
+                  </e-graphics-layer>
+                </template>
+              </e-group-layer>
+
+              <e-geo-json-layer :add-to="map" :properties="getGeoJSONProps"/>
+              
+              <e-layer-list :add-to="mapView"/>
+              <e-basemap-toggle 
+                :properties="{ nextBasemap: 'hybrid' }"
+                position="bottom-right"/>
+            </template> -->
+
+            <!-- <e-group-layer :properties="{ title: 'Graphics!' }">
+              <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
+                <e-graphic :properties="getPolylineProps"/>
+                <e-graphic :properties="getPolygonProps"/>
+              </e-graphics-layer>
+            </e-group-layer> -->
+            <!-- <e-graphic :properties="getPolygonProps"/> -->
+
+            <!-- <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
+              <e-graphic :properties="getPolylineProps"/>
+            </e-graphics-layer>
+
+            <e-geo-json-layer :properties="getGeoJSONProps"/>
+
+            <e-basemap-toggle 
+              :properties="{ nextBasemap: 'hybrid' }"
+              position="bottom-right"/>  -->
+          </e-map-view>
+        </template>
 
         <!-- <e-portal-item :properties="{ id: '8444e275037549c1acab02d2626daaee' }"/> -->
       </e-map>
 
       <e-map :properties="map2Props" v-else :key="2">
-        <template v-slot="{ map }"> <!-- e-map has default slot with provide Module.map -->
+        <template #default="{ map }"> <!-- e-map has default slot with provide Module.map -->
           <e-scene-view :properties="getSceneMapProps">
             <e-graphics-layer>
-              <e-graphic :properties="getSceneMapPointProps"/>
-              <e-graphic :properties="getSceneMapPolygonProps"/>
-              <e-graphic :properties="getSceneMapPolylineProps"/>
+              <template #default="{ graphicsLayer }">
+                <e-graphic :add-to="graphicsLayer" :properties="getSceneMapPointProps"/>
+                <e-graphic :add-to="graphicsLayer" :properties="getSceneMapPolygonProps"/>
+                <e-graphic :add-to="graphicsLayer" :properties="getSceneMapPolylineProps"/>
+              </template>
             </e-graphics-layer>
           </e-scene-view>
         </template>
@@ -182,6 +229,9 @@ export default {
 
       // Add the geometry and symbol to a new graphic
       return {
+        attributes: {
+          name: 'Polyglot Polygon!'
+        },
         geometry: polygon,
         symbol: fillSymbol
       }

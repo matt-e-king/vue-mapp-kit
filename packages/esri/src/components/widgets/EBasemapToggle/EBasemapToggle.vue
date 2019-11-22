@@ -3,18 +3,13 @@
 <script>
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
 import constructorMixin from '@/mixins/constructorMixin'
+import injectMapViewMixin from '@/mixins/injectMapViewMixin'
 
 export default {
   name: 'e-basemap-toggle',
 
-  inject: {
-    getMapView: {
-      default: () => null
-    }
-  },
-
   // constructor handles created()
-  mixins: [constructorMixin],
+  mixins: [constructorMixin, injectMapViewMixin],
 
   props: {
     position: {
@@ -33,14 +28,19 @@ export default {
 
   methods: {
     afterInitHook() {
-      this.getMapView().ui.add(this.module.BasemapToggle, this.position);
+      const parentView = this.addTo ? this.addTo : this.getMapView()
+
+      if (!parentView) console.error('[EBasemapToggle] no map view')
+      parentView.ui.add(this.module.BasemapToggle, this.position)
     }
   },
 
   computed: {
     mergeProps() {
-      if (!this.getMapView()) console.error('[EBasemapToggle] no map view')
-      return { view: this.getMapView() }
+      const parentView = this.addTo ? this.addTo : this.getMapView()
+
+      if (!parentView) console.error('[EBasemapToggle] no map view')
+      return { view: parentView }
     }
   }
 }

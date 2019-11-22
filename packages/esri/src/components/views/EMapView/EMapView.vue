@@ -6,16 +6,13 @@
 
 <script>
 import constructorMixin from '@/mixins/constructorMixin'
+import injectMapMixin from '@/mixins/injectMapMixin'
 
 export default {
   name: 'e-map-view',
 
-  inject: {
-    getMap: {
-      default: () => null
-    }
-  },
-  
+  mixins: [constructorMixin, injectMapMixin],
+
   provide() {
     return {
       // this will get injected into all children
@@ -23,8 +20,6 @@ export default {
       getMapView: this.getMapView
     }
   },
-
-  mixins: [constructorMixin],
 
   data() {
     return {
@@ -34,23 +29,33 @@ export default {
     }
   },
 
-  methods: {
-    afterInitHook() {
-      console.log('map-view after loader init')
-    },
-    getMapView() {
-      return this.module.MapView
-    }
-  },
-
   computed: {
     // this overrides mergeProps in constructorMixin
     // this merges with $props.properties passed in
     // MapView requires "map" key in properties passed to constructor
     // https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html
     mergeProps() {
-      if (!this.getMap()) console.error('[EMapView] no map found')
-      return { map: this.getMap() }
+      const parentMap = this.addTo ? this.addTo : this.getMap()
+
+      if (!parentMap) console.error('[EPortalItem] no map found')
+      return { map: parentMap }
+    }
+  },
+
+  methods: {
+    afterInitHook() {
+      console.log('[EMapView] Overriding afterInitHook')
+    },
+    afterLoadedHook() {
+      this.module.MapView.on('click', (event) => {
+        this.module.MapView.hitTest(event)
+          .then((response) => {
+            console.log(response)
+          })
+      })
+    },
+    getMapView() {
+      return this.module.MapView
     }
   }
 }

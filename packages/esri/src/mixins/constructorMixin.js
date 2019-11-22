@@ -4,6 +4,9 @@ export default {
   mixins: [loaderMixin],
 
   props: {
+    addTo: {
+      type: Object
+    },
     properties: {
       type: Object,
       default: () => ({})
@@ -24,21 +27,21 @@ export default {
         moduleKeys.forEach((name, index) => {
           const module = loadedModules[index]
           
-          console.log(name, { ...this.properties, ...this.mergeProps })
+          // console.log(name, { ...this.properties, ...this.mergeProps })
 
           this.module[name] = this.noInstantiation
             ? module
             : new module({ ...this.properties, ...this.mergeProps })
 
           if (this.module[name].when) {
-            this.module[name].when(() => {
+            this.module[name].when((l) => {
               this.bootRoutine()
             })
           } else {
             this.bootRoutine()
           }
         })
-
+        
         // hook in after module is loaded
         this.afterInitHook()
       })
@@ -53,8 +56,19 @@ export default {
 
     },
     afterInitHook() {
-      // noop
-      // override in the component
+      for (let key in this.module) {
+        if (key !== 'Map') {
+          const addTo = this.addTo
+  
+          if (!addTo) {
+            // provided by EMap
+            if (this.getMap && this.getMap()) this.getMap().add(this.module[key])
+            else console.error('No parent collection found for :', key)
+          } else {
+            addTo.add(this.module[key])
+          }
+        }
+      }
     }
   },
 

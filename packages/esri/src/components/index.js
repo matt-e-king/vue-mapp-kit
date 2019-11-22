@@ -2,6 +2,7 @@ export { default as EBasemapToggle } from './widgets/EBasemapToggle/EBasemapTogg
 export { default as ELayerList } from './widgets/ELayerList/ELayerList'
 export { default as EGeoJsonLayer } from './layers/EGeoJsonLayer/EGeoJsonLayer'
 export { default as EFeatureLayer } from './layers/EFeatureLayer/EFeatureLayer'
+export { default as EGroupLayer } from './layers/EGroupLayer/EGroupLayer'
 export { default as EGraphic } from './EGraphic/EGraphic'
 export { default as EGraphicsLayer } from './layers/EGraphicsLayer/EGraphicsLayer'
 export { default as EMap } from './EMap/EMap'
