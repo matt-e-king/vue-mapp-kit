@@ -8,11 +8,19 @@ This library (or set of components) uses [Vueaflet](https://github.com/webdev-ca
  - [Code Examples](#code-examples)
  - [Quick Start Guide](#quick-start-guide)
 
+> BREAKING CHANGES going to v2.0.0
+
+ - `esri-leaflet`, `esri-leaflet-cluster (must use 2.0.0)` and `leaflet.markercluster` need to be installed separately
+ - `@vue-mapp-kit/leaflet` is no longer a dependency, but needs to be installed separately
+
 ----------
 ## Getting Started
 ```
-npm install --save @vue-mapp-kit/esri-leaflet
+npm install --save @vue-mapp-kit/leaflet
 yarn add @vue-mapp-kit/leaflet
+
+npm install --save @vue-mapp-kit/esri-leaflet
+yarn add @vue-mapp-kit/esri-leaflet
 ```
 Esri-Vueaflet will npm install vueaflet as well. However, you must `Vue.use()` both Esri-Vueaflet and Vueaflet. Assuming you are using a `vue-cli` template, your `src/main.js` will look something like this:
 ```
