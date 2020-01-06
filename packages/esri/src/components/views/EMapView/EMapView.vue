@@ -21,6 +21,13 @@ export default {
     }
   },
 
+  props: {
+    events: {
+      type: Object,
+      default: () => ({}) // TODO: add validator
+    }
+  },
+
   data() {
     return {
       module: {
@@ -47,12 +54,20 @@ export default {
       console.log('[EMapView] Overriding afterInitHook')
     },
     afterLoadedHook() {
-      this.module.MapView.on('click', (event) => {
-        this.module.MapView.hitTest(event)
-          .then((response) => {
-            console.log(response)
-          })
-      })
+      for (const eventType in this.events) {
+        console.log(eventType)
+
+        this.module.MapView.on(eventType, (event) => {
+          this.module.MapView.hitTest(event)
+            .then((response) => {
+              if (typeof this.events[eventType] === 'function') {
+                this.events[eventType](response)
+              } else {
+                console.warning(`${eventType} value must be a function`)
+              }
+            })
+        })
+      }
     },
     getMapView() {
       return this.module.MapView

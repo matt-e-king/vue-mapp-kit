@@ -5,6 +5,9 @@
         <!-- the default slot of e-map spits out the map object -->
         <template #default="{ map }">
           <e-map-view
+            :events="{
+              'click': handleClick
+            }"
             :add-to="map"
             :properties="{
               container: 'mainMap',
@@ -45,25 +48,26 @@
               url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
             }"/> -->
 
-            <!-- <template #default="{ mapView }">
+            <template #default="{ mapView }">
               <e-group-layer :properties="{ title: 'Graphics!' }">
                 <template #default="{ groupLayer }">
                   <e-graphics-layer :add-to="groupLayer" :properties="{ title: 'Graphics Layer! '}">
                     <template :add-to="groupLayer" #default="{ graphicsLayer }">
                       <e-graphic :add-to="graphicsLayer" :properties="getPolylineProps"/>
                       <e-graphic :add-to="graphicsLayer" :properties="getPolygonProps"/>
+                      <e-graphic :add-to="graphicsLayer" :properties="getPointProps"/>
                     </template>
                   </e-graphics-layer>
                 </template>
               </e-group-layer>
 
-              <e-geo-json-layer :add-to="map" :properties="getGeoJSONProps"/>
+              <!-- <e-geo-json-layer :add-to="map" :properties="getGeoJSONProps"/> -->
               
               <e-layer-list :add-to="mapView"/>
               <e-basemap-toggle 
                 :properties="{ nextBasemap: 'hybrid' }"
                 position="bottom-right"/>
-            </template> -->
+            </template>
 
             <!-- <e-group-layer :properties="{ title: 'Graphics!' }">
               <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
@@ -237,6 +241,35 @@ export default {
       }
     },
 
+    getPointProps() {
+      // First create a point geometry (this is the location of the Titanic)
+        var point = {
+          type: "point", // autocasts as new Point()
+          longitude: -49.97,
+          latitude: 41.73
+        };
+
+        // Create a symbol for drawing the point
+        var markerSymbol = {
+          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          color: [226, 119, 40],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 255],
+            width: 2
+          }
+        };
+
+        // Create a graphic and add the geometry and symbol to it
+        return {
+          attributes: {
+            name: 'Dot!'
+          },
+          geometry: point,
+          symbol: markerSymbol
+        }
+    },
+
     getPolylineProps() {
       // First create a line geometry (this is the Keystone pipeline)
       const polyline = {
@@ -281,6 +314,12 @@ export default {
           }]
         }
       }
+    }
+  },
+
+  methods: {
+    handleClick(response) {
+      console.log(response)
     }
   }
 }
