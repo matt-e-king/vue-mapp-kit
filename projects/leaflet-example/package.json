@@ -1,6 +1,6 @@
 {
   "name": "leaflet-example",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,7 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@vue-mapp-kit/leaflet": "^2.1.0",
+    "@vue-mapp-kit/leaflet": "^2.1.1",
     "vue": "^2.5.22",
     "vuex": "^3.0.1"
   },
