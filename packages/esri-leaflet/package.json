@@ -1,6 +1,6 @@
 {
   "name": "@vue-mapp-kit/esri-leaflet",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A set of Esri-Leaflet components for Vue, utilizing the Vuex plugin and @vue-mapp-kit/leaflet",
   "main": "dist/mapp-kit-esri-leaflet.common.js",
   "repository": {
