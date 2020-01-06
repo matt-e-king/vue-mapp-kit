@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import VueafletBus from '@/buses'
+  import MappKitBus from '@/buses'
   import { mapMutations, mapActions } from 'vuex'
   import { 
     VUEAFLET_ADD_MAP_EVENT,
@@ -94,10 +94,10 @@
         this.ready = true
         this.$emit('ready')
         // TODO: added enable bus
-        VueafletBus.$emit(`map-${this.mapId}-ready`)
+        MappKitBus.$emit(`map-${this.mapId}-ready`)
       })
 
-      // only $emit on the VueafletBus is flag is enabled
+      // only $emit on the MappKitBus is flag is enabled
       this.events.forEach((event, index) => {
         this.addEvent({ 
           id: this.mapId, 
@@ -108,7 +108,7 @@
         this.enableBus && this.addEvent({
           id: this.mapId,
           event,
-          func: (ev) => { VueafletBus.$emit(`map-${this.mapId}-${event}`, ev) }
+          func: (ev) => { MappKitBus.$emit(`map-${this.mapId}-${event}`, ev) }
         })
       })
     },
@@ -131,7 +131,7 @@
 
     destroy() {
       this.destroyMap()
-      // TODO: add $off to VueafletBus
+      // TODO: add $off to MappKitBus
     }
   }
 

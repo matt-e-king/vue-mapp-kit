@@ -16,11 +16,11 @@ export default {
   },
 
   created() {
-    this.$vueafletBus.$on(`polygon-working-with-events-mouseover`, () => {
+    this.$mappKitBus.$on(`polygon-working-with-events-mouseover`, () => {
       this.counter++
     })
 
-    console.log(this.$vueafletBus)
+    console.log(this.$mappKitBus)
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="example-map">
     <h2>Working with events</h2>
-    <p>Pass in an array events (as strings) that are supported by the layer type. See <a href="http://leafletjs.com/reference-1.3.0.html" target="_blank">Leaflets docs for events</a>. There is a "ready" event that is handle by Vueaflet for you :)</p>
+    <p>Pass in an array events (as strings) that are supported by the layer type. See <a href="http://leafletjs.com/reference-1.3.0.html" target="_blank">Leaflets docs for events</a>. There is a "ready" event that is handle by MappKitLeaflet for you :)</p>
     <l-map :map-id="mapId"
       :events="['click']"
       v-on:click="handleMapClick">
@@ -28,7 +28,7 @@
     </div>
 
     <p>
-      <a href="https://github.com/webdev-cals-arizona-edu/vueaflet/blob/master/src/components/Examples/WorkingWithEvents.vue" target="_blank" rel="noopener">Code on Github</a>
+      <a href="https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/leaflet-example/src/components/WorkingWithEvents.vue" target="_blank" rel="noopener">Code on Github</a>
     </p>
   </div>
 </template>

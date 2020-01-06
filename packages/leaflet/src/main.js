@@ -1,13 +1,13 @@
 import { registerComponents } from './utils'
-import vueafletStore from './store/modules/vueaflet'
+import mappKitStore from './store/modules/mainStore'
 import * as components from './components'
-import VueafletBus from './buses'
+import MappKitBus from './buses'
 
 // TODO: test options
 const createInstaller = c => (Vue, options) => {
-  var bus = VueafletBus
+  var bus = MappKitBus
 
-  Object.defineProperty(Vue.prototype, '$vueafletBus', { //for "this.$bus"
+  Object.defineProperty(Vue.prototype, '$mappKitBus', { //for "this.$bus"
     get() { return bus },
     set(evt) { //alt way to send an event (this.$bus=['event_name',arg1,arg2])
       if (typeof evt === 'string') evt = [evt]
@@ -20,14 +20,14 @@ const createInstaller = c => (Vue, options) => {
 
   if (!options.store) console.error('[@vue-mapp-kit/leaflet] Please pass in reference to your store')
 
-  options.store.registerModule('vueaflet', vueafletStore)
+  options.store.registerModule('mappKit', mappKitStore)
 }
 
 // https://vuejs.org/v2/guide/plugins.html
 // Vue plugins, at minimum, need to return an object with an install function
 // createInstaller is a double arrow function;
 //returns another function, creates a closure over imported components
-const Vueaflet = { install: createInstaller(components) }
+const MappKitLeaflet = { install: createInstaller(components) }
 
-export const Bus = VueafletBus
-export default Vueaflet
+export const Bus = MappKitBus
+export default MappKitLeaflet

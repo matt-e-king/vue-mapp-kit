@@ -3,7 +3,7 @@
 <script>
   import L from 'leaflet'
   import { mapMutations, mapGetters, mapActions } from 'vuex'
-  import VueafletBus from '@/buses'
+  import MappKitBus from '@/buses'
   import { 
     VUEAFLET_ADD_MAP_LAYER,
     VUEAFLET_ADD_NAMED_LAYER, 
@@ -91,9 +91,9 @@
             }) 
           })
 
-          // only $emit on the VueafletBus is flag is enabled
+          // only $emit on the MappKitBus is flag is enabled
           this.enableBus && this.innerGeoJSON.on(event, (ev) => {
-            VueafletBus.$emit(`geo-json-${this.mapId}-${event}`, {
+            MappKitBus.$emit(`geo-json-${this.mapId}-${event}`, {
               event: ev, layer: this.innerGeoJSON
             })
           })
@@ -105,7 +105,7 @@
       },
       readyRoutine() {
         this.$emit('ready', this.layerName)
-        VueafletBus.$emit(`geo-json-${this.layerName}-${this.mapId}-ready`, this.layerName)
+        MappKitBus.$emit(`geo-json-${this.layerName}-${this.mapId}-ready`, this.layerName)
       },
       destroyRoutine() {
         if (this.layerName && this.getNamedLayer(this.layerName)) {

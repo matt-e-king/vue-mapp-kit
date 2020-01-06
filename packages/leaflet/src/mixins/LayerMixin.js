@@ -10,7 +10,7 @@ import {
   VUEAFLET_ADD_MAP_LAYER, 
   VUEAFLET_REMOVE_MAP_LAYER 
 } from '@/store/mutation-types'
-import VueafletBus from '@/buses'
+import MappKitBus from '@/buses'
 
 export default {
   inject: {
@@ -36,7 +36,7 @@ export default {
       type: Array,
       default: () => { return [] }
     },
-    // this prop enables VueafletBus which broadcasts all data.events across the app
+    // this prop enables MappKitBus which broadcasts all data.events across the app
     enableBus: Boolean,
     popup: String
   },
@@ -63,7 +63,7 @@ export default {
     this.popup && this.innerLayer.bindPopup(this.popup)
 
     this.$emit('ready', this.innerLayer)
-    this.enableBus && VueafletBus.$emit(`${this.type}-${this.mapId}-ready`, this.innerLayer)
+    this.enableBus && MappKitBus.$emit(`${this.type}-${this.mapId}-ready`, this.innerLayer)
   },
 
   destroyed() {
@@ -95,10 +95,10 @@ export default {
     },
     addEventListeners() {
       // loop through data.evetns array and register all events
-      // only $emit on the VueafletBus if 'enable-bus = true'
+      // only $emit on the MappKitBus if 'enable-bus = true'
       this.events.forEach((event) => {
         this.innerLayer.on(event, (ev) => { this.$emit(event, { event: ev, layer: this.innerLayer }) })
-        this.enableBus && this.innerLayer.on(event, (ev) => { VueafletBus.$emit(`${this.type}-${this.mapId}-${event}`, { event: ev, layer: this.innerLayer }) })
+        this.enableBus && this.innerLayer.on(event, (ev) => { MappKitBus.$emit(`${this.type}-${this.mapId}-${event}`, { event: ev, layer: this.innerLayer }) })
       })
     }
   }

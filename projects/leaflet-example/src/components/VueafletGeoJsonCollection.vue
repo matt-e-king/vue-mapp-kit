@@ -1,6 +1,6 @@
 <template>
   <div class="example-map">
-    <h2>Vueaflet GeoJsonCollection component.</h2>
+    <h2>MappKitLeaflet GeoJsonCollection component.</h2>
     <p>The GeoJsonCollection component can take a mixed bag of geometry types and will create the respective GeoJsonLayers for each type. However, only accepts styles per goemetry type. Very useful when perform a query/find against a map service that return a "Feature Collection", but with multiple geo types.</p>
 
     <l-map :map-id="mapId">
@@ -16,7 +16,7 @@
     </l-map>
 
     <p>
-      <a href="https://github.com/webdev-cals-arizona-edu/vueaflet/blob/master/src/components/Examples/VueafletGeoJsonCollection.vue" target="_blank" rel="noopener">Code on Github</a>
+      <a href="https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/leaflet-example/src/components/VueafletGeoJsonCollection.vue" target="_blank" rel="noopener">Code on Github</a>
     </p>
   </div>
 </template>

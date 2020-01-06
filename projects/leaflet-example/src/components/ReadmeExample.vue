@@ -1,7 +1,7 @@
 <template>
   <div class="example-map">
     <h2>Readme Example</h2>
-    <p>Find the tutorial to put this map together on the main <a href="https://github.com/webdev-cals-arizona-edu/vueaflet#getting-started" target="_blank">GitHub README page</a>.</p>
+    <p>Find the tutorial to put this map together on the main <a href="https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/leaflet#getting-started" target="_blank">GitHub README page</a>.</p>
     <l-map :mapId="mapId" :events="['click']" v-on:click="handleMapClick">
       <l-tile-layer v-bind="tileLayer"/>
       <l-marker v-bind="dragMarkerProps"
@@ -29,7 +29,7 @@
     <mock-controls/>
 
     <p>
-      <a href="https://github.com/webdev-cals-arizona-edu/vueaflet/blob/master/src/components/Examples/ReadmeExample.vue" target="_blank" rel="noopener">Code on Github</a>
+      <a href="https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/leaflet-example/src/components/ReadmeExample.vue" target="_blank" rel="noopener">Code on Github</a>
     </p>
   </div>
 </template>

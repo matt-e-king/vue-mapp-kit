@@ -9,7 +9,7 @@
     </l-map>
 
     <p>
-      <a href="https://github.com/webdev-cals-arizona-edu/vueaflet/blob/master/src/components/Examples/WorkingWithPopups.vue" target="_blank" rel="noopener">Code on Github</a>
+      <a href="https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/leaflet-example/src/components/WorkingWithPopups.vue" target="_blank" rel="noopener">Code on Github</a>
     </p>
   </div>
 </template>

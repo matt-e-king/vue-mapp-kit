@@ -1,18 +1,6 @@
-# Vueaflet #
+# @vue-mapp-kit/leaflet #
 
 A component driven approach to managing Leaflet objects using Vue and Vuex. Each component registers its Leaflet object in a Vuex store, allowing easy access to your Leaflet objects anywhere in your Vue application.
-
-> BREAKING CHANGES from v0.6.0 to v1.0.0
-
- - Import changed from `vueaflet` to `@vue-mapp-kit/leaflet` and `@vue-mapp-kit/esri-leaflet`
- - `VueafletBus` now attached to root `Vue` instance
-	 - Use `this.$vueafletBus` instead of  `import { VueafletBus } from 'vueaflet'`
- - Project is dependent on leaflet 1.3.3 above; use `import * as Leaflet from 'leaflet'`
- - `createVueafletStore` is deprecated, see [Getting Started](#getting-started)
-
- > BREAKING CHANGES going to v2.0.0
-
- - `leaflet` needs to be installed separately 
 
 ### Table of Contents
  - [Getting Started](#getting-started)
@@ -25,8 +13,8 @@ A component driven approach to managing Leaflet objects using Vue and Vuex. Each
    - [Events](#events)
    - [Feature Groups](#feature-groups)
    - [Manage your layers using Vuex](#manage-your-layers-using-vuex)
- - [More Code Examples Here](https://github.com/webdev-cals-arizona-edu/vueaflet/tree/master/projects/vueaflet-example/src/components)
- - [EsriLeaflet (@vue-mapp-kit/esri-leaflet)](https://github.com/webdev-cals-arizona-edu/vueaflet/tree/master/packages/esri)
+ - [More Code Examples Here](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/leaflet-example/src/components)
+ - [EsriLeaflet (@vue-mapp-kit/esri-leaflet)](https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/esri-leaflet)
 
 ### Demos
 [Demo for all code exmamples in /src/components/Examples](https://cct.cals.arizona.edu/vueaflet/)
@@ -42,22 +30,11 @@ A component driven approach to managing Leaflet objects using Vue and Vuex. Each
    - Ordering z-index of panes using an `order` prop
    - Leaflet.PM (drawing shapes on the map)
 
-### Feature in development
-
- - Lots!
- - **esri-vueaflet:** additional set of components inspired by esri-leaflet, that uses Vueaflet as a dependency.
- - Hosted, practical examples
- - Ensuring all "options" for each Leaflet UI layer are watched/reactive
-   - i.e. instead of `setOpacity` or `setStyle`, just change `options.opacity`
- - Documentation for vueaflet store structure
- - Layer controls to toggle basemaps and layers
- - Evaluation of other Leaflet features that can be represented in component format
-
 ----------
 ## Getting Started
 ```
-npm install --save @vue-mapp-kit/leaflet
-yarn add @vue-mapp-kit/leaflet
+npm install --save leaflet @vue-mapp-kit/leaflet
+yarn add leaflet @vue-mapp-kit/leaflet
 ```
 
 Assuming you are using a `vue-cli` template, your `src/main.js` will look something like this:
@@ -65,10 +42,10 @@ Assuming you are using a `vue-cli` template, your `src/main.js` will look someth
 import Vue from 'vue'
 import App from './App'
 import store from 'store'
-import Vueaflet from '@vue-mapp-kit/leaflet'
+import MappKitLeaflet from '@vue-mapp-kit/leaflet'
 
-// attaches a 'vueaflet' module into your Vuex store
-Vue.use(Vueaflet, { store })
+// attach mapp-kit store
+Vue.use(MappKitLeaflet, { store })
 
 new Vue({
   el: '#app',
@@ -112,7 +89,7 @@ Create a new Vue component with a container `div`:
 
 
 ### Setting up the map
-When this plugin is ingested by Vue, `Vue.use(Vueaflet)`, all vueaflet components are globally registered. Add a nested `<l-map/>` which takes a string prop called `mapId`. This string value becomes the `div#id` the Leaflet map will mount into:
+When this plugin is ingested by Vue, `Vue.use(MappKitLeaflet)`, all MappKitLeaflet components are globally registered. Add a nested `<l-map/>` which takes a string prop called `mapId`. This string value becomes the `div#id` the Leaflet map will mount into:
 ```
 <template>
   <div class="map-container">
@@ -132,7 +109,7 @@ When this plugin is ingested by Vue, `Vue.use(Vueaflet)`, all vueaflet component
 ```
 You should have a blank, gray, tile-less map :) 
 
-Now let's add a `<l-tile-layer/>` component as a nested child to `<l-map/>`. The `<l-tile-layer/>` component accepts two props, `urlTemplate` and `options`. You'll notice this follows a similar interface as the [`Leaflet.tileLayer`](http://leafletjs.com/reference-1.3.0.html#tilelayer). **All vueaflet components aspire to have a similar pattern; utilizing the same instantiating signature used to create its corresponding Leaflet object.** Here's the code snippet:
+Now let's add a `<l-tile-layer/>` component as a nested child to `<l-map/>`. The `<l-tile-layer/>` component accepts two props, `urlTemplate` and `options`. You'll notice this follows a similar interface as the [`Leaflet.tileLayer`](http://leafletjs.com/reference-1.3.0.html#tilelayer). **All MappKitLeaflet components aspire to have a similar pattern; utilizing the same instantiating signature used to create its corresponding Leaflet object.** Here's the code snippet:
 ```
 <template>
   <div class="map-container">
@@ -174,12 +151,12 @@ Let's `setView` so we can start creating some layers. This is where Vuex comes i
 </script>
 
 ```
-When the `<l-map/>` component mounted, it added the Leaflet map object to a Vuex store. Documentation on the shape of the Vueaflet store coming soon. Here are some other ways to get the map object from the store:
+When the `<l-map/>` component mounted, it added the Leaflet map object to a Vuex store. Documentation on the shape of the mappKit store coming soon. Here are some other ways to get the map object from the store:
 ```
 ...
 
 mounted() {
-  this.$store.state.vueaflet.maps[this.mapId].setView([51.505, -0.09], 13)
+  this.$store.state.mappKit.maps[this.mapId].setView([51.505, -0.09], 13)
 }
 
 ...
@@ -324,7 +301,7 @@ multiPolylineProps: {
 ----------
 
 ### Events
-Pass in an array events (as strings) that are supported by the layer type. See [Leaflets docs](http://leafletjs.com/reference-1.3.0.html) for events. There is a "ready" event that is handle by Vueaflet for you :). Each Leaflet supported event `$emits` back an `{ event, layer }` object:
+Pass in an array events (as strings) that are supported by the layer type. See [Leaflets docs](http://leafletjs.com/reference-1.3.0.html) for events. There is a "ready" event that is handle by MappKitLeaflet for you :). Each Leaflet supported event `$emits` back an `{ event, layer }` object:
 ```
 <template>
   <div class="map-container">
@@ -373,12 +350,12 @@ Pass in an array events (as strings) that are supported by the layer type. See [
   }
 </script>
 ```
-Additionaly, you can pass a boolean prop called `enabled-bus` which will also attach each event passed in the array of events to property attached to each component as `this.$vueafletBus`. More on that soon...
+Additionaly, you can pass a boolean prop called `enabled-bus` which will also attach each event passed in the array of events to property attached to each component as `this.$mappKitBus`. More on that soon...
 
 Couple of things to note:
 
- - `v-on:ready` occurs on all layers, custom to Vueaflet
- - The `draggable` options is not part of the `Leaflet.marker` api. This implementation is specific to Vueaflet and currently only supported on Markers.
+ - `v-on:ready` occurs on all layers, custom to MappKitLeaflet
+ - The `draggable` options is not part of the `Leaflet.marker` api. This implementation is specific to MappKitLeaflet and currently only supported on Markers.
 
 ----------
 
@@ -451,12 +428,12 @@ Now you can toggle that feature layer without using `Leaflet.control`:
 ----------
 
 ### Manage your layers using Vuex
-We've already provided an example for how to utilize the `vueaflet` store for retrieving the map object. You can achieve the same functionality for an `<l-feature-group/>`. By passing the feature group component a `layer-name` prop, you are also storing this `Leaflet.featureGroup` object in the vueaflet store using the `layer-name` as the object `key`. You can access that feature group like so:
+We've already provided an example for how to utilize the `mappKit` store for retrieving the map object. You can achieve the same functionality for an `<l-feature-group/>`. By passing the feature group component a `layer-name` prop, you are also storing this `Leaflet.featureGroup` object in the mappKit store using the `layer-name` as the object `key`. You can access that feature group like so:
 ```
 /* layerName being the string prop passed to l-feature-group */
-this.$store.state.vueaflet.namedLayers[layerName]
+this.$store.state.mappKit.namedLayers[layerName]
 ```
-Here is a separate single file component that is part of the same example app. This is to showcase how these Leaflet objects can stretch across your entire app. This example uses a vueaflet `getter` to access and manipulate the feature group object created in `./App.vue`:
+Here is a separate single file component that is part of the same example app. This is to showcase how these Leaflet objects can stretch across your entire app. This example uses a mappKit `getter` to access and manipulate the feature group object created in `./App.vue`:
 ```
 <template>
   <div class="mock-controls" style="margin-top: 30px;">
@@ -526,5 +503,5 @@ Meanwhile in the other component:
   }
 </script>
 ```
-Full vueaflet store documentation coming soon...
+Full mappKit store documentation coming soon...
 

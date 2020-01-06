@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import App from './App.vue';
 import store from './store';
-import Vueaflet from '@vue-mapp-kit/leaflet';
+import MappKitLeaflet from '@vue-mapp-kit/leaflet';
 
-Vue.use(Vueaflet, { store });
+Vue.use(MappKitLeaflet, { store });
 Vue.config.productionTip = false;
 
 new Vue({

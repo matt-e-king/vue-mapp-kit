@@ -10,7 +10,7 @@
 <script>
   import L from 'leaflet'
   import { mapMutations, mapGetters, mapActions } from 'vuex'
-  import VueafletBus from '@/buses'
+  import MappKitBus from '@/buses'
   import { 
     VUEAFLET_ADD_MAP_LAYER,
     VUEAFLET_ADD_NAMED_LAYER, 
@@ -51,7 +51,7 @@
         type: Array,
         default: () => { return [] }
       },
-      // this prop enables VueafletBus which broadcasts all data.events across the app
+      // this prop enables MappKitBus which broadcasts all data.events across the app
       enableBus: Boolean,
       order: [String, Number]
     },
@@ -70,9 +70,9 @@
           }) 
         })
 
-        // only $emit on the VueafletBus is flag is enabled
+        // only $emit on the MappKitBus is flag is enabled
         this.enableBus && this.innerFeatureGroup.on(event, (ev) => {
-          VueafletBus.$emit(`feature-group-${this.mapId}-${event}`, {
+          MappKitBus.$emit(`feature-group-${this.mapId}-${event}`, {
             event: ev, layer: this.innerFeatureGroup
           })
         })
@@ -85,7 +85,7 @@
 
     mounted() {
       this.$emit('ready', this.layerName)
-      VueafletBus.$emit(`feature-group-${this.mapId}-ready`, this.layerName)
+      MappKitBus.$emit(`feature-group-${this.mapId}-ready`, this.layerName)
     },
 
     destroyed() {

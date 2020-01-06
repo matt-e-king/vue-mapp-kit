@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <h1>Vueaflet</h1>
-    <a href="https://github.com/webdev-cals-arizona-edu/vueaflet" target="_blank" rel="noopener">Github</a>
-    <a href="https://www.npmjs.com/package/vueaflet" target="_blank" rel="noopener">NPM</a>
+    <h1>Mapp Kit Leaflet</h1>
+    <a href="https://github.com/matt-e-king/vue-mapp-kit" target="_blank" rel="noopener">Github</a>
+    <a href="https://www.npmjs.com/org/vue-mapp-kit" target="_blank" rel="noopener">NPM</a>
 
     <setting-up-map></setting-up-map>
     <markers-circles-polygons></markers-circles-polygons>
