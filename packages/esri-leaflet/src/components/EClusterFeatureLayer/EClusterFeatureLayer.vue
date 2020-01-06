@@ -2,7 +2,7 @@
 
 <script>
   import 'leaflet.markercluster'
-  import esriCluster from 'esri-leaflet-cluster'
+  import * as esriCluster from 'esri-leaflet-cluster'
   import LayerMixin from '@/mixins/LayerMixin'
   import { 
     VUEAFLET_ADD_MAP_LAYER,
