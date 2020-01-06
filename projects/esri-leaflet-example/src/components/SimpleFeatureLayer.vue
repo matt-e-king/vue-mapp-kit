@@ -7,7 +7,7 @@
     </l-map>
 
     <p>
-      <a href="https://github.com/webdev-cals-arizona-edu/esri-vueaflet/blob/master/examples/SimpleFeatureLayer.vue" target="_blank" rel="noopener">Code on Github</a>
+      <a href="https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/esri-leaflet-example/src/components/SimpleFeatureLayer.vue" target="_blank" rel="noopener">Code on Github</a>
     </p>
   </div>
 </template>

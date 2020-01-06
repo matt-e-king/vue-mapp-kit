@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import App from './App.vue';
 import store from './store';
-import Vueaflet from '@vue-mapp-kit/leaflet'
-import EsriVueaflet from '@vue-mapp-kit/esri-leaflet'
+import MappKitLeaflet from '@vue-mapp-kit/leaflet'
+import MappKitEsriLeaflet from '@vue-mapp-kit/esri-leaflet'
 
-Vue.use(Vueaflet, { store })
-Vue.use(EsriVueaflet)
+Vue.use(MappKitLeaflet, { store })
+Vue.use(MappKitEsriLeaflet)
 Vue.config.productionTip = false;
 
 new Vue({

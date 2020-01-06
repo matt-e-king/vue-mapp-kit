@@ -5,7 +5,7 @@ import {
   VUEAFLET_ADD_NAMED_LAYER, 
   VUEAFLET_REMOVE_MAP_LAYER 
 } from '@vue-mapp-kit/leaflet/src/store/mutation-types'
-import { Bus as VueafletBus } from '@vue-mapp-kit/leaflet'
+import { Bus as MappKitBus } from '@vue-mapp-kit/leaflet'
 
 export default {
   inject: {
@@ -40,8 +40,8 @@ export default {
       type: Array,
       default: () => { return [] }
     },
-    // this prop enables VueafletBus which broadcasts all data.events across the app
-    // uses same bus from Vueaflet
+    // this prop enables MappKitBus which broadcasts all data.events across the app
+    // uses same bus from MappKitLeaflet
     enableBus: Boolean
   },
 
@@ -79,7 +79,7 @@ export default {
     this.addEventListeners()
 
     this.$emit('ready', this.innerLayer)
-    this.enableBus && VueafletBus.$emit(`${this.type}-${this.mapId}-ready`, this.innerLayer)
+    this.enableBus && MappKitBus.$emit(`${this.type}-${this.mapId}-ready`, this.innerLayer)
   },
 
   computed: {
@@ -97,10 +97,10 @@ export default {
       return esri[this.type](Object.assign({}, this.defaultOptions, this.mergedOptions))
     },
     addEventListeners() {
-      // only $emit on the VueafletBus is flag is enabled
+      // only $emit on the MappKitBus is flag is enabled
       this.events.forEach((event) => {
         this.innerLayer.on(event, (ev) => { this.$emit(event, { event: ev, layer: this.innerLayer }) })
-        this.enableBus && this.innerLayer.on(event, (ev) => { VueafletBus.$emit(`${this.type}-${this.mapId}-${event}`, { event: ev, layer: this.innerLayer }) })
+        this.enableBus && this.innerLayer.on(event, (ev) => { MappKitBus.$emit(`${this.type}-${this.mapId}-${event}`, { event: ev, layer: this.innerLayer }) })
       })
     }
   },

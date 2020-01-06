@@ -7,11 +7,11 @@ const createInstaller = (components) => (Vue, options) => {
   registerComponents(Vue, components)
 }
 
-const createEsriVueaflet = () => { 
+const createMappKitEsriLeaflet = () => { 
   // https://vuejs.org/v2/guide/plugins.html
   // Vue plugins, at minimum, need to return an object with an install function
   // createInstaller is a double arrow function; returns another function, creates a closure over imported components
   return { install: createInstaller(components) }
 }
 
-export default createEsriVueaflet()
+export default createMappKitEsriLeaflet()

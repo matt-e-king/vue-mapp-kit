@@ -16,11 +16,11 @@ export default {
   },
 
   created() {
-    this.$vueafletBus.$on('clusterFeatureLayer-clustering-points-clusterclick', () => {
+    this.$mappKitBus.$on('clusterFeatureLayer-clustering-points-clusterclick', () => {
       this.counter++
     })
 
-    console.log(this.$vueafletBus)
+    console.log(this.$mappKitBus)
   }
 }
 </script>

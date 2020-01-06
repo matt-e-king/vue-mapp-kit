@@ -41,7 +41,7 @@
     provide() {
       return {
         // this will get injected into all children
-        // when groupds and layers are created, this id gets passed to the vueaflet store to in form it where to "addLayer"
+        // when groupds and layers are created, this id gets passed to the mappKit store to in form it where to "addLayer"
         mapId: this.mapId
       }
     },

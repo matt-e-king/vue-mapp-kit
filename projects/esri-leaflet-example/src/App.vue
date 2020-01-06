@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <h1>Esri Vueaflet</h1>
-    <a href="https://github.com/webdev-cals-arizona-edu/esri-vueaflet" target="_blank" rel="noopener">Github</a>
-    <a href="https://www.npmjs.com/package/esri-vueaflet" target="_blank" rel="noopener">NPM</a>
-    <p>This library (or set of components) uses <a href="https://cct.cals.arizona.edu/vueaflet/" target="_blank" rel="noopener">Vueaflet</a> as its primary dependency. Similar to how Vueaflet provides a "vuetified" approach to handling Leaflet objects, Esri-Vueaflet provides the same methodology for handling Esri-Leaflet objects. All objects are managed in a Vuex store, providing the developer easy access from anywhere in their Vue application.</p>
+    <h1>Mapp Kit Esri-Leaflet</h1>
+    <a href="https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/esri-leaflet" target="_blank" rel="noopener">Github</a>
+    <a href="https://www.npmjs.com/org/vue-mapp-kit" target="_blank" rel="noopener">NPM</a>
+    <p>This library (or set of components) uses <a href="https://cct.cals.arizona.edu/vueaflet/" target="_blank" rel="noopener">@vue-mapp-kit/leaflet</a> as its primary dependency. Similar to how MappKitLeaflet provides a "vuetified" approach to handling Leaflet objects, MappKitEsriLeaflet provides the same methodology for handling MappKitEsriLeaflet objects. All objects are managed in a Vuex store, providing the developer easy access from anywhere in their Vue application.</p>
 
     <showing-arc-gis-basemap></showing-arc-gis-basemap>
     <basemap-with-labels></basemap-with-labels>

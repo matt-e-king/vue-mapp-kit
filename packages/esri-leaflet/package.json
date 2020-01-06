@@ -1,8 +1,8 @@
 {
   "name": "@vue-mapp-kit/esri-leaflet",
   "version": "2.0.1",
-  "description": "A set of Esri-Leaflet components for Vue, utilizing the Vuex plugin and Vueaflet",
-  "main": "dist/esri-vueaflet.common.js",
+  "description": "A set of Esri-Leaflet components for Vue, utilizing the Vuex plugin and @vue-mapp-kit/leaflet",
+  "main": "dist/mapp-kit-esri-leaflet.common.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/matt-e-king/vue-mapp-kit"
@@ -18,7 +18,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-bundle": "vue-cli-service build --target lib --name esri-vueaflet './src/main.js'",
+    "build-bundle": "vue-cli-service build --target lib --name mapp-kit-esri-leaflet './src/main.js'",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },

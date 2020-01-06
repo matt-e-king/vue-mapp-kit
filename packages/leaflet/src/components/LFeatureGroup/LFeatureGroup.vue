@@ -38,7 +38,7 @@
     },
     
     props: {
-      // optional layerName becomes key in $store.state.vueaflet.namedLayers
+      // optional layerName becomes key in $store.state.mappKit.namedLayers
       layerName: String,
       layers: Array,
       // https://leafletjs.com/reference-1.3.0.html#featuregroup
