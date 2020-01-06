@@ -2,9 +2,16 @@
   "name": "@vue-mapp-kit/esri",
   "version": "0.1.0",
   "description": "",
+  "private": true,
   "main": "src/main.js",
-  "repository": "https://bitbucket.org/smallmelo/mapp-kit-2",
-  "author": "melo@smallmelo.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matt-e-king/vue-mapp-kit"
+  },
+  "author": {
+    "name": "CALS CCT",
+    "email": "webdev@cals.arizona.edu"
+  },
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
