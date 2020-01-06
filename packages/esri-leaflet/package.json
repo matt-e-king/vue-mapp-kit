@@ -20,7 +20,8 @@
     "build": "vue-cli-service build",
     "build-bundle": "vue-cli-service build --target lib --name mapp-kit-esri-leaflet './src/main.js'",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "postinstall": "vue-cli-service build --target lib --name mapp-kit-esri-leaflet './src/main.js'"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.1",
