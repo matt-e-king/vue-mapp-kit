@@ -5,6 +5,7 @@ node_modules
 /projects/*
 !/projects/esri-leaflet-example/
 !/projects/leaflet-example/
+!/projects/esri-example/
 /dist
 !/packages/esri/dist
 !/packages/esri-leaflet/dist

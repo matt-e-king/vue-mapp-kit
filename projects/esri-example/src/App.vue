@@ -5,9 +5,9 @@
         <!-- the default slot of e-map spits out the map object -->
         <template #default="{ map }">
           <e-map-view
-            :events="{
-              'click': handleClick
-            }"
+            :events="['click', 'layerview-create']"
+            @layerview-create="handleGraphicsLayer"
+            @click="handleClick"
             :add-to="map"
             :properties="{
               container: 'mainMap',
@@ -51,7 +51,8 @@
             <template #default="{ mapView }">
               <e-group-layer :properties="{ title: 'Graphics!' }">
                 <template #default="{ groupLayer }">
-                  <e-graphics-layer :add-to="groupLayer" :properties="{ title: 'Graphics Layer! '}">
+                  <e-graphics-layer :add-to="groupLayer"
+                    :properties="{ title: 'Graphics Layer! '}">
                     <template :add-to="groupLayer" #default="{ graphicsLayer }">
                       <e-graphic :add-to="graphicsLayer" :properties="getPolylineProps"/>
                       <e-graphic :add-to="graphicsLayer" :properties="getPolygonProps"/>
@@ -320,6 +321,9 @@ export default {
   methods: {
     handleClick(response) {
       console.log(response)
+    },
+    handleGraphicsLayer(event) {
+      console.log(event)
     }
   }
 }
