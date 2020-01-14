@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       module: {
-        FeatureLayer: null
+        FeatureLayer: null // class name of esri object
       }
     }
   }

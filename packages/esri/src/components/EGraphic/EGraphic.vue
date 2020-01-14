@@ -26,8 +26,16 @@ export default {
       if (!parentView) console.error('[EGraphic] no parent collection found')
       
       parentView.add(this.module.Graphic)
+    },
+    beforeDestroyHook() {
+      // this overrides the "beforeDestroyHook" in constructor mixin
+      const parentView = this.addTo ? this.addTo : this.getMapView().graphics
+
+      parentView.remove(this.module.Graphic)
+
+      this.$emit('remove', this.module.Graphic)
     }
-  },
+  }
 }
 </script>
 

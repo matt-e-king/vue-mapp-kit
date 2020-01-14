@@ -5,14 +5,10 @@ module.exports = {
     extract: false
   },
   configureWebpack: {
-    // externals: [
-    //   'leaflet',
-    //   'lodash.filter',
-    //   'lodash.foreach',
-    //   'lodash.reduce',
-    //   'lodash.values',
-    //   'vue',
-    //   'vuex'
-    // ]
+    externals: [
+      'esri-loader',
+      'vue',
+      'vuex'
+    ]
   }
 };
