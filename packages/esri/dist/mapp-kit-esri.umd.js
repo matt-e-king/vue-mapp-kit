@@ -1582,12 +1582,12 @@ var EMap_component = normalizeComponent(
 )
 
 /* harmony default export */ var EMap = (EMap_component.exports);
-// CONCATENATED MODULE: /Users/matteking/Dev/vue-mapp-kit/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7cd162cd-vue-loader-template"}!/Users/matteking/Dev/vue-mapp-kit/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!/Users/matteking/Dev/vue-mapp-kit/node_modules/cache-loader/dist/cjs.js??ref--0-0!/Users/matteking/Dev/vue-mapp-kit/node_modules/vue-loader/lib??vue-loader-options!./src/components/views/EMapView/EMapView.vue?vue&type=template&id=b69a13cc&scoped=true&
-var EMapViewvue_type_template_id_b69a13cc_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mapView"},[(_vm.booted)?_vm._t("default",null,{"mapView":_vm.module.MapView}):_vm._e()],2)}
-var EMapViewvue_type_template_id_b69a13cc_scoped_true_staticRenderFns = []
+// CONCATENATED MODULE: /Users/matteking/Dev/vue-mapp-kit/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7cd162cd-vue-loader-template"}!/Users/matteking/Dev/vue-mapp-kit/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!/Users/matteking/Dev/vue-mapp-kit/node_modules/cache-loader/dist/cjs.js??ref--0-0!/Users/matteking/Dev/vue-mapp-kit/node_modules/vue-loader/lib??vue-loader-options!./src/components/views/EMapView/EMapView.vue?vue&type=template&id=56514b63&
+var EMapViewvue_type_template_id_56514b63_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mapView"},[(_vm.booted)?_vm._t("default",null,{"mapView":_vm.module.MapView}):_vm._e()],2)}
+var EMapViewvue_type_template_id_56514b63_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/views/EMapView/EMapView.vue?vue&type=template&id=b69a13cc&scoped=true&
+// CONCATENATED MODULE: ./src/components/views/EMapView/EMapView.vue?vue&type=template&id=56514b63&
 
 // CONCATENATED MODULE: /Users/matteking/Dev/vue-mapp-kit/node_modules/cache-loader/dist/cjs.js??ref--12-0!/Users/matteking/Dev/vue-mapp-kit/node_modules/thread-loader/dist/cjs.js!/Users/matteking/Dev/vue-mapp-kit/node_modules/babel-loader/lib!/Users/matteking/Dev/vue-mapp-kit/node_modules/cache-loader/dist/cjs.js??ref--0-0!/Users/matteking/Dev/vue-mapp-kit/node_modules/vue-loader/lib??vue-loader-options!./src/components/views/EMapView/EMapView.vue?vue&type=script&lang=js&
 //
@@ -1648,11 +1648,7 @@ var EMapViewvue_type_template_id_b69a13cc_scoped_true_staticRenderFns = []
 });
 // CONCATENATED MODULE: ./src/components/views/EMapView/EMapView.vue?vue&type=script&lang=js&
  /* harmony default export */ var EMapView_EMapViewvue_type_script_lang_js_ = (EMapViewvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/views/EMapView/EMapView.vue?vue&type=style&index=0&id=b69a13cc&scoped=true&lang=css&
-var EMapViewvue_type_style_index_0_id_b69a13cc_scoped_true_lang_css_ = __webpack_require__("c33d");
-
 // CONCATENATED MODULE: ./src/components/views/EMapView/EMapView.vue
-
 
 
 
@@ -1662,11 +1658,11 @@ var EMapViewvue_type_style_index_0_id_b69a13cc_scoped_true_lang_css_ = __webpack
 
 var EMapView_component = normalizeComponent(
   EMapView_EMapViewvue_type_script_lang_js_,
-  EMapViewvue_type_template_id_b69a13cc_scoped_true_render,
-  EMapViewvue_type_template_id_b69a13cc_scoped_true_staticRenderFns,
+  EMapViewvue_type_template_id_56514b63_render,
+  EMapViewvue_type_template_id_56514b63_staticRenderFns,
   false,
   null,
-  "b69a13cc",
+  null,
   null
   
 )
@@ -3460,21 +3456,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "7bc2":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("443a")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "7dac":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4027,17 +4008,6 @@ var $export = __webpack_require__("2058");
 
 $export($export.S, 'Array', { isArray: __webpack_require__("80d1") });
 
-
-/***/ }),
-
-/***/ "c33d":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EMapView_vue_vue_type_style_index_0_id_b69a13cc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("faf9");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EMapView_vue_vue_type_style_index_0_id_b69a13cc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EMapView_vue_vue_type_style_index_0_id_b69a13cc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EMapView_vue_vue_type_style_index_0_id_b69a13cc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -5511,21 +5481,6 @@ module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
-
-/***/ }),
-
-/***/ "faf9":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("7bc2");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("0ed3").default
-var update = add("4b5049d2", content, true, {"sourceMap":false,"shadowMode":false});
 
 /***/ }),
 
