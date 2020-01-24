@@ -1,8 +1,7 @@
 {
   "name": "@vue-mapp-kit/esri",
   "version": "0.1.1",
-  "description": "",
-  "private": true,
+  "description": "A component driven approach to managing Esri ArcGIS 4.x objects",
   "main": "dist/mapp-kit-esri.common.js",
   "repository": {
     "type": "git",

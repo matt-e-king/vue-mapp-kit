@@ -14,39 +14,6 @@
               zoom: 3,
               center: [-80, 35]
             }">
-            
-            <!-- <e-portal-item :add-to="map" :properties="{ id: '8444e275037549c1acab02d2626daaee' }"/> -->
-
-
-            <!-- <e-graphic :properties="getPolylineProps"/>
-            <e-graphic :properties="getPolygonProps"/> -->
-
-            <!-- <e-layer-list />
-
-            <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
-              <template #default="{ graphicsLayer }">
-                <e-graphic :add-to="graphicsLayer" :properties="getPolylineProps"/>
-                <e-graphic :add-to="graphicsLayer" :properties="getPolygonProps"/>
-              </template>
-            </e-graphics-layer>
-
-            <e-geo-json-layer :properties="getGeoJSONProps"/> -->
-
-            <!--
-              have to change e-map-view to this first:
-              extent: {
-                // autocasts as new Extent()
-                xmin: -9177811,
-                ymin: 4247000,
-                xmax: -9176791,
-                ymax: 4247784,
-                spatialReference: 102100
-              }
-            -->
-
-            <!-- <e-feature-layer :properties="{ 
-              url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
-            }"/> -->
 
             <template #default="{ mapView }">
               <e-group-layer :properties="{ title: 'Graphics!' }">
@@ -62,35 +29,32 @@
                 </template>
               </e-group-layer>
 
-              <!-- <e-geo-json-layer :add-to="map" :properties="getGeoJSONProps"/> -->
+              <e-geo-json-layer :properties="getGeoJSONProps"/>
+
+              <e-portal-item :add-to="map" :properties="{ id: '8444e275037549c1acab02d2626daaee' }"/>
+
+              <!--
+                have to add this extent to e-map for feature layer to appear
+                extent: {
+                  // autocasts as new Extent()
+                  xmin: -9177811,
+                  ymin: 4247000,
+                  xmax: -9176791,
+                  ymax: 4247784,
+                  spatialReference: 102100
+                }
+
+              <e-feature-layer :properties="{ 
+                url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
+              }"/> -->
               
               <e-layer-list :add-to="mapView"/>
               <e-basemap-toggle 
                 :properties="{ nextBasemap: 'hybrid' }"
                 position="bottom-right"/>
             </template>
-
-            <!-- <e-group-layer :properties="{ title: 'Graphics!' }">
-              <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
-                <e-graphic :properties="getPolylineProps"/>
-                <e-graphic :properties="getPolygonProps"/>
-              </e-graphics-layer>
-            </e-group-layer> -->
-            <!-- <e-graphic :properties="getPolygonProps"/> -->
-
-            <!-- <e-graphics-layer :properties="{ title: 'Graphics Layer! '}">
-              <e-graphic :properties="getPolylineProps"/>
-            </e-graphics-layer>
-
-            <e-geo-json-layer :properties="getGeoJSONProps"/>
-
-            <e-basemap-toggle 
-              :properties="{ nextBasemap: 'hybrid' }"
-              position="bottom-right"/>  -->
           </e-map-view>
         </template>
-
-        <!-- <e-portal-item :properties="{ id: '8444e275037549c1acab02d2626daaee' }"/> -->
       </e-map>
 
       <e-map :properties="map2Props" v-else :key="2">
