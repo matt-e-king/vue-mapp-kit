@@ -3,9 +3,6 @@ import { registerComponents } from './utils'
 import * as components from './components'
 import MappKitBus from './buses'
 
-import { loadCss } from 'esri-loader'
-loadCss('https://js.arcgis.com/4.10/esri/css/main.css')
-
 // TODO: test options
 const createInstaller = c => (Vue, options) => {
   var bus = MappKitBus

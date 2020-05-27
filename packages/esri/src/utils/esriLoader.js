@@ -23,7 +23,7 @@ export const getModules = async (m) => {
   const requiresArray = modules.map(module => MODULE_LOOKUP[module])
 
   try {
-    const response = await loadModules(requiresArray)
+    const response = await loadModules(requiresArray, { css: true })
 
     return response
   } catch(error) {

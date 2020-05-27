@@ -815,7 +815,9 @@ function () {
             });
             _context.prev = 2;
             _context.next = 5;
-            return Object(external_esri_loader_["loadModules"])(requiresArray);
+            return Object(external_esri_loader_["loadModules"])(requiresArray, {
+              css: true
+            });
 
           case 5:
             response = _context.sent;
@@ -1902,9 +1904,7 @@ var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
  // import mappKitStore from './store/modules/mainStore'
 
 
-
-
-Object(external_esri_loader_["loadCss"])('https://js.arcgis.com/4.10/esri/css/main.css'); // TODO: test options
+ // TODO: test options
 
 var main_createInstaller = function createInstaller(c) {
   return function (Vue, options) {
