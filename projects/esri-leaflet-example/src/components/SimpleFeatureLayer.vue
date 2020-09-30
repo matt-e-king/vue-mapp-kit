@@ -19,7 +19,7 @@
     components: {},
 
     mounted() {
-      this.getMap(this.mapId).setView([45.526, -122.667], 13)
+      this.getMap(this.mapId).setView([37.837, -122.479], 8)
     },
 
     data() {
@@ -28,7 +28,7 @@
         featureLayerOptions: {
           layerName: 'simpleFeatureLayer',
           options: {
-            url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
+            url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0'
           }
         }
       }

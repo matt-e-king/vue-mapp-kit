@@ -35,7 +35,7 @@
 
   export default {
     mounted() {
-      this.getMap(this.mapId).setView([45.526, -122.667], 15)
+      this.getMap(this.mapId).setView([0, 0], 2)
     },
 
     data() {
@@ -44,7 +44,7 @@
         featureLayerOptions: {
           layerName: 'clusteringPoints',
           options: {
-            url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Trimet_Transit_Stops/FeatureServer/0'
+            url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0'
           }
         }
       }
