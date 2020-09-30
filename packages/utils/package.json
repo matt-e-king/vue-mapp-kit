@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "description": "",
-  "main": "src/main.js",
+  "main": "dist/mapp-kit-utils.umd.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/matt-e-king/vue-mapp-kit"
@@ -15,17 +15,25 @@
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build-bundle": "vue-cli-service build --target lib --name utils './src/main.js'",
+    "build": "yarn build:dist",
+    "build:dist": "vue-cli-service build --target lib --name mapp-kit-utils './src/main.js'",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.1.1",
-    "@vue/cli-plugin-eslint": "^3.1.1",
-    "@vue/cli-service": "^3.1.1",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.12",
     "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "vue": "^2.6.12"
   }
 }
