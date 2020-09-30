@@ -7,9 +7,6 @@ node_modules
 !/projects/leaflet-example/
 !/projects/esri-example/
 /dist
-!/packages/esri/dist
-!/packages/esri-leaflet/dist
-!/packages/leaflet/dist
 robots.txt
 
 /tests/e2e/reports/
