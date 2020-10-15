@@ -5,9 +5,10 @@
         basemap: 'streets'
       }"
     >
-      <!-- the default slot of e-map spits out the map object -->
+      <template #default="{ map }">
         <e-map-view
           :properties="{
+            map: map,
             container: 'groupings',
             zoom: 3,
             center: [-80, 35]
@@ -33,6 +34,7 @@
             <e-layer-list />
           </template>
         </e-map-view>
+      </template>
     </e-map>
   </section>
 </template>
