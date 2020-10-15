@@ -25,6 +25,9 @@ new Vue({
 }).$mount('#app');
 ```
 
+ - Code examples in the [`esri-example`](../../projects/esri-example/src/components) project.
+ - Supported components in the [src/components](src/components) directory.
+
 ## Component Properties
 As mentioned above, this library strives to have an almost identical interface to each respective class in the [Esri Javsacript ArcGIS API](https://developers.arcgis.com/javascript/latest/api-reference/). Each suppported component in this library will have a `properties` prop:
 ```javascript
