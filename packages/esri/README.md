@@ -121,7 +121,7 @@ The MapView is a nested component under the Map component.
 
 ----------
 
-## Proivde and Inject (Add to Parent)
+## Provide and Inject (Add to Parent)
 This library uses Vue's Provide and Inject so you don't have to worry about adding the "parent objects" to the `properties` prop or invoking any `.add()` methods on parent objects as you normally would with to construct certain Esri objects.
 
 However, if you really wanted to, any component that "provides itself" to any children component also exposes the instantiated object through a scoped-slot. In some cases this is necessary like when using `GroupLayer`. Here's a more elaborate example:
@@ -166,5 +166,5 @@ Notice how the second `e-graphics-layer` has a prop called `add-to`? This is a s
 ----------
 
 ## More info
- - More code examples in the [`esri-example`](../../project/esri-example/src/components) project.
+ - More code examples in the [`esri-example`](../../projects/esri-example/src/components) project.
  - Supported components in the [src/components](src/components) directory.
