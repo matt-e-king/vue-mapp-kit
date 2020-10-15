@@ -4,5 +4,5 @@ A component driven approach to managing Esri ArcGIS Javascript API 4.x objects u
 
 Documentation and examples are sparce right now and will be improved as this library matures.
 
- - [Supported Esri objects](https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/esri/src/components)
- - [Example Code](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/esri-example)
+ - [Supported Esri objects](packages/esri/src/components)
+ - [Example Code](projects/esri-example)
