@@ -23,9 +23,7 @@ export default {
 
   data() {
     return {
-      module: {
-        SceneView: null
-      }
+      moduleName: 'SceneView'
     }
   },
 
@@ -34,19 +32,23 @@ export default {
     // this merges with $props.properties passed in
     // MapView requires "map" key in properties passed to constructor
     // https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html
+    map () {
+      const {
+        map
+      } = this.properties
+
+      return map ? map : this.getMap()
+    },
     mergeProps() {
-      const parentMap = this.addTo ? this.addTo : this.getMap()
+      if (!this.map) console.error('[ESceneView] no parent map found')
 
-      if (!parentMap) console.error('[ESceneView] no map found')
-
-      return { map: parentMap }
+      return this.properties.map ? {} : { map: this.getMap() }
     }
   },
 
   methods: {
-    afterInitHook() {
-      console.log('[EMapView] Overriding afterInitHook')
-    },
+    // override
+    addToHook() {},
     getMapView() {
       return this.module.SceneView
     }

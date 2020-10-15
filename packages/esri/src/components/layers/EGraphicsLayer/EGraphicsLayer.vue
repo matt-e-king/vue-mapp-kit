@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot v-if="booted" v-bind:graphicsLayer="module.GraphicsLayer"/>
+    <slot v-if="booted" v-bind:graphicsLayer="module.GraphicsLayer" />
   </div>
 </template>
 
@@ -14,14 +14,24 @@ export default {
 
   mixins: [constructorMixin, injectMapMixin],
 
+  provide() {
+    return {
+      // this will get injected into all children
+      // when groupds and layers are created, this id gets passed to the vueaflet store to in form it where to "addLayer"
+      getGraphicsLayer: this.getGraphicsLayer
+    }
+  },
+
   data() {
     return {
-      module: {
-        GraphicsLayer: null
-      }
+      moduleName: 'GraphicsLayer'
+    }
+  },
+
+  methods: {
+    getGraphicsLayer () {
+      return this.module.GraphicsLayer
     }
   }
 }
 </script>
-
-<style scoped></style>

@@ -16,12 +16,8 @@ export default {
 
   data() {
     return {
-      module: {
-        GroupLayer: null
-      }
+      moduleName: 'GroupLayer'
     }
   }
 }
 </script>
-
-<style scoped></style>

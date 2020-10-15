@@ -20,27 +20,28 @@ export default {
 
   data() {
     return {
-      module: {
-        BasemapToggle: null
-      } 
+      moduleName: 'BasemapToggle'
     }
   },
 
   methods: {
-    afterInitHook() {
-      const parentView = this.addTo ? this.addTo : this.getMapView()
-
-      if (!parentView) console.error('[EBasemapToggle] no map view')
-      parentView.ui.add(this.module.BasemapToggle, this.position)
+    addToHook() {
+      if (!this.view) console.error('[EBasemapToggle] no map view')
+      this.view.ui.add(this.module.BasemapToggle, this.position)
     }
   },
 
   computed: {
     mergeProps() {
-      const parentView = this.addTo ? this.addTo : this.getMapView()
+      if (!this.view) console.error('[EBasemapToggle] no map view')
+      return this.properties.view ? {} : { view: this.getMapView() }
+    },
+    view () {
+      const {
+        view
+      } = this.properties
 
-      if (!parentView) console.error('[EBasemapToggle] no map view')
-      return { view: parentView }
+      return view ? view : this.getMapView()
     }
   }
 }

@@ -29,16 +29,13 @@ export default {
 
   data() {
     return {
-      module: {
-        Map: null
-      }
+      moduleName: 'Map'
     }
   },
 
   methods: {
-    afterInitHook() {
-      console.log('map after loader init')
-    },
+    // override
+    addToHook() {},
     getMap() {
       return this.module.Map
     }

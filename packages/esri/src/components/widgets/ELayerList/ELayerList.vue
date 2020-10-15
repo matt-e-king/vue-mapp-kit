@@ -20,27 +20,28 @@ export default {
 
   data() {
     return {
-      module: {
-        LayerList: null
-      } 
+      moduleName: 'LayerList' 
     }
   },
 
   methods: {
-    afterInitHook() {
-      const parentView = this.addTo ? this.addTo : this.getMapView()
-
-      if (!parentView) console.error('[ELayerList] no map view')
-      parentView.ui.add(this.module.LayerList, this.position)
+    addToHook() {
+      if (!this.view) console.error('[ELayerList] no map view')
+      this.view.ui.add(this.module.LayerList, this.position)
     }
   },
 
   computed: {
     mergeProps() {
-      const parentView = this.addTo ? this.addTo : this.getMapView()
+      if (!this.view) console.error('[ELayerList] no map view')
+      return this.properties.view ? {} : { view: this.getMapView() }
+    },
+    view () {
+      const {
+        view
+      } = this.properties
 
-      if (!parentView) console.error('[ELayerList] no map view')
-      return { view: parentView }
+      return view ? view : this.getMapView()
     }
   }
 }

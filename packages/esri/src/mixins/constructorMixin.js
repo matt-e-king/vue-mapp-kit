@@ -1,8 +1,6 @@
-import loaderMixin from './loaderMixin'
+import { getModules } from '@/utils/esriLoader'
 
 export default {
-  mixins: [loaderMixin],
-
   watch: {
     // TODO: this should move to a mixin
     'properties.visible'(val) {
@@ -31,15 +29,19 @@ export default {
   },
 
   created() {
-    this.loaderInit()
+    const modules = this.moduleName ? [this.moduleName] : Object.keys(this.module)
+
+    getModules(modules)
       .then(loadedModules => {
-        const moduleKeys = Object.keys(this.module)
-        
-        moduleKeys.forEach((name, index) => {
+        modules.forEach((name, index) => {
           this.name = name
           const module = loadedModules[index]
           
-          // console.log(name, { ...this.properties, ...this.mergeProps })
+          if (!this.module) {
+            // if this.module does not exist on $data
+            // set non-reactive version of it
+            this.module = {}
+          }
 
           this.module[name] = this.noInstantiation
             ? module
@@ -55,7 +57,7 @@ export default {
         })
         
         this.setupEvents()
-        // hook in after module is loaded
+        this.addToHook()
         this.afterInitHook()
       })
   },
@@ -68,15 +70,19 @@ export default {
     afterLoadedHook() {
       this.$emit('ready', this.module[this.name])
     },
-    afterInitHook() {  
+    addToHook () {
       if (!this.addTo) {
-        // provided by EMap
-        if (this.getMap && this.getMap()) this.getMap().add(this.module[this.name])
-        else console.error('No parent collection found for :', this.name)
+        if (this.getMap && this.getMap()) {
+          this.getMap().add(this.module[this.name])
+        } else {
+          console.warn('No parent collection found for :', this.name)
+          console.warn('Override addToHook if no add is needed')
+        }
       } else {
         this.addTo.add(this.module[this.name])
       }
     },
+    afterInitHook() {},
     setupEvents() {
       if (
         Array.isArray(this.events)
@@ -96,13 +102,13 @@ export default {
       }
     },
     beforeDestroyHook() {
-      if (!this.addTo) {
-        // provided by EMap
-        if (this.getMap && this.getMap()) this.getMap().remove(this.module[this.name])
-        else console.error('No parent to remove from for :', this.name)
-      } else {
-        this.addTo.remove(this.module[this.name])
-      }
+      if (this.addTo && typeof this.addTo.remove === 'function') this.addTo.remove(this.module[this.name])
+      else if (this.parent && typeof this.parent.remove === 'function') this.parent.remove(this.module[this.name])
+      else if (this.getMap && this.getMap()) this.getMap().remove(this.module[this.name])
+      else if (this.getMapView && this.getMapView() && typeof this.getMapView().remove === 'function') this.getMapView().remove(this.module[this.name])
+      else if (this.getMapView && this.getMapView() && typeof this.getMapView().graphics.remove === 'function') this.getMapView().graphics.remove(this.module[this.name])
+      else if (this.getGraphicsLayer && this.getGraphicsLayer()) this.getGraphicsLayer().remove(this.module[this.name])
+      else console.error('No parent to remove from for :', this.name)
 
       // TODO: seems sloppy
       this.$emit('remove', this.module[this.name])

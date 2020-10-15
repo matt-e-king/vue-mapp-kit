@@ -12,12 +12,8 @@ export default {
 
   data() {
     return {
-      module: {
-        FeatureLayer: null // class name of esri object
-      }
+      moduleName: 'FeatureLayer'
     }
   }
 }
 </script>
-
-<style scoped></style>

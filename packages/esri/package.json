@@ -3,6 +3,7 @@
   "version": "0.4.0",
   "description": "A component driven approach to managing Esri ArcGIS 4.x objects",
   "main": "dist/mapp-kit-esri.umd.js",
+  "module": "dist/mapp-kit-esri.umd.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/matt-e-king/vue-mapp-kit"

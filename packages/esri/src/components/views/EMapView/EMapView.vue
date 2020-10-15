@@ -30,9 +30,7 @@ export default {
 
   data() {
     return {
-      module: {
-        MapView: null
-      }
+      moduleName: 'MapView'
     }
   },
 
@@ -41,18 +39,23 @@ export default {
     // this merges with $props.properties passed in
     // MapView requires "map" key in properties passed to constructor
     // https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html
-    mergeProps() {
-      const parentMap = this.addTo ? this.addTo : this.getMap()
+    map () {
+      const {
+        map
+      } = this.properties
 
-      if (!parentMap) console.error('[EPortalItem] no map found')
-      return { map: parentMap }
+      return map ? map : this.getMap()
+    },
+    mergeProps() {
+      if (!this.map) console.error('[EMapView] no parent map found')
+
+      return this.properties.map ? {} : { map: this.getMap() }
     }
   },
 
   methods: {
-    afterInitHook() {
-      console.log('[EMapView] Overriding afterInitHook')
-    },
+    // override
+    addToHook() {},
     getMapView() {
       return this.module.MapView
     }

@@ -4,14 +4,15 @@
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html
 import constructorMixin from '@/mixins/constructorMixin'
 import injectMapMixin from '@/mixins/injectMapMixin'
+import { getModules } from '@/utils/esriLoader'
 
 export default {
   name: 'e-portal-item',
 
   mixins: [constructorMixin, injectMapMixin],
 
-  mounted() {
-    this.loaderInit()
+  mounted () {
+    getModules([this.moduleName])
       .then(([Layer]) => {
         Layer.fromPortalItem({
           ...this.properties
@@ -22,14 +23,12 @@ export default {
   data() {
     return {
       noInstantiation: true,
-      module: {
-        Layer: null
-      }
+      moduleName: 'Layer'
     }
   },
 
   methods: {
-    afterInitHook() {
+    addToHook() {
       const parentMap = this.addTo ? this.addTo : this.getMap()
 
       if (!parentMap) console.error('[EPortalItem] no map found')

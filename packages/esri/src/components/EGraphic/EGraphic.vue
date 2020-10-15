@@ -4,34 +4,34 @@
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
 import constructorMixin from '@/mixins/constructorMixin'
 import injectMapViewMixin from '@/mixins/injectMapViewMixin'
+import injectGraphicsLayer from '@/mixins/injectGraphicsLayer'
 
 export default {
   name: 'e-graphic',
 
   // constructor handles created()
-  mixins: [constructorMixin, injectMapViewMixin],
+  mixins: [constructorMixin, injectMapViewMixin, injectGraphicsLayer],
 
   data() {
     return {
-      module: {
-        Graphic: null
-      }
+      moduleName: 'Graphic'
+    }
+  },
+
+  computed: {
+    parent () {
+      return this.addTo || this.getGraphicsLayer() || this.getMapView().graphics
     }
   },
 
   methods: {
-    afterInitHook() {
-      const parentView = this.addTo ? this.addTo : this.getMapView().graphics
-
-      if (!parentView) console.error('[EGraphic] no parent collection found')
+    addToHook() {
+      if (!this.parent) console.error('[EGraphic] no parent "add" found')
       
-      parentView.add(this.module.Graphic)
+      this.parent.add(this.module.Graphic)
     },
     beforeDestroyHook() {
-      // this overrides the "beforeDestroyHook" in constructor mixin
-      const parentView = this.addTo ? this.addTo : this.getMapView().graphics
-
-      parentView.remove(this.module.Graphic)
+      this.parent.remove(this.module.Graphic)
 
       this.$emit('remove', this.module.Graphic)
     }

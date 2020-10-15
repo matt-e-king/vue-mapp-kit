@@ -11,7 +11,10 @@ export const MODULE_LOOKUP = {
   'Map': 'esri/Map',
   'MapView': 'esri/views/MapView',
   'SceneView': 'esri/views/SceneView',
-  'BasemapToggle': 'esri/widgets/BasemapToggle'
+  'BasemapToggle': 'esri/widgets/BasemapToggle',
+  'Sketch': 'esri/widgets/Sketch',
+  'SketchViewModel': 'esri/widgets/Sketch/SketchViewModel',
+  'Draw': 'esri/views/draw/Draw'
 }
 
 /**

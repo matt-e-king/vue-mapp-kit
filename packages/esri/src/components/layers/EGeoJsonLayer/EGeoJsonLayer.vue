@@ -12,12 +12,8 @@ export default {
 
   data() {
     return {
-      module: {
-        GeoJSONLayer: null
-      }
+      moduleName: 'GeoJSONLayer'
     }
   }
 }
 </script>
-
-<style scoped></style>
