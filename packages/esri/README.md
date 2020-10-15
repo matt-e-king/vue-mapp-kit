@@ -1,4 +1,4 @@
-# @vue-mapp-kit/leaflet #
+# @vue-mapp-kit/esri #
 
 A component driven approach to managing Esri ArcGIS Javascript API 4.x objects using VueJS. Each component supported in this library has an almost identical interface to each respective class in [Esri](https://developers.arcgis.com/javascript/latest/api-reference/).
 
