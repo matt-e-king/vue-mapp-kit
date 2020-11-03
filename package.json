@@ -11,6 +11,9 @@
     "packages/*",
     "projects/*"
   ],
+  "scripts": {
+    "publish": "build:dist && npx lerna publish"
+  },
   "devDependencies": {
     "lerna": "^3.13.0"
   }

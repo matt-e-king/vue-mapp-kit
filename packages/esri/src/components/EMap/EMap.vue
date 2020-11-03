@@ -1,6 +1,9 @@
 <template>
   <div class="map">
-    <slot v-if="booted" v-bind:map="module.Map"/>
+    <slot
+      v-if="booted"
+      v-bind:map="module.Map"
+    />
   </div>
 </template>
 
@@ -61,5 +64,3 @@ export default {
   }
 }
 </script>
-
-<style></style>
