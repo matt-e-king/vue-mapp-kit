@@ -2,7 +2,7 @@
   <section id="basicMap" class="map-wrapper">
     <e-map
       :properties="{
-        basemap: 'streets'
+        basemap
       }"
       key="basicMap"
     >
@@ -19,11 +19,25 @@
         />
       </e-map-view>
     </e-map>
+
+    <button @click="toggleBasemap">Custom toggle basemap</button>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'BasicMap'
+  name: 'BasicMap',
+
+  data () {
+    return {
+      basemap: 'streets'
+    }
+  },
+
+  methods: {
+    toggleBasemap () {
+      this.basemap = this.basemap === 'streets' ? 'gray' : 'streets'
+    }
+  }
 }
 </script>

@@ -33,11 +33,30 @@ export default {
     }
   },
 
+  watch: {
+    'properties.basemap': 'changeBasemap'
+  },
+
   methods: {
     // override
     addToHook() {},
     getMap() {
       return this.module.Map
+    },
+    changeBasemap () {
+      const {
+        properties: {
+          basemap = ''
+        } = {}
+      } = this
+
+      if (!basemap) {
+        console.warn('No basemap in properties')
+
+        return
+      }
+
+      this.getMap().basemap = basemap
     }
   }
 }
