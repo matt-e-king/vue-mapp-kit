@@ -5,8 +5,8 @@ A component driven approach to managing Esri ArcGIS Javascript API 4.x objects u
 ----------
 ## Getting Started
 ```
-npm install --save leaflet @vue-mapp-kit/esri
-yarn add leaflet @vue-mapp-kit/esri
+npm install --save @vue-mapp-kit/esri
+yarn add @vue-mapp-kit/esri
 ```
 
 Assuming you are using a `vue-cli` template, your `src/main.js` will look something like this:
