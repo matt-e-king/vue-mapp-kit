@@ -55,6 +55,13 @@
 
       <sketch-view-modeler />
     </section>
+
+    <section class="map-section">
+      <h2>Load in additional modules</h2>
+      <p>Not all Esri classes are available in this library, use "loadModules" to load in whatever Esri classes you want!</p>
+
+      <load-modules />
+    </section>
   </main>
 </template>
 
@@ -67,6 +74,7 @@ import PortalItemLayer from './components/PortalItemLayer/PortalItemLayer'
 import SceneView from './components/SceneView/SceneView'
 import SketchWidget from './components/SketchWidget/SketchWidget'
 import SketchViewModeler from './components/SketchViewModeler/SketchViewModeler'
+import LoadModules from './components/LoadModules/LoadModules'
 
 export default {
   components: {
@@ -77,7 +85,8 @@ export default {
     PortalItemLayer,
     SceneView,
     SketchWidget,
-    SketchViewModeler
+    SketchViewModeler,
+    LoadModules
   },
 
   data() {

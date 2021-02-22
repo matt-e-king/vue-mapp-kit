@@ -1,4 +1,5 @@
 import { registerComponents } from './utils'
+import { getModules } from './utils/esriLoader'
 // import mappKitStore from './store/modules/mainStore'
 import * as components from './components'
 import MappKitBus from './buses'
@@ -29,5 +30,6 @@ const createInstaller = c => (Vue, options) => {
 //returns another function, creates a closure over imported components
 const MappKitEsri = { install: createInstaller(components) }
 
+export const loadModules = getModules
 export const Bus = MappKitBus
 export default MappKitEsri

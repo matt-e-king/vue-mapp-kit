@@ -22,8 +22,8 @@ export const MODULE_LOOKUP = {
  * @param {Array || string} m 
  */
 export const getModules = async (m) => {
-  const modules = Array.isArray(modules) ? m : [m]
-  const requiresArray = modules.map(module => MODULE_LOOKUP[module])
+  const modules = Array.isArray(m) ? m : [m]
+  const requiresArray = modules.map(module => MODULE_LOOKUP[module] || module)
 
   try {
     const response = await loadModules(requiresArray, { css: true })
