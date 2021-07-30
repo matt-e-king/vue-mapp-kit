@@ -13,6 +13,7 @@
           center: [-80, 35]
         }"
       >
+        <e-scale-bar />
         <e-basemap-toggle 
           :properties="{ nextBasemap: 'hybrid' }"
           position="bottom-right"

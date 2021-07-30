@@ -14,6 +14,7 @@ export const MODULE_LOOKUP = {
   'BasemapToggle': 'esri/widgets/BasemapToggle',
   'Sketch': 'esri/widgets/Sketch',
   'SketchViewModel': 'esri/widgets/Sketch/SketchViewModel',
+  'ScaleBar': 'esri/widgets/ScaleBar',
   'Draw': 'esri/views/draw/Draw'
 }
 
