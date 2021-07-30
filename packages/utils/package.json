@@ -1,6 +1,6 @@
 {
   "name": "@vue-mapp-kit/utils",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "private": true,
   "description": "",
   "main": "dist/mapp-kit-utils.umd.js",
