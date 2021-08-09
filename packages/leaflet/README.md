@@ -11,7 +11,7 @@ A component driven approach to managing Leaflet objects using Vue. Each componen
    - [Working with popups](#working-with-popups)
    - [Events](#events)
    - [Groups](#feature-and-layer-groups)
- - [More Code Examples Here](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/leaflet-example/src/components)
+ - [More Code Examples Here](../../projects/leaflet-example/src/components)
  - [EsriLeaflet (@vue-mapp-kit/esri-leaflet)](https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/esri-leaflet)
 
 ### Demos
@@ -221,14 +221,14 @@ The `popup` prop is custom to VueMappKit.
   }"
 />
 ```
-See full Quick Start example [here](https://github.com/matt-e-king/vue-mapp-kit/blob/master/projects/leaflet-example/src/components/QuickStart.vue)
+See full Quick Start example [here](../../projects/leaflet-example/src/components/QuickStart.vue)
 
 ### Events
 Pass in an array events (as strings) that are supported by the layer type. Each event passed will then be registered as a listener on the component. See [Leaflets docs](https://leafletjs.com/reference-1.7.1.html) for events. There is a "ready" event that is handle by MappKitLeaflet for you :). Each Leaflet supported event `$emits` an `{ event, module }` object.
 
 Additionaly, you can pass a boolean prop called `enable-bus` which will registered each event passed in `events` prop on the global `this.$mappKitBus` bus.
 
-See full working example [here](https://github.com/matt-e-king/vue-mapp-kit/blob/master/projects/leaflet-example/src/components/WorkingWithEvents.vue).
+See full working example [here](../../projects/leaflet-example/src/components/WorkingWithEvents.vue).
 
 ----------
 
