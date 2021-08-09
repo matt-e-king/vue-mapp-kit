@@ -11,6 +11,8 @@ A component driven approach to managing Leaflet objects using Vue. Each componen
    - [Working with popups](#working-with-popups)
    - [Events](#events)
    - [Groups](#feature-and-layer-groups)
+ - [GeoJSON](../../projects/leaflet-example/src/components/UsingGeoJson.vue)
+   - [GeoJSON Collection](../../projects/leaflet-example/src/components/VueafletGeoJsonCollection.vue): custom component dealing with multiple geotypes in same `FeatureCollection`
  - [More Code Examples Here](../../projects/leaflet-example/src/components)
  - [EsriLeaflet (@vue-mapp-kit/esri-leaflet)](https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/esri-leaflet)
 
