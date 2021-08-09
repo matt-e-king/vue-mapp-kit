@@ -3,16 +3,21 @@
     <h2>MappKitLeaflet GeoJsonCollection component.</h2>
     <p>The GeoJsonCollection component can take a mixed bag of geometry types and will create the respective GeoJsonLayers for each type. However, only accepts styles per goemetry type. Very useful when perform a query/find against a map service that return a "Feature Collection", but with multiple geo types.</p>
 
-    <l-map :map-id="mapId">
+    <l-map
+      :map-id="mapId"
+      :options="{
+        zoom: 4,
+        center: [39.36827914916014, -97.86621093750001]
+      }"
+    >
       <l-tile-layer v-bind="tileLayer"/>
 
       <l-geo-json-collection
-        layer-name="geoJsonCollection"
-        :features="featureCollection"
+        :data="featureCollection"
         :multipolygon-options="multiPolygonOptions"
         :point-options="pointOptions"
         :linestring-options="lineStringOptions"
-        v-on:ready="handleReady"/>  
+      />  
     </l-map>
 
     <p>
@@ -23,7 +28,6 @@
 
 <script>
   import * as Leaflet from 'leaflet'
-  import { mapGetters} from 'vuex'
 
   const featureCollection = [
     // free buses
@@ -234,15 +238,9 @@
   ]
 
   export default {
-    components: {},
-
-    mounted() {
-      this.getMap(this.mapId).setView([39.74739, -105], 13);
-    },
-
     data() {
       return {
-        mapId: 'example-six',
+        mapId: 'geojson-collection',
         featureCollection,
         tileLayer: {
           urlTemplate: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}?access_token={accessToken}',
@@ -257,19 +255,9 @@
       }
     },
 
-    computed: {
-      ...mapGetters(['getMap'])
-    },
-
     methods: {
-      handleReady(layers) {
-        // console.log(layers)
-      },
-      multiPolygonOptions(type) {
-        let vm = this
-
+      multiPolygonOptions() {
         return {
-          pane: `${vm.layerName}-${type}`,
           style: {
             weight: 2,
             color: "#999",
@@ -279,11 +267,8 @@
           }
         }
       },
-      pointOptions(type) {
-        let vm = this
-
+      pointOptions() {
         return {
-          pane: `${vm.layerName}-${type}`,
           pointToLayer: function (feature, latlng) {
             return Leaflet.circleMarker(latlng, {
               radius: 8,
@@ -296,11 +281,8 @@
           }
         }
       },
-      lineStringOptions(type) {
-        let vm = this
-
+      lineStringOptions() {
         return {
-          pane: `${vm.layerName}-${type}`,
           style: {
             weight: 2,
             color: "red",

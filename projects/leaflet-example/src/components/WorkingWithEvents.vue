@@ -2,22 +2,36 @@
   <div class="example-map">
     <h2>Working with events</h2>
     <p>Pass in an array events (as strings) that are supported by the layer type. See <a href="http://leafletjs.com/reference-1.3.0.html" target="_blank">Leaflets docs for events</a>. There is a "ready" event that is handle by MappKitLeaflet for you :)</p>
-    <l-map :map-id="mapId"
+    <l-map
+      :map-id="mapId"
+      :options="{
+        center: [51.5079, -0.0787],
+        zoom: 13
+      }"
       :events="['click']"
-      v-on:click="handleMapClick">
-      <l-tile-layer v-bind="tileLayer"/>
-      <l-marker v-bind="markerProps"
+      @click="handleMapClick"
+    >
+      <l-tile-layer v-bind="tileLayer" />
+      <l-marker
+        v-bind="markerProps"
         :events="['dragend']"
-        v-on:dragend="handleMarkerDrag"/>
-      <l-circle v-bind="circleProps"
+        @dragend="handleMarkerDrag"
+      />
+      <l-circle
+        v-bind="circleProps"
         :events="['popupopen']"
-        v-on:popupopen="handleCirclePopup"
-        popup="Yas, queen."/>
-      <l-polygon v-bind="polygonProps" 
+        @popupopen="handleCirclePopup"
+        :popup="{
+          content: 'Yas, queen.'
+        }"
+      />
+      <l-polygon
+        v-bind="polygonProps" 
         enable-bus
         :events="['mouseover']"
-        v-on:ready="handlePolygonReady"
-        v-on:mouseover="handlePolygonHover"/>
+        @ready="handlePolygonReady"
+        @mouseover="handlePolygonHover"
+      />
     </l-map>
 
     <div class="event-list">
@@ -34,18 +48,10 @@
 </template>
 
 <script>
-  import { mapGetters} from 'vuex'
-
   export default {
-    components: {},
-
-    mounted() {
-      this.getMap(this.mapId).setView([51.5079, -0.0787], 13);
-    },
-
     data() {
       return {
-        mapId: 'working-with-events',
+        mapId: 'events-example',
         markerProps: { 
           latlng: [51.5, -0.09],
           options: {
@@ -62,18 +68,17 @@
           }
         },
         polygonProps: {
-          latlng: [
+          latlngs: [
             [51.509, -0.08],
             [51.503, -0.06],
             [51.51, -0.047]
           ],
         },
         tileLayer: {
-          urlTemplate: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}?access_token={accessToken}',
+          urlTemplate: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
           options: {
             attribution: 'Tiles &copy; Esri',
             maxZoom: 18,
-            accessToken: 'pk.eyJ1IjoibWF0dC1lLWtpbmciLCJhIjoiY2l6eWtwaGhxMDA2MTJxbXlvY2RuM2h5byJ9.50i1OwaHIrEI9nlAzl-dIQ',
             label: 'Default'
           }
         },
@@ -82,10 +87,6 @@
         markerDrags: 0,
         circlePopups: 0
       }
-    },
-
-    computed: {
-      ...mapGetters(['getMap'])
     },
 
     methods: {

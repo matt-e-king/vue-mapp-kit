@@ -1,6 +1,6 @@
 # @vue-mapp-kit/leaflet #
 
-A component driven approach to managing Leaflet objects using Vue and Vuex. Each component registers its Leaflet object in a Vuex store, allowing easy access to your Leaflet objects anywhere in your Vue application.
+A component driven approach to managing Leaflet objects using Vue. Each component supported in this library has an almost identical interface to each respective class in [Leaflet](https://leafletjs.com/reference-1.7.1.html).
 
 ### Table of Contents
  - [Getting Started](#getting-started)
@@ -9,26 +9,13 @@ A component driven approach to managing Leaflet objects using Vue and Vuex. Each
    - [Setting up the map](#setting-up-the-map)
    - [Markers, circles and polygons](#markers-circles-and-polygons)
    - [Working with popups](#working-with-popups)
-   - [Try out some other simple layers](#try-out-some-other-simple-layers)
    - [Events](#events)
-   - [Feature Groups](#feature-groups)
-   - [Manage your layers using Vuex](#manage-your-layers-using-vuex)
+   - [Groups](#feature-and-layer-groups)
  - [More Code Examples Here](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/leaflet-example/src/components)
  - [EsriLeaflet (@vue-mapp-kit/esri-leaflet)](https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/esri-leaflet)
 
 ### Demos
-[Demo for all code exmamples in /src/components/Examples](https://cct.cals.arizona.edu/vueaflet/)
-
-### Features not documented
-
- - Layers
-   - LGeoJsonLayer
-   - LGeoJsonCollection (handles multiple geo types)
- - Vuex
-   - **Still in development:** Instead of using the tag-like syntax inside of a `<template>`, you can simply pass a single Javascript object into `<l-map/>` component, and let `Veuaflet` do the rest! Documentation for shape of object coming soon.
- - Misc
-   - Ordering z-index of panes using an `order` prop
-   - Leaflet.PM (drawing shapes on the map)
+[Demo for all code exmamples in /projects/leaflet-example/src/components](https://cct.cals.arizona.edu/vueaflet/)
 
 ----------
 ## Getting Started
@@ -40,21 +27,16 @@ yarn add leaflet @vue-mapp-kit/leaflet
 Assuming you are using a `vue-cli` template, your `src/main.js` will look something like this:
 ```
 import Vue from 'vue'
-import App from './App'
-import store from 'store'
+import App from './App.vue'
 import MappKitLeaflet from '@vue-mapp-kit/leaflet'
 
-// attach mapp-kit store
-Vue.use(MappKitLeaflet, { store })
+Vue.use(MappKitLeaflet)
+Vue.config.productionTip = false
 
 new Vue({
-  el: '#app',
-  store,
-  template: '<App/>',
-  components: { App }
-})
+  render: h => h(App),
+}).$mount('#app')
 ```
-NOTE: This library relies on Vuex in order to store your Leaflet objects.
 
 ## Quick Start Guide
 These simple examples mirror the effort in the [Leaflet Quick Start Guide](http://leafletjs.com/examples/quick-start/). These examples use the single file component structure, loaded by `vue-loader`
@@ -66,17 +48,17 @@ These simple examples mirror the effort in the [Leaflet Quick Start Guide](http:
 Create a new Vue component with a container `div`:
 ```
 <template>
-  <div class="map-container"></div>
+  <div class="example-map"></div>
 </template>
 
 <script>
-  export default {
+export default {
 
-  }
+}
 </script>
 
 <style type="text/css">
-  .map-container {
+  .example-map {
     height: 400px;
     width: 500px;
     margin: 10px auto;
@@ -89,103 +71,58 @@ Create a new Vue component with a container `div`:
 
 
 ### Setting up the map
-When this plugin is ingested by Vue, `Vue.use(MappKitLeaflet)`, all MappKitLeaflet components are globally registered. Add a nested `<l-map/>` which takes a string prop called `mapId`. This string value becomes the `div#id` the Leaflet map will mount into:
+When this plugin is ingested by Vue, `Vue.use(MappKitLeaflet)`, all MappKitLeaflet components are globally registered. Add `<l-map />` which takes a string prop called `mapId` and object props called `options`. You'll notice this follows a similar interface as the [`Leaflet.map`](https://leafletjs.com/reference-1.7.1.html#map-example). **All MappKitLeaflet components aspire to have a similar pattern; utilizing the same instantiating signature used to create its corresponding Leaflet object.** `map-id` string value becomes the `div#id` the Leaflet map will mount into:
 ```
 <template>
   <div class="map-container">
-    <l-map :mapId="mapId"/>
+    <l-map
+      map-id="mainMap"
+      :options="{
+        center: [51.505, -0.09],
+        zoom: 13
+      }"
+    />
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        mapId: 'exampleMap'
-      }
-    }
-  }
+export default {
+
+}
 </script>
 ```
-You should have a blank, gray, tile-less map :) 
+You should have a blank, gray, tile-less map :) The `<l-map />` component uses the Vue provide/inject in order to add nested children to the map.
 
-Now let's add a `<l-tile-layer/>` component as a nested child to `<l-map/>`. The `<l-tile-layer/>` component accepts two props, `urlTemplate` and `options`. You'll notice this follows a similar interface as the [`Leaflet.tileLayer`](http://leafletjs.com/reference-1.3.0.html#tilelayer). **All MappKitLeaflet components aspire to have a similar pattern; utilizing the same instantiating signature used to create its corresponding Leaflet object.** Here's the code snippet:
+Now let's add a `<l-tile-layer/>` component as a nested child to `<l-map/>`. The `<l-tile-layer/>` component accepts two props, `urlTemplate` and `options`:
 ```
 <template>
   <div class="map-container">
-    <l-map :mapId="mapId">
-      <l-tile-layer v-bind="tileLayer"/>
+    <l-map
+      map-id="mainMap"
+      :options="{
+        center: [51.505, -0.09],
+        zoom: 13
+      }"
+    >
+      <l-tile-layer
+        url-template="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+        :options="{
+          attribution: 'Tiles &copy; Esri',
+          maxZoom: 18,
+          label: 'Default'
+        }"
+      />
     </l-map>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        mapId: 'exampleMap',
-        tileLayer: {
-          urlTemplate: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}?access_token={accessToken}',
-          options: {
-            attribution: 'Tiles &copy; Esri',
-            maxZoom: 18,
-            accessToken: 'pk.eyJ1IjoibWF0dC1lLWtpbmciLCJhIjoiY2l6eWtwaGhxMDA2MTJxbXlvY2RuM2h5byJ9.50i1OwaHIrEI9nlAzl-dIQ',
-            label: 'Default'
-          }
-        }
-      }
-    }
-  }
-</script>
-```
-Let's `setView` so we can start creating some layers. This is where Vuex comes into play; let's look at some code and then explain:
-```
-<script>
-  export default {
-    mounted() {
-      this.$store.getters.getMap(this.mapId).setView([51.505, -0.09], 13)
-    },
-
-  ...
-  }
-</script>
-
-```
-When the `<l-map/>` component mounted, it added the Leaflet map object to a Vuex store. Documentation on the shape of the mappKit store coming soon. Here are some other ways to get the map object from the store:
-```
-...
-
-mounted() {
-  this.$store.state.mappKit.maps[this.mapId].setView([51.505, -0.09], 13)
+export default {
+  
 }
-
-...
-```
-```
-<script>
-  import { mapGetters } from 'vuex'
-
-  export default {
-    mounted() {
-      this.getMap(this.mapId).setView([51.505, -0.09], 13)
-    },
-
-  ...
-
-    computed: {
-      ...mapGetters(['getMap'])
-    }
-  }
 </script>
 ```
 Woo hoo! You should now see a map hovering over a place in London.
-
-Before we move on, we'd like to mention the purpose of this library is solely to make it easier to "create" and "get" your Leaflet objects. Notice how our `<l-map/>` component doesn't contain props to `setView`, rather gives you an interface to:
-
- - Create the `Leaflet.map` object
- - Fetch the `Leaflet.map` object using the Vuex interface
- 
-Once you have the object... use it! All the Leaflet options and methods are at your disposal. However, there are *some* features that we provide an easy interface to. [See popups belows.](#working-with-popups)
 
 ----------
 ### Markers, circles and polygons
@@ -193,315 +130,107 @@ Easily add other layers to your map! Let's add a marker:
 ```
 <template>
   <div class="map-container">
-    <l-map :mapId="mapId">
-      <l-tile-layer v-bind="tileLayer"/>
-      <l-marker v-bind="markerProps"/>
+    <l-map
+      map-id="mainMap"
+      :options="{
+        center: [51.505, -0.09],
+        zoom: 13
+      }"
+    >
+
+      ...
+
+      <l-marker :latlng="[51.5, -0.09]"/>
     </l-map>
   </div>
 </template>
 
-<script>
-  ...
-  
-  export default {
-  ...
-  
-    data() {
-      return {
-    ...
-        markerProps: { latlng: [51.5, -0.09] }
-      }
-    },
+<script>  
+export default {
 
-  ...
-  }
+}
 </script>
 ```
 Adding a circle and polygon are fairly similar:
 ```
-...
+<l-marker :latlng="[51.5, -0.09]"/>
+<l-circle
+  :latlng="[51.508, -0.11]"
+  :options="{
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 500
+  }"
+/>
 
-<l-marker v-bind="markerProps"/>
-<l-circle v-bind="circleProps"/>
-<l-polygon v-bind="polygonProps"/>
-
-...
-...
-
-markerProps: { latlng: [51.5, -0.09] },
-circleProps: {
-  latlng: [51.508, -0.11],
-  options: {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-  }
-},
-polygonProps: {
-  latlng: [
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-  ],
-}
-
-...
-
-
-----------
-
+<l-polygon
+  :latlngs="[
+      [51.509, -0.08],
+      [51.503, -0.06],
+      [51.51, -0.047]
+  ]"
+/>
 ```
 ### Working with popups
-Simply pass a string to the `popup` prop on each of these simple layer types:
+Popups starts to expose some of the flexibility of VueMappKit. You can handle popups in two ways:
+
+1. Use `@ready` event to pass layer object to method and then use `.bindPopup('')`
+2. Use custom VueMappKit prop `popup.content` to enable and `popup.open` to open on mount
+
+Every component in VueMappKit comes with a `@ready` event that passes back the instantiated Leaflet object. Technically, you could use the `@ready` event on `<l-map />` to then create the rest of your map functionality instead of this nest-component driven approach.
+
+The `popup` prop is custom to VueMappKit.
 ```
 ...
 
-<l-marker v-bind="markerProps" popup="Hello. I am a marker."/>
-<l-circle v-bind="circleProps" popup="Hello. I am a circle."/>
-<l-polygon v-bind="polygonProps" popup="Hello. I am a polygon."/>
+<l-marker
+  :latlng="[51.5, -0.09]"
+  @ready="(event) => { event.module..bindPopup('') }"
+/>
 
-...
+<l-marker
+  :latlng="[51.5, -0.09]"
+  :popup="{
+    content: 'I am a popup',
+    open: true
+  }"
+/>
+
+<l-circle
+  :latlng="[51.508, -0.11]"
+  :options="{
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 500
+  }"
+  :popup="{
+    content: 'I am a circle'
+  }"
+/>
+
+<l-polygon
+  :latlngs="[
+      [51.509, -0.08],
+      [51.503, -0.06],
+      [51.51, -0.047]
+  ]"
+  :popup="{
+    content: 'I am a polygon'
+  }"
+/>
 ```
-Each layer `$emits` a `ready` status.
-
-----------
-
-### Try out some other simple layers
-```
-<l-rectangle v-bind="rectangleProps"/>
-<l-polyline v-bind="polylineProps"/>
-
-<!-- multiline is just a polyline with nested arrays for latlng -->
-<l-polyline v-bind="multiPolylineProps"/>
-
-...
-...
-polylineProps: {
-  latlng: [
-    [51.518, -0.1124],
-    [51.522, -0.0890],
-    [51.518, -0.0556]
-  ],
-  options: { color: 'red' }
-},
-rectangleProps: {
-  latlng: [[51.496, -0.115], [51.489, -0.102]],
-  options: {color: "#ff7800", weight: 1}
-},
-multiPolylineProps: {
-  latlng: [
-    [[51.495, -0.0705], [51.489, -0.058]],
-    [[51.488, -0.07084], [51.498, -0.0506]]
-  ],
-  options: { color: 'blue' }
-}
-```
-
-----------
+See full Quick Start example [here](https://github.com/matt-e-king/vue-mapp-kit/blob/master/projects/leaflet-example/src/components/QuickStart.vue)
 
 ### Events
-Pass in an array events (as strings) that are supported by the layer type. See [Leaflets docs](http://leafletjs.com/reference-1.3.0.html) for events. There is a "ready" event that is handle by MappKitLeaflet for you :). Each Leaflet supported event `$emits` back an `{ event, layer }` object:
-```
-<template>
-  <div class="map-container">
-    <l-map :mapId="mapId" :events="['click']" v-on:click="handleMapClick">
-      ...
-      
-      <l-marker v-bind="dragMarkerProps"
-        v-on:ready="handleMarkerReady"
-        v-on:dragend="handleMarkerDragEnd"/>
-        
-      ...
-    </l-map>
-  </div>
-</template>
+Pass in an array events (as strings) that are supported by the layer type. Each event passed will then be registered as a listener on the component. See [Leaflets docs](https://leafletjs.com/reference-1.7.1.html) for events. There is a "ready" event that is handle by MappKitLeaflet for you :). Each Leaflet supported event `$emits` an `{ event, module }` object.
 
-<script>
-  import { mapGetters } from 'vuex'
+Additionaly, you can pass a boolean prop called `enable-bus` which will registered each event passed in `events` prop on the global `this.$mappKitBus` bus.
 
-  export default {
-  ...
-
-    data() {
-      return {
-        ...
-        
-        dragMarkerProps: { 
-          latlng: [51.488224, -0.090208],
-          options: { draggable: true }
-        },
-        
-        ...
-      }
-    },
-
-    methods: {
-      handleMapClick(e) {
-        alert(e.latlng)
-      },
-      handleMarkerReady(marker) {
-        marker.bindPopup('Drag me!').openPopup()
-      },
-      handleMarkerDragEnd({ event, layer }) {
-        alert(`Marker dragged to: ${layer.getLatLng()}`)
-      }
-    }
-  }
-</script>
-```
-Additionaly, you can pass a boolean prop called `enabled-bus` which will also attach each event passed in the array of events to property attached to each component as `this.$mappKitBus`. More on that soon...
-
-Couple of things to note:
-
- - `v-on:ready` occurs on all layers, custom to MappKitLeaflet
- - The `draggable` options is not part of the `Leaflet.marker` api. This implementation is specific to MappKitLeaflet and currently only supported on Markers.
+See full working example [here](https://github.com/matt-e-king/vue-mapp-kit/blob/master/projects/leaflet-example/src/components/WorkingWithEvents.vue).
 
 ----------
 
-### Feature groups
-Wrap the layers we created in previous examples in the `<l-feature-group/>` component. Make sure to include a `layer-name` prop for your feature group:
-
-```
-<template>
-  <div class="map-container">
-    <l-map :mapId="mapId" :events="['click']" v-on:click="handleMapClick">
-      <l-tile-layer v-bind="tileLayer"/>
-      
-      <!-- leave a few layers out of the feature group, for fun! -->
-    <l-marker v-bind="dragMarkerProps"
-          :events="['dragend']"
-          v-on:ready="handleMarkerReady"
-          v-on:dragend="handleMarkerDragEnd"/>
-      <l-rectangle v-bind="rectangleProps"/>
-      <l-polyline v-bind="polylineProps"/>
-      <l-polyline v-bind="multiPolylineProps"/>
-
-      <l-feature-group layer-name="featureGroup">
-        <l-marker v-bind="markerProps" popup="Hello. I am a marker."/>
-        <l-circle v-bind="circleProps" popup="Hello. I am a circle."/>
-        <l-polygon v-bind="polygonProps" popup="Hello. I am a polygon."/>
-      </l-feature-group>
-    </l-map>
-  </div>
-</template>
-```
-The nested layer components are injected with a data prop informing the `mounted()` lifecycle method to "add to parent" instead of "add to map". In other terms, `Leaflet.featureGroup().addLayer(marker)` instead of `Leaflet.marker().addTo(map)`.
-
-Now you can toggle that feature layer without using `Leaflet.control`:
-```
-<template>
-  <div class="map-container">
-    <l-map :mapId="mapId" :events="['click']" v-on:click="handleMapClick">
-      <l-tile-layer v-bind="tileLayer"/>
-
-      <l-feature-group v-if="toggleFeatureGroup" layer-name="featureGroup">
-        ...
-      </l-feature-group>
-    </l-map>
-
-    <button @click.prevent="toggleFeatureGroup = !toggleFeatureGroup">Toggle Feature Group</button>
-  </div>
-</template>
-
-<script>
-  import { mapGetters } from 'vuex'
-
-  export default {
-    mounted() {
-      this.getMap(this.mapId).setView([51.505, -0.09], 13)
-    },
-
-    data() {
-      return {
-        ...
-        toggleFeatureGroup: true,
-        ...
-      }
-    },
-
-    ...
-  }
-</script>
-```
-
-----------
-
-### Manage your layers using Vuex
-We've already provided an example for how to utilize the `mappKit` store for retrieving the map object. You can achieve the same functionality for an `<l-feature-group/>`. By passing the feature group component a `layer-name` prop, you are also storing this `Leaflet.featureGroup` object in the mappKit store using the `layer-name` as the object `key`. You can access that feature group like so:
-```
-/* layerName being the string prop passed to l-feature-group */
-this.$store.state.mappKit.namedLayers[layerName]
-```
-Here is a separate single file component that is part of the same example app. This is to showcase how these Leaflet objects can stretch across your entire app. This example uses a mappKit `getter` to access and manipulate the feature group object created in `./App.vue`:
-```
-<template>
-  <div class="mock-controls" style="margin-top: 30px;">
-    <button @click.prevent="getGeoJSON">getGeoJSON</button>
-    <button @click.prevent="openPopups">openPopups</button>
-    <button @click.prevent="getBounds">getBounds</button>
-  </div>
-</template>
-
-<script>
-  import { mapGetters } from 'vuex'
-  export default {
-    computed: {
-      ...mapGetters(['getNamedLayer'])
-    },
-
-    methods: {
-      getFeatureGroup() {
-        return this.getNamedLayer('featureGroup')
-      },
-      getGeoJSON() {
-        alert(JSON.stringify(this.getFeatureGroup().toGeoJSON()))
-      },
-      openPopups() {
-        let timeToWait = 0
-
-        this.getFeatureGroup().eachLayer((layer) => {
-          setTimeout(() => {
-            layer.openPopup()
-          }, timeToWait)
-
-          timeToWait += 500
-        })
-      },
-      getBounds() {
-        alert(JSON.stringify(this.getFeatureGroup().getBounds()))
-      }
-    }
-  }
-</script>
-```
-Meanwhile in the other component:
-```
-<template>
-  <div class="map-container">
-    <l-map :mapId="mapId" :events="['click']" v-on:click="handleMapClick">
-      ...
-    </l-map>
-
-    ...
-
-    <!-- New component! -->
-    <mock-controls/>
-  </div>
-</template>
-
-<script>
-  import { mapGetters } from 'vuex'
-  import MockControls from './MockControls'
-
-  export default {
-    components: {
-      MockControls
-    },
-    
-    ...
-  }
-</script>
-```
-Full mappKit store documentation coming soon...
-
+### Feature and Layer groups
+Similar to `<l-map />`, both `<l-feature-group />` and `<l-layer-group />` use the Vue provide/inject to add any nested child layers to the appropriate parent layer. See full working example [here](https://github.com/matt-e-king/vue-mapp-kit/blob/master/projects/leaflet-example/src/components/GroupsAndControls.vue).

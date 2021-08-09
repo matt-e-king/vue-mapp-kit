@@ -1,5 +1,4 @@
 import { registerComponents } from './utils'
-import mappKitStore from './store/modules/mainStore'
 import * as components from './components'
 import MappKitBus from './buses'
 
@@ -17,10 +16,6 @@ const createInstaller = c => (Vue, options) => {
 
   // do something with options
   registerComponents(Vue, c)
-
-  if (!options.store) console.error('[@vue-mapp-kit/leaflet] Please pass in reference to your store')
-
-  options.store.registerModule('mappKit', mappKitStore)
 }
 
 // https://vuejs.org/v2/guide/plugins.html

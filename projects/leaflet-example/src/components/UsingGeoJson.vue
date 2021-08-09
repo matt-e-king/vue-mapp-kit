@@ -3,14 +3,42 @@
     <h2>Using GeoJSON</h2>
     <p>Contains all the GeoJSON examples from the <a href="http://leafletjs.com/examples/geojson/" target="_blank">Leaflet documentation</a></p>
 
-    <l-map :map-id="mapId">
-      <l-tile-layer v-bind="tileLayer"/>
+    <l-map
+      :map-id="mapId"
+      :options="{
+        zoom: 4,
+        center: [39.36827914916014, -97.86621093750001]
+      }"
+    >
+      <l-tile-layer
+        url-template="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}?access_token={accessToken}"
+        :options="{
+          attribution: 'Tiles &copy; Esri',
+          maxZoom: 18,
+          accessToken: 'pk.eyJ1IjoibWF0dC1lLWtpbmciLCJhIjoiY2l6eWtwaGhxMDA2MTJxbXlvY2RuM2h5byJ9.50i1OwaHIrEI9nlAzl-dIQ',
+          label: 'Default'
+        }"
+      />
 
-      <l-geo-json-layer layer-name="geojsonFeature" :features="geojsonFeature" :options="optionsForPopupFeatures"/>
-      <l-geo-json-layer layer-name="myLines" :features="myLines"/>
-      <l-geo-json-layer layer-name="statesWithStyles" :features="states" :options="optionsForStates"/>
-      <l-geo-json-layer layer-name="pointToLayer" :features="someGeojsonFeature" :options="optionsForPointToLayer"/>
-      <l-geo-json-layer layer-name="filterFeatures" :features="filterFeatures" :options="optionsForFilter"/>
+      <l-geo-json
+        :data="geojsonFeature"
+        :options="optionsForPopupFeatures"
+      />
+      <l-geo-json
+        :data="myLines"
+      />
+      <l-geo-json
+        :data="states"
+        :options="optionsForStates"
+      />
+      <l-geo-json
+        :data="someGeojsonFeature"
+        :options="optionsForPointToLayer"
+      />
+      <l-geo-json
+        :data="filterFeatures"
+        :options="optionsForFilter"
+      />
     </l-map>
 
     <p>
@@ -21,18 +49,10 @@
 
 <script>
   import * as Leaflet from 'leaflet'
-  import { mapGetters} from 'vuex'
-
   export default {
-    components: {},
-
-    mounted() {
-      this.getMap(this.mapId).setView([44.28650, -104.897460], 4);
-    },
-
     data() {
       return {
-        mapId: 'example-five',
+        mapId: 'geojson',
         tileLayer: {
           urlTemplate: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}?access_token={accessToken}',
           options: {
@@ -126,7 +146,6 @@
     },
 
     computed: {
-      ...mapGetters(['getMap']),
       optionsForStates() {
         return {
           style: function(feature) {
