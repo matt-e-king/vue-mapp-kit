@@ -13,5 +13,8 @@
   ],
   "devDependencies": {
     "lerna": "^3.13.0"
+  },
+  "dependencies": {
+    "tar": "^4.4.15"
   }
 }

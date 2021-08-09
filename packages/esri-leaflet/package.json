@@ -41,7 +41,8 @@
     "leaflet": "^1.5.1",
     "leaflet.markercluster": "^1.4.1",
     "vue-template-compiler": "^2.6.12",
-    "vuex": "^3.1.1"
+    "vuex": "^3.1.1",
+    "webpack-node-externals": "^3.0.0"
   },
   "peerDependencies": {
     "esri-leaflet": "^2.0.0",
