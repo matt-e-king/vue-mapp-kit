@@ -233,4 +233,4 @@ See full working example [here](https://github.com/matt-e-king/vue-mapp-kit/blob
 ----------
 
 ### Feature and Layer groups
-Similar to `<l-map />`, both `<l-feature-group />` and `<l-layer-group />` use the Vue provide/inject to add any nested child layers to the appropriate parent layer. See full working example [here](https://github.com/matt-e-king/vue-mapp-kit/blob/master/projects/leaflet-example/src/components/GroupsAndControls.vue).
+Similar to `<l-map />`, both `<l-feature-group />` and `<l-layer-group />` use the Vue provide/inject to add any nested child layers to the appropriate parent layer. See full working example [here](../../projects/leaflet-example/src/components/GroupsAndControls.vue).
