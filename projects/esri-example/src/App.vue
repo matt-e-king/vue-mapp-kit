@@ -56,6 +56,14 @@
       <sketch-view-modeler />
     </section>
 
+    <!-- <section class="map-section">
+      <h2>Imagery Layer</h2>
+      <p>Toggle the layers to see 1) Add imagery layer to map 2) Apply custom render rule by loading additional modules</p>
+      <p>Respective Esri code examples: <a href="https://developers.arcgis.com/javascript/latest/sample-code/sandbox/?sample=layers-imagerylayer" target="_blank">#1</a>, <a href="https://developers.arcgis.com/javascript/latest/sample-code/sandbox/?sample=layers-imagery-renderingrule" target="_blank">#2</a></p>
+
+      <imagery-layer />
+    </section> -->
+
     <section class="map-section">
       <h2>Load in additional modules</h2>
       <p>Not all Esri classes are available in this library, use "loadModules" to load in whatever Esri classes you want!</p>
@@ -72,6 +80,7 @@ import Graphics from './components/Graphics/Graphics'
 import Groupings from './components/Groupings/Groupings'
 import PortalItemLayer from './components/PortalItemLayer/PortalItemLayer'
 import SceneView from './components/SceneView/SceneView'
+import ImageryLayer from './components/ImageryLayer/ImageryLayer'
 import SketchWidget from './components/SketchWidget/SketchWidget'
 import SketchViewModeler from './components/SketchViewModeler/SketchViewModeler'
 import LoadModules from './components/LoadModules/LoadModules'
@@ -83,6 +92,7 @@ export default {
     Graphics,
     Groupings,
     PortalItemLayer,
+    ImageryLayer,
     SceneView,
     SketchWidget,
     SketchViewModeler,

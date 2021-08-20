@@ -6,6 +6,7 @@ export const MODULE_LOOKUP = {
   'GroupLayer': 'esri/layers/GroupLayer',
   'Graphic': 'esri/Graphic',
   'GraphicsLayer': 'esri/layers/GraphicsLayer',
+  'ImageryLayer': 'esri/layers/ImageryLayer',
   'Layer': 'esri/layers/Layer',
   'LayerList': 'esri/widgets/LayerList',
   'Map': 'esri/Map',
