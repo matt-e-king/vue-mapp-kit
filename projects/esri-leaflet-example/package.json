@@ -12,6 +12,9 @@
     "@vue-mapp-kit/esri-leaflet": "^3.0.0-alpha.0",
     "@vue-mapp-kit/leaflet": "^3.0.0-alpha.0",
     "core-js": "^3.6.5",
+    "esri-leaflet": "^3.0.4",
+    "esri-leaflet-cluster": "^2.1.0",
+    "leaflet.markercluster": "^1.5.3",
     "vue": "^2.6.12",
     "vuex": "^3.0.1"
   },
@@ -24,9 +27,6 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "esri-leaflet": "^2.3.2",
-    "esri-leaflet-cluster": "^2.0.1",
-    "leaflet.markercluster": "^1.4.1",
     "vue-template-compiler": "^2.6.12"
   }
 }

@@ -11,16 +11,29 @@
         import 'leaflet.markercluster/dist/MarkerCluster.css'
       </code>
     </p>
-    <l-map :map-id="mapId">
-      <e-basemap-layer 
-        basemap="Gray"/>
-      <e-cluster-feature-layer 
+    <l-map
+      :map-id="mapId"
+      :options="{
+        center: [0, 0],
+        zoom: 2,
+        maxZoom: 18
+      }"
+    >
+      <l-tile-layer
+        url-template="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+        :options="{
+          attribution: 'Tiles &copy; Esri',
+          maxZoom: 18,
+          label: 'Default'
+        }"
+      />
+      <e-l-cluster-feature-layer
         v-bind="featureLayerOptions"
         :events="['clusterclick']"
         enable-bus
-        v-on:clusterclick="handleClusterClick"/>
+        @clusterclick="handleClusterClick"
+      />
     </l-map>
-
     
     <p>
       <a href="https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/esri-leaflet-example/src/components/ClusteringPoints.vue" target="_blank" rel="noopener">Code on Github</a>
@@ -29,35 +42,25 @@
 </template>
 
 <script>
-  import { mapGetters} from 'vuex'
-  import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-  import 'leaflet.markercluster/dist/MarkerCluster.css'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
 
-  export default {
-    mounted() {
-      this.getMap(this.mapId).setView([0, 0], 2)
-    },
-
-    data() {
-      return {
-        mapId: 'clustering-points',
-        featureLayerOptions: {
-          layerName: 'clusteringPoints',
-          options: {
-            url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0'
-          }
+export default {
+  data() {
+    return {
+      mapId: 'clustering-points',
+      featureLayerOptions: {
+        options: {
+          url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0'
         }
       }
-    },
+    }
+  },
 
-    computed: {
-      ...mapGetters(['getMap'])
-    },
-
-    methods: {
-      handleClusterClick(e) {
-        console.log('Cluster event: ', e)
-      }
+  methods: {
+    handleClusterClick(e) {
+      console.log('Cluster event: ', e)
     }
   }
+}
 </script>

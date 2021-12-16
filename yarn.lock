@@ -5383,7 +5383,7 @@ esrecurse@^4.1.0, esrecurse@^4.3.0:
   dependencies:
     estraverse "^5.2.0"
 
-esri-leaflet-cluster@^2.0.0, esri-leaflet-cluster@^2.0.1:
+esri-leaflet-cluster@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/esri-leaflet-cluster/-/esri-leaflet-cluster-2.1.0.tgz#30f5104c8768c5d9d6a2015c870bb1b7da9bc9be"
   integrity sha512-q07BHPXkluyb8STt/2m2spSecBiZj/Eqaiab8J14mlJ9RxAF11HthDb/09UOiJTmbpgvLUV1nPs2l7dKyY7xqg==
@@ -5392,10 +5392,18 @@ esri-leaflet-cluster@^2.0.0, esri-leaflet-cluster@^2.0.1:
     leaflet "^1.0.0"
     leaflet.markercluster "^1.0.0"
 
-esri-leaflet@^2.0.0, esri-leaflet@^2.2.4, esri-leaflet@^2.3.2:
+esri-leaflet@^2.0.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-2.5.0.tgz#ab800a57903fabdf7d9d84715b55546f976a3683"
   integrity sha512-c8rsE4op7sSVGX4/u3SBzbRU7BaR/4oL63+1ReBuUdFFdYMmMZjSkUOsrAOo59Jh8cRM5NB3MiHBCNAlNr/CsQ==
+  dependencies:
+    "@terraformer/arcgis" "^2.0.7"
+    tiny-binary-search "^1.0.3"
+
+esri-leaflet@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-3.0.4.tgz#399d8422da453f59b658394f0ea2a69ea42a9c76"
+  integrity sha512-K/nnrlu9DUptYWQtBxGRVCFxJA8GSSyw6KNH/onxQ7jmuKMoS3rzV6kAntFv5bF/Iued3hqRXxbPnQD7oDcrAg==
   dependencies:
     "@terraformer/arcgis" "^2.0.7"
     tiny-binary-search "^1.0.3"
@@ -7842,12 +7850,17 @@ launch-editor@^2.2.1:
     chalk "^2.3.0"
     shell-quote "^1.6.1"
 
-leaflet.markercluster@^1.0.0, leaflet.markercluster@^1.4.1:
+leaflet.markercluster@^1.0.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.4.1.tgz#b53f2c4f2ca7306ddab1dbb6f1861d5e8aa6c5e5"
   integrity sha512-ZSEpE/EFApR0bJ1w/dUGwTSUvWlpalKqIzkaYdYB7jaftQA/Y2Jav+eT4CMtEYFj+ZK4mswP13Q2acnPBnhGOw==
 
-leaflet@^1.0.0, leaflet@^1.5.1, leaflet@^1.6.0, leaflet@^1.7.1:
+leaflet.markercluster@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.5.3.tgz#9cdb52a4eab92671832e1ef9899669e80efc4056"
+  integrity sha512-vPTw/Bndq7eQHjLBVlWpnGeLa3t+3zGiuM7fJwCkiMFq+nmRuG3RI3f7f4N4TDX7T4NpbAXpR2+NTRSEGfCSeA==
+
+leaflet@^1.0.0, leaflet@^1.6.0, leaflet@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
   integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==

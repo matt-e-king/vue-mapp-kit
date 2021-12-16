@@ -3,11 +3,13 @@
 A component driven approach to managing Leaflet objects using Vue. Each component supported in this library has an almost identical interface to each respective class in [Leaflet](https://leafletjs.com/reference-1.7.1.html).
 
 ### Table of Contents
+ - [v3 Changes](#v3-changes)
  - [Getting Started](#getting-started)
  - [Quick Start Guide](#quick-start-guide)
    - [Preparing your page](#preparing-your-page)
    - [Setting up the map](#setting-up-the-map)
    - [Markers, circles and polygons](#markers-circles-and-polygons)
+   - [Accessing Objects in your script](#accessing-objects-in-your-script)
    - [Working with popups](#working-with-popups)
    - [Events](#events)
    - [Groups](#feature-and-layer-groups)
@@ -16,10 +18,16 @@ A component driven approach to managing Leaflet objects using Vue. Each componen
  - [More Code Examples Here](../../projects/leaflet-example/src/components)
  - [EsriLeaflet (@vue-mapp-kit/esri-leaflet)](https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/esri-leaflet)
 
-### Demos
-[Demo for all code exmamples in /projects/leaflet-example/src/components](https://cct.cals.arizona.edu/vueaflet/)
+### Demo
+Clone repo and `cd` into `/projects/leaflet-example` and run `yarn install && yarn serve`
 
 ----------
+
+## V3 BREAKING CHANGES
+ * Removed the ability to saved objects in Vuex store
+
+----------
+
 ## Getting Started
 ```
 npm install --save leaflet @vue-mapp-kit/leaflet
@@ -41,7 +49,7 @@ new Vue({
 ```
 
 ## Quick Start Guide
-These simple examples mirror the effort in the [Leaflet Quick Start Guide](http://leafletjs.com/examples/quick-start/). These examples use the single file component structure, loaded by `vue-loader`
+These simple examples mirrors the effort in the [Leaflet Quick Start Guide](http://leafletjs.com/examples/quick-start/). These examples use the single file component structure, loaded by `vue-loader`
 
 
 ----------
@@ -174,6 +182,10 @@ Adding a circle and polygon are fairly similar:
   ]"
 />
 ```
+
+### Accessing Objects in your script
+Each component is equipped with a `@ready` event which will emit `{ event, module }` to whatever handler is used.
+
 ### Working with popups
 Popups starts to expose some of the flexibility of VueMappKit. You can handle popups in two ways:
 

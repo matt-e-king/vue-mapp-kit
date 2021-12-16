@@ -1,6 +1,6 @@
 <template>
   <div class="event-sibling">
-    <h3>Sibling component listening to cluster clicks:</h3>
+    <h3>Sibling component listening to cluster clicks from above:</h3>
     <p>Count: {{ counter }}</p>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   },
 
   created() {
-    this.$mappKitBus.$on('clusterFeatureLayer-clustering-points-clusterclick', () => {
+    this.$mappKitBus.$on('clustering-points-clusterFeatureLayer-clusterclick', () => {
       this.counter++
     })
 

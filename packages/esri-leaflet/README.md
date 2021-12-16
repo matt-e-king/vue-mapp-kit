@@ -1,80 +1,58 @@
 
 # @vue-mapp-kit/esri-leaflet #
 
-This library (or set of components) uses [@vue-mapp-kit/leaflet](https://github.com/matt-e-king/vue-mapp-kit) as its primary dependency. Similar to how @vue-mapp-kit/leaflet provides a "vuetified" approach to handling Leaflet objects, MappKitEsriLeaflet provides the same methodology for handling MappKitEsriLeaflet objects. All objects are managed in a Vuex store, providing the developer easy access from anywhere in their Vue application.
+This library (or set of components) uses [@vue-mapp-kit/leaflet](https://github.com/matt-e-king/vue-mapp-kit) as its primary dependency. Similar to how @vue-mapp-kit/leaflet provides a "vuetified" approach to handling EsriLeaflet objects, MappKitEsriLeaflet provides the same methodology for handling EsriLeaflet objects.
 
 **This project is currently in development with ZERO test coverage! Use at your own risk :)** 
-
+ - [v3 Changes](#v3-changes)
  - [Getting Started](#getting-started)
  - [Code Examples](#code-examples)
- - [Quick Start Guide](#quick-start-guide)
+ - [Accessing Objects in your script](#accessing-objects-in-your-script)
+
+----------
+
+### Demo
+Clone repo and `cd` into `/projects/esri-leaflet-example` and run `yarn install && yarn serve`
+
+----------
+
+## V3 BREAKING CHANGES
+ * Removed the ability to saved objects in Vuex store
+ * Removed Basemap component
+ * Change component naming convention: e.g. \<e-feature-layer\> to \<e-l-feature-layer\>
 
 ----------
 ## Getting Started
 ```
-npm install --save @vue-mapp-kit/leaflet @vue-mapp-kit/esri-leaflet
-yarn add @vue-mapp-kit/leaflet @vue-mapp-kit/esri-leaflet
+npm install --save leaflet esri-leaflet @vue-mapp-kit/leaflet @vue-mapp-kit/esri-leaflet
+yarn add leaflet esri-leaflet @vue-mapp-kit/leaflet @vue-mapp-kit/esri-leaflet
 ```
 
-**Note: You must also yarn/npm install `esri-leaflet`, `esri-leaflet-cluster (must use 2.0.0)` and `leaflet.markercluster`
-Assuming you are using a `vue-cli` template, your `src/main.js` will look something like this:
-
 ```
-import Vue from 'vue'
-import App from './App'
-import store from 'store'
-import MappKitLeaflet from '@vue-mapp-kit/leaflet' // core comes as a dependency of @vue-mapp-kit/esri-leaflet
+import Vue from 'vue';
+import App from './App.vue';
+import MappKitLeaflet from '@vue-mapp-kit/leaflet'
 import MappKitEsriLeaflet from '@vue-mapp-kit/esri-leaflet'
 
-// pass your vuex store to MapKitLeaflet
-Vue.use(MappKitLeaflet, { store })
+Vue.use(MappKitLeaflet)
 Vue.use(MappKitEsriLeaflet)
+Vue.config.productionTip = false;
 
 new Vue({
-  el: '#app',
-  store,
-  template: '<App/>',
-  components: { App }
-})
+  render: h => h(App),
+}).$mount('#app');
 ```
-NOTE: This library relies on Vuex in order to store your Leaflet objects.
 
 ----------
 ## Code Examples
 These simple examples mirror the examples found in the [MappKitEsriLeaflet documentation](https://esri.github.io/esri-leaflet/examples/)
 
- - [Showing ArcGIS Basemap](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/esri-leaflet-example/src/components/ShowingArcGisBasemap.vue)
- - [Basemap With Labels](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/esri-leaflet-example/src/components/BasemapWithLabels.vue)
- - [Simple Feature Layer](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/esri-leaflet-example/src/components/SimpleFeatureLayer.vue)
- - [Simple Image Map Layer](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/esri-leaflet-example/src/components/SimpleImageMapLayer.vue)
- - [Clustering Points](https://github.com/matt-e-king/vue-mapp-kit/tree/master/projects/esri-leaflet-example/src/components/ClusteringPoints.vue)
+ - [Tiled Map Layer](../../projects/esri-leaflet-example/src/components/TiledMapLayer.vue)
+ - [Feature Layer](../../projects/esri-leaflet-example/src/components/FeatureLayer.vue)
+ - [Image Map Layer](../../projects/esri-leaflet-example/src/components/ImageMapLayer.vue)
+ - [Dynamic Map Layer](../../projects/esri-leaflet-example/src/components/DynamicMapLayer.vue)
+ - [Clustering Points](../../projects/esri-leaflet-example/src/components/ClusteringPoints.vue)
+ - [Event](../../projects/esri-leaflet-example/src/components/EventSibling.vue)
 
-More examples coming soon!
-
-----------
-## Quick Start Guide
-Coming soon! Will provide a full walk through to take advantage of all sorts of MappKitEsriLeaflet features, working with events, working with queries, and managing your MappKitEsriLeaflet objects using Vuex.
-
-### Events
-Pass in an array events (as strings) that are supported by the esri layer type. There is a "ready" event that is handle by MappKitEsriLeaflet for you :). Each Leaflet supported event `$emits` back an `{ event, layer }` object:
-```
-<template>
-  <div class="example-map">
-    <l-map :mapId="mapId" :events="['click']" v-on:click="handleMapClick">
-      ...
-      
-      <e-cluster-feature-layer 
-        v-bind="featureLayerOptions"
-        :events="['clusterclick']"
-        enable-bus
-        v-on:clusterclick="handleClusterClick"/>
-        
-      ...
-    </l-map>
-  </div>
-</template>
-
-...
-```
-
-Additionaly, you can pass a boolean prop called `enabled-bus` which will also attach each event passed in the array of events to property attached to each component as `this.$mappKitBus`. See the `EventSibling.vue` component as an example.
+## Accessing Objects in your script
+Each component is equipped with a `@ready` event which will emit `{ event, module }` to whatever handler is used. This is the best way to access built-in methods on the respective `esri-leaflet` modules being instantiated.

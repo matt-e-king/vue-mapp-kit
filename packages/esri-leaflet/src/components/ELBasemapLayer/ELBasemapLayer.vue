@@ -1,6 +1,7 @@
 <template></template>
 
 <script>
+  // DEPRECATED???
   import { basemapLayer } from 'esri-leaflet'
   import LayerMixin from '@/mixins/LayerMixin'
 

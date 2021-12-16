@@ -5,30 +5,30 @@
     <a href="https://www.npmjs.com/org/vue-mapp-kit" target="_blank" rel="noopener">NPM</a>
     <p>This library (or set of components) uses <a href="https://cct.cals.arizona.edu/vueaflet/" target="_blank" rel="noopener">@vue-mapp-kit/leaflet</a> as its primary dependency. Similar to how MappKitLeaflet provides a "vuetified" approach to handling Leaflet objects, MappKitEsriLeaflet provides the same methodology for handling MappKitEsriLeaflet objects. All objects are managed in a Vuex store, providing the developer easy access from anywhere in their Vue application.</p>
 
-    <showing-arc-gis-basemap></showing-arc-gis-basemap>
-    <basemap-with-labels></basemap-with-labels>
-    <simple-feature-layer></simple-feature-layer>
-    <simple-image-map-layer></simple-image-map-layer>
-    <clustering-points></clustering-points>
-    <event-sibling></event-sibling>
+    <tiled-map-layer />
+    <feature-layer />
+    <image-map-layer />
+    <dynamic-map-layer />
+    <clustering-points />
+    <event-sibling />
   </div>
 </template>
 
 <script>
-import ShowingArcGisBasemap from '@/components/ShowingArcGisBasemap'
-import BasemapWithLabels from '@/components/BasemapWithLabels'
-import SimpleFeatureLayer from '@/components/SimpleFeatureLayer'
-import SimpleImageMapLayer from '@/components/SimpleImageMapLayer'
+import TiledMapLayer from '@/components/TiledMapLayer'
+import FeatureLayer from '@/components/FeatureLayer'
+import ImageMapLayer from '@/components/ImageMapLayer'
+import DynamicMapLayer from '@/components/DynamicMapLayer'
 import ClusteringPoints from '@/components/ClusteringPoints'
 import EventSibling from '@/components/EventSibling'
 
 export default {
   name: 'app',
   components: {
-    ShowingArcGisBasemap,
-    BasemapWithLabels,
-    SimpleFeatureLayer,
-    SimpleImageMapLayer,
+    TiledMapLayer,
+    FeatureLayer,
+    ImageMapLayer,
+    DynamicMapLayer,
     ClusteringPoints,
     EventSibling
   }
