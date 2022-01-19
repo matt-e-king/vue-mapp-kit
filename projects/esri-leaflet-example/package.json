@@ -1,6 +1,6 @@
 {
   "name": "esri-leaflet-example",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.1-alpha.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,8 +9,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@vue-mapp-kit/esri-leaflet": "^3.0.0-alpha.0",
-    "@vue-mapp-kit/leaflet": "^3.0.0-alpha.0",
+    "@vue-mapp-kit/esri-leaflet": "^3.0.1-alpha.0",
+    "@vue-mapp-kit/leaflet": "^3.0.1-alpha.0",
     "core-js": "^3.6.5",
     "esri-leaflet": "^3.0.4",
     "esri-leaflet-cluster": "^2.1.0",

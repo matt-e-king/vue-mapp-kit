@@ -1,6 +1,6 @@
 {
   "name": "@vue-mapp-kit/leaflet",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.1-alpha.0",
   "description": "A component driven approach to managing Leaflet objects using Vue and Vuex.",
   "main": "dist/mapp-kit-leaflet.umd.js",
   "repository": {
