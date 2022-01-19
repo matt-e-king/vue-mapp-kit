@@ -5,6 +5,7 @@ export const MODULE_LOOKUP = {
   'FeatureLayer': 'esri/layers/FeatureLayer',
   'TileLayer': 'esri/layers/TileLayer',
   'ImageryTileLayer': 'esri/layers/ImageryTileLayer',
+  'WMSLayer': 'esri/layers/WMSLayer',
   'GroupLayer': 'esri/layers/GroupLayer',
   'Graphic': 'esri/Graphic',
   'GraphicsLayer': 'esri/layers/GraphicsLayer',
