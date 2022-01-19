@@ -3,6 +3,8 @@ import { loadModules } from 'esri-loader'
 export const MODULE_LOOKUP = {
   'GeoJSONLayer': 'esri/layers/GeoJSONLayer',
   'FeatureLayer': 'esri/layers/FeatureLayer',
+  'TileLayer': 'esri/layers/TileLayer',
+  'ImageryTileLayer': 'esri/layers/ImageryTileLayer',
   'GroupLayer': 'esri/layers/GroupLayer',
   'Graphic': 'esri/Graphic',
   'GraphicsLayer': 'esri/layers/GraphicsLayer',
