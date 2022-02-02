@@ -5408,10 +5408,10 @@ esri-leaflet@^3.0.4:
     "@terraformer/arcgis" "^2.0.7"
     tiny-binary-search "^1.0.3"
 
-esri-loader@^2.15.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/esri-loader/-/esri-loader-2.15.0.tgz#c1b47082075c172b2f564ac933448834c2e8703a"
-  integrity sha512-n5LtVQaLURxhQMK0dc/GSfpnC//h3OhV9YkPAqHc3mO3aYkmJ+t8pVkboI2dDTWGKuCbp8MYmR400cZVkuyHmw==
+esri-loader@3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/esri-loader/-/esri-loader-3.4.0.tgz#86a56bc6cf5d56209b09e32382e49f889944fab6"
+  integrity sha512-iS3SbBmrnr4TlUdAjyyVZD2yCud8AMZkyJcmYEVzTiE5wVUtdN8d9USp7XYtilgwkJe/eWR2f2G1+S58ESqLuQ==
 
 estraverse@^4.1.1, estraverse@^4.2.0:
   version "4.3.0"

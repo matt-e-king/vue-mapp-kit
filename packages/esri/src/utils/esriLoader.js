@@ -3,8 +3,10 @@ import { loadModules } from 'esri-loader'
 export const MODULE_LOOKUP = {
   'GeoJSONLayer': 'esri/layers/GeoJSONLayer',
   'FeatureLayer': 'esri/layers/FeatureLayer',
+  'MapImageLayer': 'esri/layers/MapImageLayer',
   'TileLayer': 'esri/layers/TileLayer',
   'ImageryTileLayer': 'esri/layers/ImageryTileLayer',
+  'WFSLayer': 'esri/layers/WFSLayer',
   'WMSLayer': 'esri/layers/WMSLayer',
   'GroupLayer': 'esri/layers/GroupLayer',
   'Graphic': 'esri/Graphic',
@@ -19,6 +21,7 @@ export const MODULE_LOOKUP = {
   'Sketch': 'esri/widgets/Sketch',
   'SketchViewModel': 'esri/widgets/Sketch/SketchViewModel',
   'ScaleBar': 'esri/widgets/ScaleBar',
+  'Legend': 'esri/widgets/Legend',
   'Draw': 'esri/views/draw/Draw'
 }
 
