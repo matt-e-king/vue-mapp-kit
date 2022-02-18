@@ -11,38 +11,49 @@ export default {
 
   mixins: [constructorMixin, injectMapViewMixin, injectGraphicsLayer],
 
+  props: {
+    tool: {
+      type: String,
+      default: ''
+    },
+    toolMode: {
+      type: Object,
+      default: () => ({ mode: 'hybrid' })
+    }
+  },
+
   data () {
     return {
       moduleName: 'SketchViewModel'
     }
   },
 
-  computed: {
-    mergeProps() {
-      return {
-        ...(this.properties.layer ? {} : { layer: this.layer }),
-        ...(this.properties.view ? {} : { view: this.view })
-      }
-    },
-    layer () {
-      const {
-        layer = this.getGraphicsLayer()
-      } = this.properties
-
-      return layer
-    },
-    view () {
-      const {
-        view = this.getMapView()
-      } = this.properties
-
-      return view
-    }
+  watch: {
+    tool: 'setTool'
   },
+
+  // @todo use "watchUtils" to watch this.module.activeTool
+  // or think of some way to keep tool active on.create success
 
   methods: {
     // override
     addToHook() {},
+    mergePropsHook () {
+      if (!this.getMapView() || !this.getGraphicsLayer()) {
+        console.error('[ESketch] no map view or no graphics layers')
+      }
+      return {
+        ...(this.properties.layer ? {} : { layer: this.getGraphicsLayer() }),
+        ...(this.properties.view ? {} : { view: this.getMapView() })
+      }
+    },
+    setTool (tool) {
+      if (tool) {
+        this.module.SketchViewModel.create(tool, this.toolMode)
+      } else {
+        // this.module.SketchViewModel.cancel()
+      }
+    }
   }
 }
 </script>

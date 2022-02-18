@@ -40,23 +40,13 @@ export default {
     }
   },
 
-  computed: {
-    mergeProps() {
-      if (!this.view) console.error('[EDraw] no map view')
-      return this.properties.view ? {} : { view: this.getMapView() }
-    },
-    view () {
-      const {
-        view
-      } = this.properties
-
-      return view ? view : this.getMapView()
-    }
-  },
-
   methods: {
     // override
     addToHook() {},
+    mergePropsHook () {
+      if (!this.getMapView()) console.error('[EDraw] no MapView')
+      return { view: this.getMapView() }
+    },
     afterInitHook () {
       const action = this.module.Draw.create(this.action, this.options)
 
@@ -95,7 +85,7 @@ export default {
         geometry: {
           type: 'polygon',
           rings: vertices,
-          spatialReference: this.view.spatialReference
+          spatialReference: this.getMapView().spatialReference
         },
         symbol: {
           type: 'simple-fill', // autocasts as SimpleFillSymbol

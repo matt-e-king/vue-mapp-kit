@@ -26,22 +26,12 @@ export default {
 
   methods: {
     addToHook() {
-      if (!this.view) console.error('[EScaleBar] no map view')
-      this.view.ui.add(this.module.ScaleBar, this.position)
-    }
-  },
-
-  computed: {
-    mergeProps() {
-      if (!this.view) console.error('[EScaleBar] no map view')
-      return this.properties.view ? {} : { view: this.getMapView() }
+      if (!this.getMapView()) console.error('[EScaleBar] no map view')
+      this.getMapView().ui.add(this.module.ScaleBar, this.position)
     },
-    view () {
-      const {
-        view
-      } = this.properties
-
-      return view ? view : this.getMapView()
+    mergePropsHook () {
+      if (!this.getMapView()) console.error('[EScaleBar] no map view')
+      return this.properties.view ? {} : { view: this.getMapView() }
     }
   }
 }

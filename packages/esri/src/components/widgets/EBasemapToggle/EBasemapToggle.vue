@@ -26,25 +26,13 @@ export default {
 
   methods: {
     addToHook() {
-      if (!this.view) console.error('[EBasemapToggle] no map view')
-      this.view.ui.add(this.module.BasemapToggle, this.position)
-    }
-  },
-
-  computed: {
-    mergeProps() {
-      if (!this.view) console.error('[EBasemapToggle] no map view')
-      return this.properties.view ? {} : { view: this.getMapView() }
+      if (!this.getMapView()) console.error('[EBasemapToggle] no MapView')
+      this.getMapView().ui.add(this.module.BasemapToggle, this.position)
     },
-    view () {
-      const {
-        view
-      } = this.properties
-
-      return view ? view : this.getMapView()
+    mergePropsHook () {
+      if (!this.getMapView()) console.error('[EBasemapToggle] no MapView')
+      return this.properties.view ? {} : { view: this.getMapView() }
     }
   }
 }
 </script>
-
-<style scoped></style>

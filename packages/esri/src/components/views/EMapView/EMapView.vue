@@ -9,7 +9,7 @@ import constructorMixin from '@/mixins/constructorMixin'
 import injectMapMixin from '@/mixins/injectMapMixin'
 
 export default {
-  name: 'e-map-view',
+  name: 'EMapView',
 
   mixins: [constructorMixin, injectMapMixin],
 
@@ -34,28 +34,17 @@ export default {
     }
   },
 
-  computed: {
-    // this overrides mergeProps in constructorMixin
-    // this merges with $props.properties passed in
-    // MapView requires "map" key in properties passed to constructor
-    // https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html
-    map () {
-      const {
-        map
-      } = this.properties
-
-      return map ? map : this.getMap()
-    },
-    mergeProps() {
-      if (!this.map) console.error('[EMapView] no parent map found')
-
-      return this.properties.map ? {} : { map: this.getMap() }
-    }
-  },
-
   methods: {
     // override
     addToHook() {},
+    /**
+     * MapView requires a property that references the map
+     * Using a method to ensure the map instance doesn't become an observable
+     */
+    mergePropsHook () {
+      if (!this.getMap()) { console.error('[EMapView] No map instance for MapView') }
+      return this.properties.map ? {} : { map: this.getMap() }
+    },
     getMapView() {
       return this.module.MapView
     }

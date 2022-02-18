@@ -36,8 +36,8 @@
           <e-graphics-layer>
             <e-sketch-view-model
               :events="['create']"
+              :tool="tool"
               @create="handleSketchAdd"
-              @ready="handleSketchReady"
             />
           </e-graphics-layer>
         </e-map-view>
@@ -49,18 +49,15 @@
 export default {
   name: 'SketchViewModeler',
 
-  mounted () {
-    // not setting on data prop to avoid observable
-    this.sketchModel = null
+  data () {
+    return {
+      tool: ''
+    }
   },
 
   methods: {
     handleSketch (shape) {
-      this.sketchModel.create(shape, { mode: 'click' })
-    },
-    handleSketchReady (sketch) {
-      // not defined in data to make is non-observable
-      this.sketchModel = sketch
+      this.tool = shape
     },
     handleSketchAdd (obj) {
       const {

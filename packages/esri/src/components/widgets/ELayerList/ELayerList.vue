@@ -6,7 +6,7 @@ import constructorMixin from '@/mixins/constructorMixin'
 import injectMapViewMixin from '@/mixins/injectMapViewMixin'
 
 export default {
-  name: 'e-layer-list',
+  name: 'ELayerList',
 
   // constructor handles created()
   mixins: [constructorMixin, injectMapViewMixin],
@@ -26,22 +26,12 @@ export default {
 
   methods: {
     addToHook() {
-      if (!this.view) console.error('[ELayerList] no map view')
-      this.view.ui.add(this.module.LayerList, this.position)
-    }
-  },
-
-  computed: {
-    mergeProps() {
-      if (!this.view) console.error('[ELayerList] no map view')
-      return this.properties.view ? {} : { view: this.getMapView() }
+      if (!this.getMapView()) console.error('[ELayerList] no map view')
+      this.getMapView().ui.add(this.module.LayerList, this.position)
     },
-    view () {
-      const {
-        view
-      } = this.properties
-
-      return view ? view : this.getMapView()
+    mergePropsHook () {
+      if (!this.getMapView()) console.error('[ELayerList] no map view')
+      return this.properties.view ? {} : { view: this.getMapView() }
     }
   }
 }

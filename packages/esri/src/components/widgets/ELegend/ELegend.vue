@@ -26,22 +26,12 @@ export default {
 
   methods: {
     addToHook() {
-      if (!this.view) console.error('[ELegend] no map view')
-      this.view.ui.add(this.module.Legend, this.position)
-    }
-  },
-
-  computed: {
-    mergeProps() {
-      if (!this.view) console.error('[ELegend] no map view')
-      return this.properties.view ? {} : { view: this.getMapView() }
+      if (!this.getMapView()) console.error('[ELegend] no map view')
+      this.getMapView().ui.add(this.module.Legend, this.position)
     },
-    view () {
-      const {
-        view
-      } = this.properties
-
-      return view ? view : this.getMapView()
+    mergePropsHook () {
+      if (!this.getMapView()) console.error('[ELegend] no map view')
+      return this.properties.view ? {} : { view: this.getMapView() }
     }
   }
 }

@@ -6,7 +6,7 @@ import constructorMixin from '@/mixins/constructorMixin'
 import injectMapMixin from '@/mixins/injectMapMixin'
 
 export default {
-  name: 'e-feature-layer',
+  name: 'EFeatureLayer',
 
   mixins: [constructorMixin, injectMapMixin],
 

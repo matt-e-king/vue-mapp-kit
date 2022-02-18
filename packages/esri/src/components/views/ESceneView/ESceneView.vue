@@ -27,28 +27,13 @@ export default {
     }
   },
 
-  computed: {
-    // this overrides mergeProps in constructorMixin
-    // this merges with $props.properties passed in
-    // MapView requires "map" key in properties passed to constructor
-    // https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html
-    map () {
-      const {
-        map
-      } = this.properties
-
-      return map ? map : this.getMap()
-    },
-    mergeProps() {
-      if (!this.map) console.error('[ESceneView] no parent map found')
-
-      return this.properties.map ? {} : { map: this.getMap() }
-    }
-  },
-
   methods: {
     // override
     addToHook() {},
+    mergePropsHook () {
+      if (!this.getMap()) console.error('[ESceneView] no parent map found')
+      return this.properties.map ? {} : { map: this.getMap() }
+    },
     getMapView() {
       return this.module.SceneView
     }

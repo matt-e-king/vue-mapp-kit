@@ -1,4 +1,5 @@
 import { getModules } from '@/utils/esriLoader'
+import MappKitBus from '@/buses'
 
 export default {
   watch: {
@@ -15,6 +16,7 @@ export default {
       type: Object
     },
     events: Array,
+    enableBus: Boolean,
     properties: {
       type: Object,
       default: () => ({})
@@ -45,7 +47,7 @@ export default {
 
           this.module[name] = this.noInstantiation
             ? module
-            : new module({ ...this.properties, ...this.mergeProps })
+            : new module({ ...this.properties, ...this.mergeProps, ...this.mergePropsHook() })
 
           if (this.module[name].when) {
             this.module[name].when((l) => {
@@ -69,6 +71,9 @@ export default {
     },
     afterLoadedHook() {
       this.$emit('ready', this.module[this.name])
+      if (this.enableBus) {
+        MappKitBus.$emit(`${this.name}${this.properties.id ? `-${this.properties.id}` : ''}-ready`, this.module[this.name])
+      }
     },
     addToHook () {
       if (!this.addTo) {
@@ -82,6 +87,13 @@ export default {
         this.addTo.add(this.module[this.name])
       }
     },
+    /**
+     * some esri classes require references to parent instance (e.g. map, mapview, graphicslayer)
+     * to be passed as properties during constructions
+     * this mergePropsHook allows individual components to set this without needed
+     * the parent instance to be an observable property
+     */
+    mergePropsHook () { return {}},
     afterInitHook() {},
     setupEvents() {
       if (
@@ -93,15 +105,21 @@ export default {
           const eventType = this.events[key]
           
           this.module[this.name].on(eventType, (event) => {
-            this.$emit(eventType, {
+            const payload = {
               event,
               source: this.module[this.name]
-            })
+            }
+            this.$emit(eventType, payload)
+
+            if (this.enableBus) {
+              MappKitBus.$emit(`${this.name}${this.properties.id ? `-${this.properties.id}` : ''}-${eventType}`, payload)
+            }
           })
         }
       }
     },
     beforeDestroyHook() {
+      // @todo this does not account for view.ui.remove
       if (this.addTo && typeof this.addTo.remove === 'function') this.addTo.remove(this.module[this.name])
       else if (this.parent && typeof this.parent.remove === 'function') this.parent.remove(this.module[this.name])
       else if (this.getMap && this.getMap()) this.getMap().remove(this.module[this.name])

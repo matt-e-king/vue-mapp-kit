@@ -7,7 +7,7 @@ import injectMapViewMixin from '@/mixins/injectMapViewMixin'
 import injectGraphicsLayer from '@/mixins/injectGraphicsLayer'
 
 export default {
-  name: 'e-sketch',
+  name: 'ESketch',
 
   // constructor handles created()
   mixins: [constructorMixin, injectMapViewMixin, injectGraphicsLayer],
@@ -27,34 +27,18 @@ export default {
 
   methods: {
     addToHook() {
-      if (!this.view) console.error('[ESketch] no map view')
-      this.view.ui.add(this.module.Sketch, this.position)
-    }
-  },
-
-  computed: {
-    mergeProps() {
-      return {
-        ...(this.properties.layer ? {} : { layer: this.layer }),
-        ...(this.properties.view ? {} : { view: this.view })
+      if (!this.getMapView()) { console.error('[ESketch] no map view') }
+      this.getMapView().ui.add(this.module.Sketch, this.position)
+    },
+    mergePropsHook () {
+      if (!this.getMapView() || !this.getGraphicsLayer()) {
+        console.error('[ESketch] no map view or no graphics layers')
       }
-    },
-    layer () {
-      const {
-        layer = this.getGraphicsLayer()
-      } = this.properties
-
-      return layer
-    },
-    view () {
-      const {
-        view = this.getMapView()
-      } = this.properties
-
-      return view
+      return {
+        ...(this.properties.layer ? {} : { layer: this.getGraphicsLayer() }),
+        ...(this.properties.view ? {} : { view: this.getMapView() })
+      }
     }
   }
 }
 </script>
-
-<style scoped></style>
