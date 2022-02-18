@@ -1,6 +1,6 @@
 {
   "name": "@vue-mapp-kit/esri",
-  "version": "3.0.3-alpha.0",
+  "version": "3.0.4-alpha.0",
   "description": "A component driven approach to managing Esri ArcGIS 4.x objects",
   "main": "dist/mapp-kit-esri.umd.js",
   "module": "dist/mapp-kit-esri.umd.js",
