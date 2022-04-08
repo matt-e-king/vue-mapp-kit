@@ -4,12 +4,17 @@
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html
 import constructorMixin from '@/mixins/constructorMixin'
 import injectMapMixin from '@/mixins/injectMapMixin'
+import injectGroupLayer from '@/mixins/injectGroupLayer'
 import { getModules } from '@/utils/esriLoader'
 
 export default {
   name: 'e-portal-item',
 
-  mixins: [constructorMixin, injectMapMixin],
+  mixins: [
+    constructorMixin,
+    injectMapMixin,
+    injectGroupLayer
+  ],
 
   mounted () {
     getModules([this.moduleName])

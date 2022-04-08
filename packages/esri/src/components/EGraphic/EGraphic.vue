@@ -19,6 +19,8 @@ export default {
   },
 
   computed: {
+    // @todo need to remove this parent as comuted prop
+    // might already be accounted for in constructor
     parent () {
       return this.addTo || this.getGraphicsLayer() || this.getMapView().graphics
     }

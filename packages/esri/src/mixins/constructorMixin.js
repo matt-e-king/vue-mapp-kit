@@ -8,6 +8,11 @@ export default {
       if (this.module[this.name].hasOwnProperty('visible')) {
         this.$set(this.module[this.name], 'visible', val)
       }
+    },
+    'properties.opacity'(val) {
+      if (this.module[this.name].hasOwnProperty('opacity')) {
+        this.$set(this.module[this.name], 'opacity', val)
+      }
     }
   },
 
@@ -17,6 +22,7 @@ export default {
     },
     events: Array,
     enableBus: Boolean,
+    order: Number,
     properties: {
       type: Object,
       default: () => ({})
@@ -77,8 +83,10 @@ export default {
     },
     addToHook () {
       if (!this.addTo) {
-        if (this.getMap && this.getMap()) {
-          this.getMap().add(this.module[this.name])
+        if (this.getGroupLayer && this.getGroupLayer()) {
+          this.getGroupLayer().add(this.module[this.name], this.order)
+        } else if (this.getMap && this.getMap()) {
+          this.getMap().add(this.module[this.name], this.order)
         } else {
           console.warn('No parent collection found for :', this.name)
           console.warn('Override addToHook if no add is needed')
@@ -122,10 +130,11 @@ export default {
       // @todo this does not account for view.ui.remove
       if (this.addTo && typeof this.addTo.remove === 'function') this.addTo.remove(this.module[this.name])
       else if (this.parent && typeof this.parent.remove === 'function') this.parent.remove(this.module[this.name])
+      else if (this.getGroupLayer && this.getGroupLayer()) this.getGroupLayer().remove(this.module[this.name])
+      else if (this.getGraphicsLayer && this.getGraphicsLayer()) this.getGraphicsLayer().remove(this.module[this.name])
       else if (this.getMap && this.getMap()) this.getMap().remove(this.module[this.name])
       else if (this.getMapView && this.getMapView() && typeof this.getMapView().remove === 'function') this.getMapView().remove(this.module[this.name])
       else if (this.getMapView && this.getMapView() && typeof this.getMapView().graphics.remove === 'function') this.getMapView().graphics.remove(this.module[this.name])
-      else if (this.getGraphicsLayer && this.getGraphicsLayer()) this.getGraphicsLayer().remove(this.module[this.name])
       else console.error('No parent to remove from for :', this.name)
 
       // TODO: seems sloppy

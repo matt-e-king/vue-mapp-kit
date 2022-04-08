@@ -51,8 +51,17 @@ These simple examples mirror the examples found in the [MappKitEsriLeaflet docum
  - [Feature Layer](../../projects/esri-leaflet-example/src/components/FeatureLayer.vue)
  - [Image Map Layer](../../projects/esri-leaflet-example/src/components/ImageMapLayer.vue)
  - [Dynamic Map Layer](../../projects/esri-leaflet-example/src/components/DynamicMapLayer.vue)
- - [Clustering Points](../../projects/esri-leaflet-example/src/components/ClusteringPoints.vue)
+ - [Clustering Points **](../../projects/esri-leaflet-example/src/components/ClusteringPoints.vue)
  - [Event](../../projects/esri-leaflet-example/src/components/EventSibling.vue)
+
+** Using the clustering feature requires you to `npm install` or `yarn add` the following dependencies:
+ * `esri-leaflet-cluster`
+ * `leaflet.markercluster`
+and if you want to use default styles you must include/import the following css files:
+```
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+```
 
 ## Accessing Objects in your script
 Each component is equipped with a `@ready` event which will emit `{ event, module }` to whatever handler is used. This is the best way to access built-in methods on the respective `esri-leaflet` modules being instantiated.

@@ -8,11 +8,16 @@
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
 import constructorMixin from '@/mixins/constructorMixin'
 import injectMapMixin from '@/mixins/injectMapMixin'
+import injectGroupLayer from '@/mixins/injectGroupLayer'
 
 export default {
   name: 'e-graphics-layer',
 
-  mixins: [constructorMixin, injectMapMixin],
+  mixins: [
+    constructorMixin,
+    injectMapMixin,
+    injectGroupLayer
+  ],
 
   provide() {
     return {
@@ -30,7 +35,7 @@ export default {
 
   methods: {
     getGraphicsLayer () {
-      return this.module.GraphicsLayer
+      return this.module[this.moduleName]
     }
   }
 }

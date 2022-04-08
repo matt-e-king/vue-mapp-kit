@@ -1,6 +1,6 @@
 export default {
   inject: {
-    getGraphicsLayer: {
+    getGroupLayer: {
       default: () => (() => {})
     }
   }
