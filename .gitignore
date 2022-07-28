@@ -8,6 +8,7 @@ node_modules
 !/projects/esri-example/
 /dist
 robots.txt
+src.zip
 
 /tests/e2e/reports/
 selenium-debug.log
