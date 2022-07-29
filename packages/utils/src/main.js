@@ -1,1 +1,0 @@
-export { registerComponents } from './index'

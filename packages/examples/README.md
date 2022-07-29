@@ -32,3 +32,10 @@ yarn run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+Notes:
+* list projects in lerna.json
+* list projects in package.json
+* userWOrkspaces in lerna.json
+* user lerna add to use sibling packages when creating a new project
+* add sourceType: 'unambiguous' to each projects babel.config.js

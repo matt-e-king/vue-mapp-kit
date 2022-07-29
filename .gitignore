@@ -6,9 +6,11 @@ node_modules
 !/projects/esri-leaflet-example/
 !/projects/leaflet-example/
 !/projects/esri-example/
+!/projects/examples/
 /dist
 robots.txt
 src.zip
+_bak
 
 /tests/e2e/reports/
 selenium-debug.log

@@ -1,14 +1,15 @@
-module.exports = {
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
   lintOnSave: false,
   css: {
-    modules: true,
     extract: false
   },
   configureWebpack: {
     externals: [
       'esri-loader',
-      'vue',
-      'vuex'
+      // Regex
+      /^(@arcgis\/core).*/
     ]
-  }
-};
+  },
+  transpileDependencies: true
+})

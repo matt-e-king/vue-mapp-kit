@@ -1,5 +1,6 @@
 import * as esri from 'esri-leaflet'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
+// @todo need to remove store dependency from esri-leaflet
 import { 
   VUEAFLET_ADD_MAP_LAYER,
   VUEAFLET_ADD_NAMED_LAYER, 
