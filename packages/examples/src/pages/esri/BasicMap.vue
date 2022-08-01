@@ -57,7 +57,7 @@ export default {
 
   methods: {
     toggleBasemap () {
-      this.basemap = this.basemap === 'streets-vector' ? 'gray' : 'streets-vector'
+      this.basemap = this.basemap === 'streets-vector' ? 'gray-vector' : 'streets-vector'
     }
   }
 }

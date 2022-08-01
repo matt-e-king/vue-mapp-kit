@@ -84,16 +84,8 @@
 </template>
 
 <script>
-import EMap from '@vue-mapp-kit/esri/src/components/EMap/EMap.vue'
-import EMapView from '@vue-mapp-kit/esri/src/components/views/EMapView/EMapView.vue'
-
 export default {
-  name: 'App',
-
-  components: {
-    EMap,
-    EMapView
-  }
+  name: 'App'
 }
 </script>
 

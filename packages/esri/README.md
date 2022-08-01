@@ -11,9 +11,7 @@ v4 of @vue-mapp-kit/esri is now using the ESM imports from `@arcgis/core` and th
  - Tree shaking
    - by default the library expects consumer to import the modules needed in their components
      - e.g. `import EMap from '@vue-mapp-kit/esri/src/components/EMap/EMap'`
-     - If the consumer does not want to import, but rather have all components loaded into their Vue app, they must set `treeShaking` to `false` in the `Vue.use` statement (see [Getting Started](#getting-started) section)
-       - FYI, this could make consumer's app build larger than desired
- - Remove `loadModules`, consumer can use `@arcgis/core` for any additional Esri modules that are not included in this library
+ - Removed `loadModules`, consumer can use `@arcgis/core` for any additional Esri modules that are not included in this library
 
 ----------
 ## Getting Started
@@ -30,12 +28,7 @@ import App from './App.vue'
 import MappKitEsri from '@vue-mapp-kit/esri'
 
 // must use Vue.use if you want to use $mappKitBus
-// treeShaking: false will register ALL component in your Vue app
-Vue.use(MappKitEsri, {
-  options: {
-    treeShaking: true // default
-  }
-})
+Vue.use(MappKitEsri)
 
 new Vue({
   render: h => h(App),
@@ -118,6 +111,7 @@ Additionaly, you can pass a boolean prop called `enable-bus` which will register
   }"
 />
 ```
+
 The event naming convention and listeners looks like this:
 ```javascript
 <script>

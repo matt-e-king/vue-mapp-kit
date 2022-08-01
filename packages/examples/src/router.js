@@ -1,19 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const EsriHome = { template: '<div>test</div>' }
-import BasicMap from '@/pages/esri/BasicMap'
-import WebMapWithLegend from '@/pages/esri/WebMapWithLegend'
-import GeoJsonLayer from '@/pages/esri/GeoJsonLayer'
-import Graphics from '@/pages/esri/Graphics'
-import Groupings from '@/pages/esri/Groupings'
-import TileLayer from '@/pages/esri/TileLayer'
-import ImageryLayer from '@/pages/esri/ImageryLayer'
-import MapImageLayer from '@/pages/esri/MapImageLayer'
-import MapImageLayerPortalItem from '@/pages/esri/MapImageLayerPortalItem'
-import SceneView from '@/pages/esri/SceneView'
-import SketchWidget from '@/pages/esri/SketchWidget'
-import SketchViewModel from '@/pages/esri/SketchViewModel'
+const BasicMap = () => import('@/pages/esri/BasicMap')
+const WebMapWithLegend = () => import('@/pages/esri/WebMapWithLegend')
+const GeoJsonLayer = () => import('@/pages/esri/GeoJsonLayer')
+const Graphics = () => import('@/pages/esri/Graphics')
+const Groupings = () => import('@/pages/esri/Groupings')
+const TileLayer = () => import('@/pages/esri/TileLayer')
+const ImageryLayer = () => import('@/pages/esri/ImageryLayer')
+const MapImageLayer = () => import('@/pages/esri/MapImageLayer')
+const MapImageLayerPortalItem = () => import('@/pages/esri/MapImageLayerPortalItem')
+const SceneView = () => import('@/pages/esri/SceneView')
+const SketchWidget = () => import('@/pages/esri/SketchWidget')
+const SketchViewModel = () => import('@/pages/esri/SketchViewModel')
 
 Vue.use(VueRouter)
 
@@ -22,14 +21,14 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes: [
     { 
-      path: '/esri/webmap-with-legend',
-      name: 'esri-webmap-with-legend',
-      component: WebMapWithLegend
-    },
-    { 
       path: '/esri/basic-map',
       name: 'esri-basic-map',
       component: BasicMap
+    },
+    { 
+      path: '/esri/webmap-with-legend',
+      name: 'esri-webmap-with-legend',
+      component: WebMapWithLegend
     },
     { 
       path: '/esri/geo-json-layer',
