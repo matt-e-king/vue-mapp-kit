@@ -25,7 +25,7 @@
     "serve": "vue-cli-service serve",
     "build": "yarn build:dist && yarn copy-lib",
     "build:dist": "vue-cli-service build --target lib --name mapp-kit-esri './src/main.js'",
-    "copy-lib": "cp -R ./src/ ./ && mv ./components ./lib",
+    "copy-lib": "cp -R ./src/ ./lib",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
