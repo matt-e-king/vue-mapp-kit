@@ -2,6 +2,19 @@
 
 A component driven approach to managing Esri ArcGIS Javascript API 4.x objects using VueJS. Each component supported in this library has an almost identical interface to each respective class in [Esri](https://developers.arcgis.com/javascript/latest/api-reference/).
 
+## v4.x.x breaking changes
+
+v4 of @vue-mapp-kit/esri is now using the ESM imports from `@arcgis/core` and the following must be considered:
+ - Consumer must install the `@arcgis/core` dependency
+ - Consumer must place import Esri global css, e.g. `@import "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/themes/dark/main.css";`
+   - https://developers.arcgis.com/javascript/latest/es-modules/
+ - Tree shaking
+   - by default the library expects consumer to import the modules needed in their components
+     - e.g. `import EMap from '@vue-mapp-kit/esri/src/components/EMap/EMap'`
+     - If the consumer does not want to import, but rather have all components loaded into their Vue app, they must set `treeShaking` to `false` in the `Vue.use` statement (see [Getting Started](#getting-started) section)
+       - FYI, this could make consumer's app build larger than desired
+ - Remove `loadModules`, consumer can use `@arcgis/core` for any additional Esri modules that are not included in this library
+
 ----------
 ## Getting Started
 ```
@@ -12,38 +25,42 @@ yarn add @vue-mapp-kit/esri
 Assuming you are using a `vue-cli` template, your `src/main.js` will look something like this:
 
 ```javascript
-import Vue from 'vue';
-import App from './App.vue';
-import store from './store';
-import MappKitEsri from '@vue-mapp-kit/esri';
+import Vue from 'vue'
+import App from './App.vue'
+import MappKitEsri from '@vue-mapp-kit/esri'
 
-Vue.use(MappKitEsri);
+// must use Vue.use if you want to use $mappKitBus
+// treeShaking: false will register ALL component in your Vue app
+Vue.use(MappKitEsri, {
+  options: {
+    treeShaking: true // default
+  }
+})
 
 new Vue({
-  store,
   render: h => h(App),
-}).$mount('#app');
+}).$mount('#app')
 ```
 
- - Code examples in the [`esri-example`](../../projects/esri-example/src/components) project.
- - Supported components in the [src/components](src/components) directory.
+ - Code examples in the [`examples`](../../packages/examples/src/pages/esri) package.
+ - Supported components in the [src/components](src/components) directory, which follow a similar organizational structure as the [API Reference](https://developers.arcgis.com/javascript/latest/api-reference/)
 
 ## Component Properties
 As mentioned above, this library strives to have an almost identical interface to each respective class in the [Esri Javsacript ArcGIS API](https://developers.arcgis.com/javascript/latest/api-reference/). Each suppported component in this library will have a `properties` prop:
 ```javascript
-<e-map
+<EMap
   :properties="{
-    basemap: 'streets'
+    basemap: 'streets-vector'
   }"
 >
-</e-map>
+</EMap>
 
 ```
 See [Map Properties](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#properties-summary) in the Esri Api Reference. The pattern is followed for each supported component in this library. 
 
 For example, here is a GeoJSON layer:
 ```javascript
-<e-geo-json-layer
+<EGeoJsonLayer
   :properties="{
     url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson',
     copyright: 'USGS Earthquakes',
@@ -59,9 +76,10 @@ Tada!
 ----------
 
 ## Events
+
 All events provided by the Esri ArcGIS api are supported in this library but need to be explicity passed in a special `events` prop. The name of the event is also the name of the emitter which passes up event object:
 ```javascript
-<e-map-view
+<EMapView
   :events="['click', 'double-click']"
   @click="() => {}"
   @double-click="() => {}"
@@ -70,47 +88,82 @@ All events provided by the Esri ArcGIS api are supported in this library but nee
     zoom: 3,
     center: [-80, 35]
   }"
->
-</e-map-view>
-
+/>
 ```
 
 This library also provide a special emitted evet called `ready` which is triggered after the Esri object has been loaded, instantiated and added to the map:
 ```javascript
-<e-graphics-layer>
-  <e-sketch-view-model
+<EGraphicsLayer>
+  <ESketchViewModel
     :events="['create']"
     @create="handleSketchAdd"
     @ready="handleSketchReady"
   />
-</e-graphics-layer>
+</EGraphicsLayer>
 ```
 
+## Custom Event Bus
+
+Additionaly, you can pass a boolean prop called `enable-bus` which will registered each event passed in the `events` prop on the global `this.$mappKitBus` bus. The $mappKitBus is only available if you include the `Vue.use` statement. See [Getting Started](#getting-start) section.
+```javascript
+<EMapView
+  :events="['click', 'double-click']"
+  @click="() => {}"
+  @double-click="() => {}"
+  enable-bus
+  :properties="{
+    container: 'basicMap',
+    zoom: 3,
+    center: [-80, 35]
+  }"
+/>
+```
+The event naming convention and listeners looks like this:
+```javascript
+<script>
+export default {
+  mounted () {
+    this.$mappKitBus.$on('MapView-ready', this.handlerFunction)
+    this.$mappKitBus.$on('MapView-click', this.handlerFunction)
+    this.$mappKitBus.$on('MapView-double-click', this.handlerFunction)
+
+    // if you passed an id to the properties prop:
+    this.$mappKitBus.$on('MapView-id-click', this.handlerFunction)
+  },
+
+  methods: {
+    handlerFunction ({ event, source }) {
+      // do something
+    }
+  }
+}
+</script>
+```
 ----------
 
 ## Basic Map and MapView
 ```javascript
 <template>
   <section id="basicMap" class="map-wrapper">
-    <e-map
+    <EMap
       :properties="{
-        basemap: 'streets'
+        basemap: 'streets-vector'
       }"
       key="basicMap"
     >
-      <e-map-view
+      <EMapView
         :properties="{
           container: 'basicMap',
           zoom: 3,
           center: [-80, 35]
         }"
       >
-        <e-basemap-toggle 
+        <EBasemapToggle
           :properties="{ nextBasemap: 'hybrid' }"
           position="bottom-right"
         />
-      </e-map-view>
-    </e-map>
+      </EMapView>
+    </EMap>
   </section>
 </template>
 
@@ -129,13 +182,13 @@ This library uses Vue's Provide and Inject so you don't have to worry about addi
 
 However, if you really wanted to, any component that "provides itself" to any children component also exposes the instantiated object through a scoped-slot. In some cases this is necessary like when using `GroupLayer`. Here's a more elaborate example:
 ```javascript
-<e-map
+<EMap
   :properties="{
-    basemap: 'streets'
+    basemap: 'streets-vector'
   }"
 >
   <template #default="{ map }">
-    <e-map-view
+    <EMapView
       :properties="{
         map: map,
         container: 'groupings',
@@ -143,31 +196,31 @@ However, if you really wanted to, any component that "provides itself" to any ch
         center: [-80, 35]
       }"
     >
-      <e-graphics-layer :properties="{ title: 'More Graphics! '}">
-        <e-graphic :properties="getPointProps" />
-      </e-graphics-layer>
+      <EGraphicsLayer :properties="{ title: 'More Graphics! '}">
+        <EGraphic :properties="getPointProps" />
+      </EGraphicsLayer>
       
-      <e-group-layer :properties="{ title: 'Group!' }">
+      <EGroupLayer :properties="{ title: 'Group!' }">
         <template #default="{ groupLayer }">
-          <e-graphics-layer
+          <EGraphicsLayer
             :add-to="groupLayer"
             :properties="{ title: 'Graphics! '}"
           >
-              <e-graphic :properties="getPolylineProps"/>
-              <e-graphic :properties="getPolygonProps"/>
-          </e-graphics-layer>
+              <EGraphic :properties="getPolylineProps"/>
+              <EGraphic :properties="getPolygonProps"/>
+          </EGraphicsLayer>
         </template>
-      </e-group-layer>
+      </EGroupLayer>
 
-      <e-layer-list />
-    </e-map-view>
+      <ELayerList />
+    </EMapView>
   </template>
-</e-map>
+</EMap>
 ```
-Notice how the second `e-graphics-layer` has a prop called `add-to`? This is a special prop on all components that you can utilize if you want to bypass the default "provide and inject" functionality.
+Notice how the second `EGraphicsLayer` has a prop called `add-to`? This is a special prop on all components that you can utilize if you want to bypass the default "provide and inject" functionality.
 
 ----------
 
 ## More info
- - More code examples in the [`esri-example`](../../projects/esri-example/src/components) project.
+ - More code examples in the [`examples`](../../packages/examples/src/components) package.
  - Supported components in the [src/components](src/components) directory.

@@ -1,16 +1,20 @@
 <template></template>
 
 <script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapViewMixin from '@/mixins/injectMapViewMixin'
-import injectGraphicsLayer from '@/mixins/injectGraphicsLayer'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html
+import Sketch from '@arcgis/core/widgets/Sketch'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapViewMixin from '../../../mixins/injectMapViewMixin'
+import injectGraphicsLayer from '../../../mixins/injectGraphicsLayer'
 
 export default {
   name: 'ESketch',
 
-  // constructor handles created()
-  mixins: [constructorMixin, injectMapViewMixin, injectGraphicsLayer],
+  mixins: [
+    constructorMixin,
+    injectMapViewMixin,
+    injectGraphicsLayer
+  ],
 
   props: {
     position: {
@@ -21,14 +25,18 @@ export default {
 
   data() {
     return {
-      moduleName: 'Sketch' 
+      name: 'Sketch'
     }
+  },
+
+  created () {
+    this.instantiate(Sketch)
   },
 
   methods: {
     addToHook() {
       if (!this.getMapView()) { console.error('[ESketch] no map view') }
-      this.getMapView().ui.add(this.module.Sketch, this.position)
+      this.getMapView().ui.add(this.module, this.position)
     },
     mergePropsHook () {
       if (!this.getMapView() || !this.getGraphicsLayer()) {

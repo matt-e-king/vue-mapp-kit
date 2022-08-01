@@ -19,18 +19,21 @@
   "files": [
     "src/",
     "dist/",
-    "tests/"
+    "lib/"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "yarn build:dist",
+    "build": "yarn build:dist && yarn copy-lib",
     "build:dist": "vue-cli-service build --target lib --name mapp-kit-esri './src/main.js'",
+    "copy-lib": "cp -R ./src/ ./ && mv ./components ./lib",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@arcgis/core": "^4.24.7",
     "core-js": "^3.6.5",
     "esri-loader": "3.4.0",
+    "sass": "^1.54.0",
+    "sass-loader": "^13.0.2",
     "vue": "^2.6.12"
   },
   "devDependencies": {

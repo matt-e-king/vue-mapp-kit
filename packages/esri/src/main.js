@@ -1,11 +1,13 @@
 import { registerComponents } from './utils'
-import { getModules } from './utils/esriLoader'
 import * as components from './components'
 import MappKitBus from './buses'
 
 // TODO: test options
 const createInstaller = c => (Vue, options) => {
   var bus = MappKitBus
+  const {
+    treeShaking
+  } = options
 
   Object.defineProperty(Vue.prototype, '$mappKitBus', { //for "this.$bus"
     get() { return bus },
@@ -15,8 +17,10 @@ const createInstaller = c => (Vue, options) => {
     }
   })
 
-  // do something with options
-  registerComponents(Vue, c)
+  if (treeShaking) {
+    // do something with options
+    registerComponents(Vue, c)
+  }
 }
 
 // https://vuejs.org/v2/guide/plugins.html
@@ -25,6 +29,5 @@ const createInstaller = c => (Vue, options) => {
 //returns another function, creates a closure over imported components
 const MappKitEsri = { install: createInstaller(components) }
 
-export const loadModules = getModules
 export const Bus = MappKitBus
 export default MappKitEsri

@@ -1,17 +1,21 @@
 <template>
   <div>
-    <slot v-if="booted" v-bind:graphicsLayer="module.GraphicsLayer" />
+    <slot
+      v-if="booted"
+      :graphicsLayer="module.GraphicsLayer"
+    />
   </div>
 </template>
 
 <script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapMixin from '@/mixins/injectMapMixin'
-import injectGroupLayer from '@/mixins/injectGroupLayer'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html
+import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapMixin from '../../../mixins/injectMapMixin'
+import injectGroupLayer from '../../../mixins/injectGroupLayer'
 
 export default {
-  name: 'e-graphics-layer',
+  name: 'EGraphicsLayer',
 
   mixins: [
     constructorMixin,
@@ -29,13 +33,17 @@ export default {
 
   data() {
     return {
-      moduleName: 'GraphicsLayer'
+      name: 'GraphicsLayer'
     }
+  },
+
+  created () {
+    this.instantiate(GraphicsLayer)
   },
 
   methods: {
     getGraphicsLayer () {
-      return this.module[this.moduleName]
+      return this.module
     }
   }
 }

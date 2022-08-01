@@ -1,5 +1,5 @@
 <template>
-  <div class="map">
+  <div class="webmap">
     <slot
       v-if="booted"
       :map="module"
@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import Map from '@arcgis/core/Map'
+import WebMap from '@arcgis/core/WebMap'
 import constructorMixin from '../../mixins/constructorMixin'
 
 export default {
-  name: 'EMap',
+  name: 'EWebMap',
 
   provide() {
     return {
@@ -24,14 +24,14 @@ export default {
 
   mixins: [constructorMixin],
 
-  data() {
+  data () {
     return {
-      name: 'Map'
+      name: 'WebMap'
     }
   },
 
   created () {
-    this.instantiate(Map)
+    this.instantiate(WebMap)
   },
 
   watch: {

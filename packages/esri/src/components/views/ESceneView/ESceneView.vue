@@ -5,13 +5,17 @@
 </template>
 
 <script>
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapMixin from '@/mixins/injectMapMixin'
+import SceneView from '@arcgis/core/views/SceneView'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapMixin from '../../../mixins/injectMapMixin'
 
 export default {
-  name: 'e-scene-view',
+  name: 'ESceneView',
 
-  mixins: [constructorMixin, injectMapMixin],
+  mixins: [
+    constructorMixin,
+    injectMapMixin
+  ],
 
   provide() {
     return {
@@ -23,8 +27,12 @@ export default {
 
   data() {
     return {
-      moduleName: 'SceneView'
+      name: 'SceneView'
     }
+  },
+
+  created () {
+    this.instantiate(SceneView)
   },
 
   methods: {
@@ -35,18 +43,8 @@ export default {
       return this.properties.map ? {} : { map: this.getMap() }
     },
     getMapView() {
-      return this.module.SceneView
+      return this.module
     }
   }
 }
 </script>
-
-<style scoped>
-  /* .map {
-    position: relative;
-    width:100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-  } */
-</style>

@@ -103,7 +103,7 @@ export default {
     return {
       showMapView: true,
       mapProps: {
-        basemap: 'streets'
+        basemap: 'streets-vector'
       },
       map2Props: {
         basemap: 'hybrid'

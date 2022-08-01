@@ -26,7 +26,7 @@ export default {
 
   data () {
     return {
-      basemap: 'streets'
+      basemap: 'streets-vector'
     }
   },
 

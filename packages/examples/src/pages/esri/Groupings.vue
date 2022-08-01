@@ -1,40 +1,75 @@
 <template>
-  <section id="graphics" class="map-wrapper">
-    <e-map
+  <section
+    id="map"
+    class="Groupings page__map-wrapper"
+  >
+    <EMap
       :properties="{
         basemap: 'streets-vector'
       }"
     >
-      <!-- the default slot of e-map spits out the map object -->
-        <e-map-view
+      <template #default="{ map }">
+        <EMapView
           :properties="{
-            container: 'graphics',
+            map: map,
+            container: 'map',
             zoom: 3,
             center: [-80, 35]
           }"
         >
-          <e-graphic :properties="getPolylineProps" />
-          <e-graphic :properties="getPolygonProps" />
-          <e-graphic :properties="getPointProps" />
-        </e-map-view>
-    </e-map>
+          <EGraphicsLayer :properties="{ title: 'More Graphics! '}">
+            <EGraphic :properties="getPointProps" />
+          </EGraphicsLayer>
+          
+          <EGroupLayer :properties="{ title: 'Group!' }">
+            <template #default="{ groupLayer }">
+              <EGraphicsLayer
+                :add-to="groupLayer"
+                :properties="{ title: 'Graphics! '}"
+              >
+                  <EGraphic :properties="getPolylineProps"/>
+                  <EGraphic :properties="getPolygonProps"/>
+              </EGraphicsLayer>
+            </template>
+          </EGroupLayer>
+
+          <ELayerList />
+        </EMapView>
+      </template>
+    </EMap>
   </section>
 </template>
 
 <script>
+import EMap from '@vue-mapp-kit/esri/lib/EMap/EMap'
+import EMapView from '@vue-mapp-kit/esri/lib/views/EMapView/EMapView'
+import EGraphic from '@vue-mapp-kit/esri/lib/EGraphic/EGraphic'
+import EGraphicsLayer from '@vue-mapp-kit/esri/lib/layers/EGraphicsLayer/EGraphicsLayer'
+import EGroupLayer from '@vue-mapp-kit/esri/lib/layers/EGroupLayer/EGroupLayer'
+import ELayerList from '@vue-mapp-kit/esri/lib/widgets/ELayerList/ELayerList'
+
 export default {
-  name: 'Graphics',
+  name: 'Groupings',
+
+  components: {
+    EMap,
+    EMapView,
+    EGraphic,
+    EGraphicsLayer,
+    EGroupLayer,
+    ELayerList
+  },
 
   computed: {
     getPolygonProps() {
       const polygon = {
-        type: "polygon", // autocasts as new Polygon()
+        type: 'polygon', // autocasts as new Polygon()
         rings: [[-64.78, 32.3],[-66.07, 18.45],[-80.21, 25.78],[-64.78, 32.3]]
       }
 
       // Create a symbol for rendering the graphic
       const fillSymbol = {
-        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        type: 'simple-fill', // autocasts as new SimpleFillSymbol()
         color: [227, 139, 79, 0.8],
         outline: { // autocasts as new SimpleLineSymbol()
           color: [255, 255, 255],
@@ -55,14 +90,14 @@ export default {
     getPointProps() {
       // First create a point geometry (this is the location of the Titanic)
         var point = {
-          type: "point", // autocasts as new Point()
+          type: 'point', // autocasts as new Point()
           longitude: -49.97,
           latitude: 41.73
         };
 
         // Create a symbol for drawing the point
         var markerSymbol = {
-          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
           color: [226, 119, 40],
           outline: {
             // autocasts as new SimpleLineSymbol()
@@ -84,22 +119,22 @@ export default {
     getPolylineProps() {
       // First create a line geometry (this is the Keystone pipeline)
       const polyline = {
-        type: "polyline", // autocasts as new Polyline()
+        type: 'polyline', // autocasts as new Polyline()
         paths: [[-111.30, 52.68],[-98, 49.5],[-93.94, 29.89]]
       }
 
       // Create a symbol for drawing the line
       const lineSymbol = {
-        type: "simple-line", // autocasts as SimpleLineSymbol()
+        type: 'simple-line', // autocasts as SimpleLineSymbol()
         color: [226, 119, 40],
         width: 4
       }
 
       // Create an object for storing attributes related to the line
       const lineAtt = {
-        Name: "Keystone Pipeline",
-        Owner: "TransCanada",
-        Length: "3,456 km"
+        Name: 'Keystone Pipeline',
+        Owner: 'TransCanada',
+        Length: '3,456 km'
       }
 
       /*******************************************
@@ -114,14 +149,14 @@ export default {
         symbol: lineSymbol,
         attributes: lineAtt,
         popupTemplate: { // autocasts as new PopupTemplate()
-          title: "{Name}",
+          title: '{Name}',
           content: [{
-            type: "fields",
+            type: 'fields',
             fieldInfos: [
-              {fieldName: "Name"},
-              {fieldName: "Owner"},
-              {fieldName: "Length"}
-              ]
+              { fieldName: 'Name' },
+              { fieldName: 'Owner' },
+              { fieldName: 'Length' }
+            ]
           }]
         }
       }

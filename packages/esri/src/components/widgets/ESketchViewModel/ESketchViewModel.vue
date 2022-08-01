@@ -1,10 +1,11 @@
 <template></template>
 
 <script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapViewMixin from '@/mixins/injectMapViewMixin'
-import injectGraphicsLayer from '@/mixins/injectGraphicsLayer'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html
+import SketchViewModel from '@arcgis/core/widgets/Sketch/SketchViewModel'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapViewMixin from '../../../mixins/injectMapViewMixin'
+import injectGraphicsLayer from '../../../mixins/injectGraphicsLayer'
 
 export default {
   name: 'e-sketch-view-model',
@@ -22,10 +23,14 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
-      moduleName: 'SketchViewModel'
+      name: 'SketchViewModel'
     }
+  },
+
+  created () {
+    this.instantiate(SketchViewModel)
   },
 
   watch: {
@@ -49,7 +54,7 @@ export default {
     },
     setTool (tool) {
       if (tool) {
-        this.module.SketchViewModel.create(tool, this.toolMode)
+        this.module.create(tool, this.toolMode)
       } else {
         // this.module.SketchViewModel.cancel()
       }

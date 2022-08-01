@@ -1,3 +1,4 @@
+// DEPRECATED
 import { loadModules } from 'esri-loader'
 
 export const MODULE_LOOKUP = {

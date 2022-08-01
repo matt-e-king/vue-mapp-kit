@@ -1,6 +1,9 @@
 <template>
-  <section id="sketchViewModeler" class="map-wrapper">
-    <div class="controls">
+  <section
+    id="map"
+    class="SketchViewModel page__map-wrapper"
+  >
+    <div class="SketchViewModel__controls">
       <button @click="handleSketch('point')">
         Point
       </button>
@@ -20,34 +23,46 @@
         Circle
       </button>
     </div>
-    <e-map
+    <EMap
       :properties="{
         basemap: 'streets-vector'
       }"
     >
       <!-- the default slot of e-map spits out the map object -->
-        <e-map-view
+        <EMapView
           :properties="{
-            container: 'sketchViewModeler',
+            container: 'map',
             zoom: 3,
             center: [-80, 35]
           }"
         >
-          <e-graphics-layer>
-            <e-sketch-view-model
+          <EGraphicsLayer>
+            <ESketchViewModel
               :events="['create']"
               :tool="tool"
               @create="handleSketchAdd"
             />
-          </e-graphics-layer>
-        </e-map-view>
-    </e-map>
+          </EGraphicsLayer>
+        </EMapView>
+    </EMap>
   </section>
 </template>
 
 <script>
+import EMap from '@vue-mapp-kit/esri/lib/EMap/EMap'
+import EMapView from '@vue-mapp-kit/esri/lib/views/EMapView/EMapView'
+import EGraphicsLayer from '@vue-mapp-kit/esri/lib/layers/EGraphicsLayer/EGraphicsLayer'
+import ESketchViewModel from '@vue-mapp-kit/esri/lib/widgets/ESketchViewModel/ESketchViewModel'
+
 export default {
-  name: 'SketchViewModeler',
+  name: 'SketchViewModel',
+
+  components: {
+    EMap,
+    EMapView,
+    EGraphicsLayer,
+    ESketchViewModel
+  },
 
   data () {
     return {
@@ -75,21 +90,22 @@ export default {
 }
 </script>
 
-<style>
-.controls {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-}
+<style lang="sass">
+  .SketchViewModel__controls
+    position: absolute
+    bottom: 10px
+    left: 10px
 
-.controls button {
-  background-color: teal;
-  color: white;
-  padding: 5px 15px;
-  border-radius: 3px;
-  display: block;
-  min-width: 150px;
-  margin-bottom: 5px;
-  border: none;
-}
+  .SketchViewModel__controls button
+    background-color: teal
+    color: white
+    padding: 5px 15px
+    border-radius: 3px
+    display: block
+    min-width: 150px
+    margin-bottom: 5px
+    border: none
+
+    &:hover
+      cursor: pointer
 </style>

@@ -2,7 +2,7 @@
   <section id="geoJsonLayer" class="map-wrapper">
     <e-map
       :properties="{
-        basemap: 'streets'
+        basemap: 'streets-vector'
       }"
     >
       <!-- the default slot of e-map spits out the map object -->

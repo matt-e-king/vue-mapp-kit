@@ -1,15 +1,17 @@
 <template></template>
 
 <script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapViewMixin from '@/mixins/injectMapViewMixin'
+import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapViewMixin from '../../../mixins/injectMapViewMixin'
 
 export default {
-  name: 'e-basemap-toggle',
+  name: 'EBasemapToggle',
 
-  // constructor handles created()
-  mixins: [constructorMixin, injectMapViewMixin],
+  mixins: [
+    constructorMixin,
+    injectMapViewMixin
+  ],
 
   props: {
     position: {
@@ -20,8 +22,12 @@ export default {
 
   data() {
     return {
-      moduleName: 'BasemapToggle'
+      name: 'BasemapToggle'
     }
+  },
+
+  created () {
+    this.instantiate(BasemapToggle)
   },
 
   methods: {

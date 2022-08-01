@@ -1,17 +1,24 @@
 <template>
   <div class="mapView">
-    <slot v-if="booted" v-bind:mapView="module.MapView"/>
+    <slot
+      v-if="booted"
+      :mapView="module.MapView"
+    />
   </div>
 </template>
 
 <script>
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapMixin from '@/mixins/injectMapMixin'
+import MapView from '@arcgis/core/views/MapView'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapMixin from '../../../mixins/injectMapMixin'
 
 export default {
   name: 'EMapView',
 
-  mixins: [constructorMixin, injectMapMixin],
+  mixins: [
+    constructorMixin,
+    injectMapMixin
+  ],
 
   provide() {
     return {
@@ -30,8 +37,12 @@ export default {
 
   data() {
     return {
-      moduleName: 'MapView'
+      name: 'MapView'
     }
+  },
+
+  created () {
+    this.instantiate(MapView)
   },
 
   methods: {
@@ -46,7 +57,7 @@ export default {
       return this.properties.map ? {} : { map: this.getMap() }
     },
     getMapView() {
-      return this.module.MapView
+      return this.module
     }
   }
 }

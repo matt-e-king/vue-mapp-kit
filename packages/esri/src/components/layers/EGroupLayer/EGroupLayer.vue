@@ -1,18 +1,25 @@
 <template>
   <div>
-    <slot v-if="booted" v-bind:groupLayer="module.GroupLayer"/>
+    <slot
+      v-if="booted"
+      :groupLayer="module.GroupLayer"
+    />
   </div>
 </template>
 
 <script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapMixin from '@/mixins/injectMapMixin'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html
+import GroupLayer from '@arcgis/core/layers/GroupLayer'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapMixin from '../../../mixins/injectMapMixin'
 
 export default {
-  name: 'e-group-layer',
+  name: 'EGroupLayer',
 
-  mixins: [constructorMixin, injectMapMixin],
+  mixins: [
+    constructorMixin,
+    injectMapMixin
+  ],
 
   provide() {
     return {
@@ -24,13 +31,17 @@ export default {
 
   data() {
     return {
-      moduleName: 'GroupLayer'
+      name: 'GroupLayer'
     }
+  },
+
+  created () {
+    this.instantiate(GroupLayer)
   },
 
   methods: {
     groupLayer () {
-      return this.module[this.moduleName]
+      return this.module
     }
   }
 }

@@ -2,7 +2,7 @@
   <section id="portalItemLayer" class="map-wrapper">
     <e-map
       :properties="{
-        basemap: 'streets'
+        basemap: 'streets-vector'
       }"
     >
       <e-map-view

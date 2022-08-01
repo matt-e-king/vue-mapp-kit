@@ -2,40 +2,43 @@
 
 <script>
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapViewMixin from '@/mixins/injectMapViewMixin'
-import injectGraphicsLayer from '@/mixins/injectGraphicsLayer'
+import Graphic from '@arcgis/core/Graphic'
+import constructorMixin from '../../mixins/constructorMixin'
+import injectMapViewMixin from '../../mixins/injectMapViewMixin'
+import injectGraphicsLayer from '../../mixins/injectGraphicsLayer'
 
 export default {
-  name: 'e-graphic',
+  name: 'EGraphic',
 
-  // constructor handles created()
-  mixins: [constructorMixin, injectMapViewMixin, injectGraphicsLayer],
+  mixins: [
+    constructorMixin,
+    injectMapViewMixin,
+    injectGraphicsLayer
+  ],
 
   data() {
     return {
-      moduleName: 'Graphic'
+      name: 'Graphic'
     }
   },
 
-  computed: {
-    // @todo need to remove this parent as comuted prop
-    // might already be accounted for in constructor
-    parent () {
-      return this.addTo || this.getGraphicsLayer() || this.getMapView().graphics
-    }
+  created () {
+    this.instantiate(Graphic)
   },
 
   methods: {
+    getParent () {
+      return this.addTo || this.getGraphicsLayer() || this.getMapView().graphics
+    },
     addToHook() {
-      if (!this.parent) console.error('[EGraphic] no parent "add" found')
+      if (!this.getParent()) console.error('[EGraphic] no parent "add" found')
       
-      this.parent.add(this.module.Graphic)
+      this.getParent().add(this.module)
     },
     beforeDestroyHook() {
-      this.parent.remove(this.module.Graphic)
+      this.getParent().remove(this.module)
 
-      this.$emit('remove', this.module.Graphic)
+      this.$emit('remove', this.module)
     }
   }
 }

@@ -2,8 +2,9 @@
 
 <script>
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapViewMixin from '@/mixins/injectMapViewMixin'
+import LayerList from '@arcgis/core/widgets/LayerList'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapViewMixin from '../../../mixins/injectMapViewMixin'
 
 export default {
   name: 'ELayerList',
@@ -20,14 +21,18 @@ export default {
 
   data() {
     return {
-      moduleName: 'LayerList' 
+      name: 'LayerList'
     }
+  },
+
+  created () {
+    this.instantiate(LayerList)
   },
 
   methods: {
     addToHook() {
       if (!this.getMapView()) console.error('[ELayerList] no map view')
-      this.getMapView().ui.add(this.module.LayerList, this.position)
+      this.getMapView().ui.add(this.module, this.position)
     },
     mergePropsHook () {
       if (!this.getMapView()) console.error('[ELayerList] no map view')

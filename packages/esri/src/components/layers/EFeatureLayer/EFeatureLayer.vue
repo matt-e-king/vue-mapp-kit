@@ -2,9 +2,10 @@
 
 <script>
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapMixin from '@/mixins/injectMapMixin'
-import injectGroupLayer from '@/mixins/injectGroupLayer'
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapMixin from '../../../mixins/injectMapMixin'
+import injectGroupLayer from '../../../mixins/injectGroupLayer'
 
 export default {
   name: 'EFeatureLayer',
@@ -17,8 +18,12 @@ export default {
 
   data() {
     return {
-      moduleName: 'FeatureLayer'
+      name: 'FeatureLayer'
     }
+  },
+
+  created () {
+    this.instantiate(FeatureLayer)
   }
 }
 </script>

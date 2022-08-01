@@ -1,15 +1,18 @@
 <template></template>
 
 <script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapViewMixin from '@/mixins/injectMapViewMixin'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html
+import Legend from '@arcgis/core/widgets/Legend'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapViewMixin from '../../../mixins/injectMapViewMixin'
 
 export default {
   name: 'ELegend',
 
-  // constructor handles created()
-  mixins: [constructorMixin, injectMapViewMixin],
+  mixins: [
+    constructorMixin,
+    injectMapViewMixin
+  ],
 
   props: {
     position: {
@@ -20,14 +23,18 @@ export default {
 
   data() {
     return {
-      moduleName: 'Legend'
+      name: 'Legend'
     }
+  },
+
+  created () {
+    this.instantiate(Legend)
   },
 
   methods: {
     addToHook() {
       if (!this.getMapView()) console.error('[ELegend] no map view')
-      this.getMapView().ui.add(this.module.Legend, this.position)
+      this.getMapView().ui.add(this.module, this.position)
     },
     mergePropsHook () {
       if (!this.getMapView()) console.error('[ELegend] no map view')

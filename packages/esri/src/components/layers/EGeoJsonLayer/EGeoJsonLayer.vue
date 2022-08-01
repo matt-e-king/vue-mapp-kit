@@ -2,12 +2,13 @@
 
 <script>
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapMixin from '@/mixins/injectMapMixin'
-import injectGroupLayer from '@/mixins/injectGroupLayer'
+import GeoJSONLayer from '@arcgis/core/layers/GeoJSONLayer'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapMixin from '../../../mixins/injectMapMixin'
+import injectGroupLayer from '../../../mixins/injectGroupLayer'
 
 export default {
-  name: 'e-geo-json-layer',
+  name: 'EGeoJsonLayer',
 
   mixins: [
     constructorMixin,
@@ -17,8 +18,12 @@ export default {
 
   data() {
     return {
-      moduleName: 'GeoJSONLayer'
+      name: 'GeoJSONLayer'
     }
+  },
+
+  created () {
+    this.instantiate(GeoJSONLayer)
   }
 }
 </script>

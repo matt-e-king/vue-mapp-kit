@@ -2,7 +2,7 @@
   <section id="groupings" class="map-wrapper">
     <e-map
       :properties="{
-        basemap: 'streets'
+        basemap: 'streets-vector'
       }"
     >
       <template #default="{ map }">

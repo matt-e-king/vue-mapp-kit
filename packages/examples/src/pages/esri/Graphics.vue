@@ -1,29 +1,42 @@
 <template>
-  <section id="graphics" class="map-wrapper">
-    <e-map
+  <section
+    id="map"
+    class="Graphics page__map-wrapper"
+  >
+    <EMap
       :properties="{
         basemap: 'streets-vector'
       }"
     >
-      <!-- the default slot of e-map spits out the map object -->
-        <e-map-view
+      <!-- the default slot of EMap spits out the map object -->
+        <EMapView
           :properties="{
-            container: 'graphics',
+            container: 'map',
             zoom: 3,
             center: [-80, 35]
           }"
         >
-          <e-graphic :properties="getPolylineProps" />
-          <e-graphic :properties="getPolygonProps" />
-          <e-graphic :properties="getPointProps" />
-        </e-map-view>
-    </e-map>
+          <EGraphic :properties="getPolylineProps" />
+          <EGraphic :properties="getPolygonProps" />
+          <EGraphic :properties="getPointProps" />
+        </EMapView>
+    </EMap>
   </section>
 </template>
 
 <script>
+import EMap from '@vue-mapp-kit/esri/lib/EMap/EMap'
+import EMapView from '@vue-mapp-kit/esri/lib/views/EMapView/EMapView'
+import EGraphic from '@vue-mapp-kit/esri/lib/EGraphic/EGraphic'
+
 export default {
   name: 'Graphics',
+
+  components: {
+    EMap,
+    EMapView,
+    EGraphic
+  },
 
   computed: {
     getPolygonProps() {
@@ -55,14 +68,14 @@ export default {
     getPointProps() {
       // First create a point geometry (this is the location of the Titanic)
         var point = {
-          type: "point", // autocasts as new Point()
+          type: 'point', // autocasts as new Point()
           longitude: -49.97,
           latitude: 41.73
         };
 
         // Create a symbol for drawing the point
         var markerSymbol = {
-          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
           color: [226, 119, 40],
           outline: {
             // autocasts as new SimpleLineSymbol()
@@ -84,22 +97,22 @@ export default {
     getPolylineProps() {
       // First create a line geometry (this is the Keystone pipeline)
       const polyline = {
-        type: "polyline", // autocasts as new Polyline()
+        type: 'polyline', // autocasts as new Polyline()
         paths: [[-111.30, 52.68],[-98, 49.5],[-93.94, 29.89]]
       }
 
       // Create a symbol for drawing the line
       const lineSymbol = {
-        type: "simple-line", // autocasts as SimpleLineSymbol()
+        type: 'simple-line', // autocasts as SimpleLineSymbol()
         color: [226, 119, 40],
         width: 4
       }
 
       // Create an object for storing attributes related to the line
       const lineAtt = {
-        Name: "Keystone Pipeline",
-        Owner: "TransCanada",
-        Length: "3,456 km"
+        Name: 'Keystone Pipeline',
+        Owner: 'TransCanada',
+        Length: '3,456 km'
       }
 
       /*******************************************
@@ -114,14 +127,14 @@ export default {
         symbol: lineSymbol,
         attributes: lineAtt,
         popupTemplate: { // autocasts as new PopupTemplate()
-          title: "{Name}",
+          title: '{Name}',
           content: [{
-            type: "fields",
+            type: 'fields',
             fieldInfos: [
-              {fieldName: "Name"},
-              {fieldName: "Owner"},
-              {fieldName: "Length"}
-              ]
+              { fieldName: 'Name' },
+              { fieldName: 'Owner' },
+              { fieldName: 'Length' }
+            ]
           }]
         }
       }

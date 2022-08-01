@@ -1,54 +1,62 @@
 <template>
   <section
-    id="imageryLayer"
-    class="map-wrapper"
+    id="map"
+    class="ImageryLayer page__map-wrapper"
   >
-    <e-map
+    <EMap
       v-if="booted"
       :properties="{
         basemap: 'streets-vector'
       }"
-      key="imageryLayer"
+      key="map"
     >
-      <e-map-view
+      <EMapView
         :properties="{
-          container: 'imageryLayer',
+          container: 'map',
           zoom: 4,
           center: [-100, 40]
         }"
       >
 
-        <e-imagery-layer
+        <EImageryLayer
           :properties="{
             ...getRenderedImageryLayerProps(),
             title: 'Custom Render Rule'
           }"
         />
-        <e-imagery-layer
+        <EImageryLayer
           :properties="{
             title: 'Simple Example',
             url: sharedUrl,
             format: 'jpgpng' // server exports in either jpg or png format
           }"
         />
-        <e-layer-list />
-      </e-map-view>
-    </e-map>
+        <ELayerList />
+      </EMapView>
+    </EMap>
   </section>
 </template>
 
 <script>
-import { loadModules } from '@vue-mapp-kit/esri'
+import EMap from '@vue-mapp-kit/esri/lib/EMap/EMap'
+import EMapView from '@vue-mapp-kit/esri/lib/views/EMapView/EMapView'
+import EImageryLayer from '@vue-mapp-kit/esri/lib/layers/EImageryLayer/EImageryLayer'
+import ELayerList from '@vue-mapp-kit/esri/lib/widgets/ELayerList/ELayerList'
+
+import RasterFunction from '@arcgis/core/layers/support/RasterFunction'
+import MosaicRule from '@arcgis/core/layers/support/MosaicRule'
 
 export default {
   name: 'ImageryLayer',
 
-  async mounted () {
-    const [RasterFunction, MosaicRule] = await loadModules([
-      'esri/layers/support/RasterFunction',
-      'esri/layers/support/MosaicRule'
-    ])
+  components: {
+    EMap,
+    EMapView,
+    EImageryLayer,
+    ELayerList
+  },
 
+  async mounted () {
     this.mosaicRule = new MosaicRule({
       ascending: true,
       method: 'center',

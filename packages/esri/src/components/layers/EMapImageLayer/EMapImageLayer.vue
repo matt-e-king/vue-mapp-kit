@@ -1,10 +1,11 @@
 <template></template>
 
 <script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapMixin from '@/mixins/injectMapMixin'
-import injectGroupLayer from '@/mixins/injectGroupLayer'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryTileLayer.html
+import MapImageLayer from '@arcgis/core/layers/MapImageLayer'
+import constructorMixin from '../../../mixins/constructorMixin'
+import injectMapMixin from '../../../mixins/injectMapMixin'
+import injectGroupLayer from '../../../mixins/injectGroupLayer'
 
 export default {
   name: 'EMapImageLayer',
@@ -15,11 +16,14 @@ export default {
     injectGroupLayer
   ],
 
-
   data() {
     return {
-      moduleName: 'MapImageLayer'
+      name: 'MapImageLayer'
     }
+  },
+
+  created () {
+    this.instantiate(MapImageLayer)
   }
 }
 </script>

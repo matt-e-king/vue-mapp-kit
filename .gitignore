@@ -1,5 +1,10 @@
 .DS_Store
 node_modules
+/packages/esri/lib/
+/packages/esri/buses/
+/packages/esri/mixins/
+/packages/esri/utils/
+/packages/esri/main.js
 /packages/**/dist/
 !/projects/
 /projects/*
