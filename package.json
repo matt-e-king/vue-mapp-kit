@@ -9,6 +9,7 @@
     "lerna": "^5.3.0"
   },
   "scripts": {
-    "build": "npx lerna run build"
+    "build": "npx lerna run build",
+    "build:publish": "yarn build && npx lerna publish --dist-tag beta"
   }
 }
