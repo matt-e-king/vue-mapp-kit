@@ -18,20 +18,17 @@
   "files": [
     "src/",
     "dist/",
-    "tests/"
+    "lib/"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "yarn build:dist",
+    "build": "yarn build:dist && yarn copy-lib",
     "build:dist": "vue-cli-service build --target lib --name mapp-kit-leaflet './src/main.js'",
+    "copy-lib": "cp -R ./src/ ./lib",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "lodash.filter": "^4.6.0",
-    "lodash.foreach": "^4.5.0",
-    "lodash.reduce": "^4.6.0",
-    "lodash.values": "^4.3.0",
     "vue": "^2.6.12"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
-import L from 'leaflet'
-import MappKitBus from '@/buses'
+import Leaflet from 'leaflet'
+import MappKitBus from '../buses'
 
 export default {
   props: {
@@ -22,11 +22,11 @@ export default {
 
   mounted () {
     if (!this.moduleName) throw new Error('moduleName required to instantiate Leaflet object')
-    if (!L[this.moduleName]) throw new Error(`L.${this.moduleName} is not a supported Leaflet class`)
+    if (!Leaflet[this.moduleName]) throw new Error(`Leaflet.${this.moduleName} is not a supported Leaflet class`)
 
     console.log(`Constructing ${this.moduleName}`)
 
-    this.module = this.module || L[this.moduleName](...this.rootArgument, this.options) // setting outside of $data to make non-reactive
+    this.module = this.module || Leaflet[this.moduleName](...this.rootArgument, this.options) // setting outside of $data to make non-reactive
     this.setupEvents()
     this.addToHook()
     this.bootRoutine()

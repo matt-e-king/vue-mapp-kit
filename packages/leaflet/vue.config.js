@@ -1,14 +1,11 @@
-module.exports = {
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
   lintOnSave: false,
   configureWebpack: {
     externals: [
       'leaflet',
-      'lodash.filter',
-      'lodash.foreach',
-      'lodash.reduce',
-      'lodash.values',
       'vue',
       'vuex'
     ]
   }
-};
+})
