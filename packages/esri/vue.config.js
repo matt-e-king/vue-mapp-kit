@@ -6,7 +6,6 @@ module.exports = defineConfig({
   },
   configureWebpack: {
     externals: [
-      'esri-loader',
       // Regex
       /^(@arcgis\/core).*/
     ]
