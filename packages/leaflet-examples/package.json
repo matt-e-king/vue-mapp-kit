@@ -1,0 +1,32 @@
+{
+  "name": "@vue-mapp-kit/leaflet-examples",
+  "version": "3.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "@vue-mapp-kit/leaflet": "*",
+    "@vue-mapp-kit/esri-leaflet": "*",
+    "core-js": "^3.6.5",
+    "esri-leaflet": "^3.0.8",
+    "esri-leaflet-cluster": "^3.0.0",
+    "leaflet.markercluster": "^1.5.3",
+    "vue": "^2.6.12",
+    "vue-router": "3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-plugin-unit-jest": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
