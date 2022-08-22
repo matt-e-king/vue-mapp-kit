@@ -1,6 +1,0 @@
-// export { default as EBasemapLayer } from './EBasemapLayer/EBasemapLayer'
-export { default as ELClusterFeatureLayer } from './ELClusterFeatureLayer/ELClusterFeatureLayer'
-export { default as ELFeatureLayer } from './ELFeatureLayer/ELFeatureLayer'
-export { default as ELDynamicMapLayer } from './ELDynamicMapLayer/ELDynamicMapLayer'
-export { default as ELImageMapLayer } from './ELImageMapLayer/ELImageMapLayer'
-export { default as ELTiledMapLayer } from './ELTiledMapLayer/ELTiledMapLayer'

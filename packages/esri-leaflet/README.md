@@ -4,7 +4,7 @@
 This library (or set of components) uses [@vue-mapp-kit/leaflet](https://github.com/matt-e-king/vue-mapp-kit) as its primary dependency. Similar to how @vue-mapp-kit/leaflet provides a "vuetified" approach to handling EsriLeaflet objects, MappKitEsriLeaflet provides the same methodology for handling EsriLeaflet objects.
 
 **This project is currently in development with ZERO test coverage! Use at your own risk :)** 
- - [v3 Changes](#v3-changes)
+ - [v4 Changes](#v4-changes)
  - [Getting Started](#getting-started)
  - [Code Examples](#code-examples)
  - [Accessing Objects in your script](#accessing-objects-in-your-script)
@@ -12,14 +12,13 @@ This library (or set of components) uses [@vue-mapp-kit/leaflet](https://github.
 ----------
 
 ### Demo
-Clone repo and `cd` into `/projects/esri-leaflet-example` and run `yarn install && yarn serve`
+Clone repo and `cd` into `/packages/leaflet-examples` and run `yarn install && yarn serve`
 
 ----------
 
-## V3 BREAKING CHANGES
+## V4 BREAKING CHANGES
  * Removed the ability to saved objects in Vuex store
  * Removed Basemap component
- * Change component naming convention: e.g. \<e-feature-layer\> to \<e-l-feature-layer\>
 
 ----------
 ## Getting Started
@@ -32,10 +31,10 @@ yarn add leaflet esri-leaflet @vue-mapp-kit/leaflet @vue-mapp-kit/esri-leaflet
 import Vue from 'vue';
 import App from './App.vue';
 import MappKitLeaflet from '@vue-mapp-kit/leaflet'
-import MappKitEsriLeaflet from '@vue-mapp-kit/esri-leaflet'
+// import MappKitEsriLeaflet from '@vue-mapp-kit/esri-leaflet'
 
 Vue.use(MappKitLeaflet)
-Vue.use(MappKitEsriLeaflet)
+// Vue.use(MappKitEsriLeaflet) this is no longer necessary
 Vue.config.productionTip = false;
 
 new Vue({
@@ -47,14 +46,14 @@ new Vue({
 ## Code Examples
 These simple examples mirror the examples found in the [MappKitEsriLeaflet documentation](https://esri.github.io/esri-leaflet/examples/)
 
- - [Tiled Map Layer](../../projects/esri-leaflet-example/src/components/TiledMapLayer.vue)
- - [Feature Layer](../../projects/esri-leaflet-example/src/components/FeatureLayer.vue)
- - [Image Map Layer](../../projects/esri-leaflet-example/src/components/ImageMapLayer.vue)
- - [Dynamic Map Layer](../../projects/esri-leaflet-example/src/components/DynamicMapLayer.vue)
- - [Clustering Points **](../../projects/esri-leaflet-example/src/components/ClusteringPoints.vue)
- - [Event](../../projects/esri-leaflet-example/src/components/EventSibling.vue)
+ - [Tiled Map Layer](../../packages/leaflet-examples/src/components/TiledMapLayer.vue)
+ - [Feature Layer](../../packages/leaflet-examples/src/components/FeatureLayer.vue)
+ - [Image Map Layer](../../packages/leaflet-examples/src/components/ImageMapLayer.vue)
+ - [Dynamic Map Layer](../../packages/leaflet-examples/src/components/DynamicMapLayer.vue)
+ - [Clustering Points **](../../packages/leaflet-examples/src/components/ClusteringPoints.vue)
+ - [Event](../../packages/leaflet-examples/src/components/EventSibling.vue)
 
-** Using the clustering feature requires you to `npm install` or `yarn add` the following dependencies:
+** Using the `ELClusterFeatureLayer` component, the consumer is responsible for `npm install` or `yarn add` the following dependencies:
  * `esri-leaflet-cluster`
  * `leaflet.markercluster`
 and if you want to use default styles you must include/import the following css files:

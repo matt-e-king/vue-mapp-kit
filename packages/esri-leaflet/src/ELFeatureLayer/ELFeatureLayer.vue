@@ -1,11 +1,11 @@
 <template></template>
 
 <script>
-import constructorMixin from '@/mixins/constructorMixin'
-import injectMapMixin from '@/mixins/injectMapMixin'
+import constructorMixin from '../mixins/constructorMixin'
+import injectMapMixin from '../mixins/injectMapMixin'
 
 export default {
-  name: 'ELImageMapLayer',
+  name: 'ELFeatureLayer',
   
   mixins: [
     constructorMixin,
@@ -14,7 +14,7 @@ export default {
 
   data() {
     return {
-      moduleName: 'imageMapLayer'
+      moduleName: 'featureLayer'
     }
   },
 
@@ -28,4 +28,3 @@ export default {
   }
 }
 </script>
-
