@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "npx lerna run build",
-    "build:publish": "yarn build && npx lerna publish --dist-tag beta"
+    "build:publish-beta": "yarn build && npx lerna publish --dist-tag beta",
+    "build:publish-latest": "yarn build && npx lerna publish --dist-tag latest"
   }
 }
