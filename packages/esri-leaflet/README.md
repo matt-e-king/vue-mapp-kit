@@ -19,6 +19,8 @@ Clone repo and `cd` into `/packages/leaflet-examples` and run `yarn install && y
 ## V4 BREAKING CHANGES
  * Removed the ability to saved objects in Vuex store
  * Removed Basemap component
+ * `leaflet@^1.9.3` is required
+ * `esri-leaflet-cluster@^3.0.1` is required
 
 ----------
 ## Getting Started

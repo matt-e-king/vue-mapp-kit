@@ -2358,7 +2358,7 @@
   resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.15.1.tgz#ed308d2f48c086aec63c63c33b915702036b9aee"
   integrity sha512-NYjRwQnjzscyFfqK+iIwRdr/dgYn33u6KE7kyQWdi7xsCkqMHalXYgJlN/QBQ9PN3qXmXKeBrJNG8EkNdCbK5g==
 
-"@terraformer/arcgis@^2.0.7", "@terraformer/arcgis@^2.1.0":
+"@terraformer/arcgis@^2.1.0":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@terraformer/arcgis/-/arcgis-2.1.1.tgz#ca362eb4f28cbe551dd611ea41644544779b803b"
   integrity sha512-/METp7KZYdr/cpIBMHUSCihuxgUq8c1afpiIQPEMiaKR8Wc3ZRgU9BvezV02/0INDDpB6CKUj/XXXo8HNrctkQ==
@@ -5028,27 +5028,15 @@ esrecurse@^4.3.0:
   dependencies:
     estraverse "^5.2.0"
 
-esri-leaflet-cluster@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/esri-leaflet-cluster/-/esri-leaflet-cluster-2.1.0.tgz#30f5104c8768c5d9d6a2015c870bb1b7da9bc9be"
-  integrity sha512-q07BHPXkluyb8STt/2m2spSecBiZj/Eqaiab8J14mlJ9RxAF11HthDb/09UOiJTmbpgvLUV1nPs2l7dKyY7xqg==
-  dependencies:
-    esri-leaflet "^2.0.0"
-    leaflet "^1.0.0"
-    leaflet.markercluster "^1.0.0"
-
 esri-leaflet-cluster@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/esri-leaflet-cluster/-/esri-leaflet-cluster-3.0.0.tgz#bc4b1a6846112e21c4d2105ae29c3f1ecd680261"
   integrity sha512-aAj2Bv7Lv8e4uK/BLT5EJlIizk+28NSSYbkYcPT+HYrnmLwog01V7pGxGOmI3HMpDMTjlt8WE9DpygMy6TIwQQ==
 
-esri-leaflet@^2.0.0:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-2.5.3.tgz#ccf0c7463c7f9b6dfe27aab478740c3dbd8fe25b"
-  integrity sha512-zapunrhhhKyiVP5NCSfFjD7YqWYYYD3OONVjBFWZgX2KbD6ssUQ3KnXVo2U0hswWfJDIoHF7g9PLZ4rDNuQnvA==
-  dependencies:
-    "@terraformer/arcgis" "^2.0.7"
-    tiny-binary-search "^1.0.3"
+esri-leaflet-cluster@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/esri-leaflet-cluster/-/esri-leaflet-cluster-3.0.1.tgz#ba9fcea19f5cd74a2eeff68872c23f9fc8cd2627"
+  integrity sha512-rqI4inhOzqZqGj0nfYNdfnDI51mGEpdefw4M4WoA0ig1FVh0V5W9ecRuHXbaBim+R7SSKMwY30S2wKipcYoF2w==
 
 esri-leaflet@^3.0.4, esri-leaflet@^3.0.8:
   version "3.0.8"
@@ -7019,15 +7007,15 @@ launch-editor@^2.2.1, launch-editor@^2.4.0:
     picocolors "^1.0.0"
     shell-quote "^1.6.1"
 
-leaflet.markercluster@^1.0.0, leaflet.markercluster@^1.5.3:
+leaflet.markercluster@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.5.3.tgz#9cdb52a4eab92671832e1ef9899669e80efc4056"
   integrity sha512-vPTw/Bndq7eQHjLBVlWpnGeLa3t+3zGiuM7fJwCkiMFq+nmRuG3RI3f7f4N4TDX7T4NpbAXpR2+NTRSEGfCSeA==
 
-leaflet@^1.0.0, leaflet@^1.7.1:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.8.0.tgz#4615db4a22a304e8e692cae9270b983b38a2055e"
-  integrity sha512-gwhMjFCQiYs3x/Sf+d49f10ERXaEFCPr+nVTryhAW8DWbMGqJqt9G4XuIaHmFW08zYvhgdzqXGr8AlW8v8dQkA==
+leaflet@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.3.tgz#52ec436954964e2d3d39e0d433da4b2500d74414"
+  integrity sha512-iB2cR9vAkDOu5l3HAay2obcUHZ7xwUBBjph8+PGtmW/2lYhbLizWtG7nTeYht36WfOslixQF9D/uSIzhZgGMfQ==
 
 lerna@^5.3.0:
   version "5.3.0"

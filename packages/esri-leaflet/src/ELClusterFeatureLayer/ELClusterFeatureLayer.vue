@@ -22,7 +22,7 @@ export default {
   },
 
   methods: {
-    createModule () {    
+    createModule () {
       this.module = esriCluster.featureLayer(this.options) // setting outside of $data to make non-reactive
     },
   }
