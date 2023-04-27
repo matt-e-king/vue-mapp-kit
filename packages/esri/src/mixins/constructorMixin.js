@@ -53,9 +53,9 @@ export default {
           this.module.when &&
           !['WebMap'].includes(this.name)
         ) {
-          console.log(this.name, this.module)
+          // console.log(this.name, this.module)
           this.module.when(() => {
-            console.log(this.name, ' .when() has been executed')
+            // console.log(this.name, ' .when() has been executed')
             this.bootRoutine()
           }).catch((e) => {
             console.log(e)
@@ -93,6 +93,20 @@ export default {
         this.addTo.add(this.module)
       }
     },
+    removeFromHook () {
+      // @todo this does not account for view.ui.remove
+      if (this.addTo && typeof this.addTo.remove === 'function') this.addTo.remove(this.module)
+      else if (this.parent && typeof this.parent.remove === 'function') this.parent.remove(this.module)
+      else if (this.getGroupLayer && this.getGroupLayer()) this.getGroupLayer().remove(this.module)
+      else if (this.getGraphicsLayer && this.getGraphicsLayer()) this.getGraphicsLayer().remove(this.module)
+      else if (this.getMap && this.getMap()) this.getMap().remove(this.module)
+      else if (this.getMapView && this.getMapView() && typeof this.getMapView().remove === 'function') this.getMapView().remove(this.module)
+      else if (this.getMapView && this.getMapView() && typeof this.getMapView().graphics.remove === 'function') this.getMapView().graphics.remove(this.module)
+      else console.error('No parent to remove from for :', this.name)
+
+      // TODO: seems sloppy
+      this.$emit('remove', this.module)
+    },
     /**
      * some esri classes require references to parent instance (e.g. map, mapview, graphicslayer)
      * to be passed as properties during constructions
@@ -125,18 +139,7 @@ export default {
       }
     },
     beforeDestroyHook () {
-      // @todo this does not account for view.ui.remove
-      if (this.addTo && typeof this.addTo.remove === 'function') this.addTo.remove(this.module)
-      else if (this.parent && typeof this.parent.remove === 'function') this.parent.remove(this.module)
-      else if (this.getGroupLayer && this.getGroupLayer()) this.getGroupLayer().remove(this.module)
-      else if (this.getGraphicsLayer && this.getGraphicsLayer()) this.getGraphicsLayer().remove(this.module)
-      else if (this.getMap && this.getMap()) this.getMap().remove(this.module)
-      else if (this.getMapView && this.getMapView() && typeof this.getMapView().remove === 'function') this.getMapView().remove(this.module)
-      else if (this.getMapView && this.getMapView() && typeof this.getMapView().graphics.remove === 'function') this.getMapView().graphics.remove(this.module)
-      else console.error('No parent to remove from for :', this.name)
-
-      // TODO: seems sloppy
-      this.$emit('remove', this.module)
+      this.removeFromHook()
     }
   },
 
