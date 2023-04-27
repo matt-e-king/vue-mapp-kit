@@ -1,6 +1,6 @@
 {
   "name": "@vue-mapp-kit/esri",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A component driven approach to managing Esri ArcGIS 4.x objects",
   "main": "dist/mapp-kit-esri.umd.js",
   "module": "dist/mapp-kit-esri.umd.js",
@@ -45,5 +45,6 @@
     "sass-loader": "^13.0.2",
     "vue-template-compiler": "^2.6.12",
     "webpack-node-externals": "^3.0.0"
-  }
+  },
+  "gitHead": "33faece4745d4bd687d0f29878873004fae8964f"
 }
