@@ -1,8 +1,8 @@
 {
   "name": "@vue-mapp-kit/leaflet",
-  "version": "4.0.0",
-  "description": "A component driven approach to managing Leaflet objects using Vue and Vuex.",
-  "main": "dist/mapp-kit-leaflet.umd.js",
+  "version": "5.0.0",
+  "description": "A component driven approach to managing Leaflet objects",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/matt-e-king/vue-mapp-kit"
@@ -12,38 +12,36 @@
     "email": "webdev@cals.arizona.edu"
   },
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
-    "src/",
-    "dist/",
-    "lib/"
+    "dist",
+    "lib"
   ],
+  "main": "./dist/vue-mapp-kit-leaflet.umd.cjs",
+  "module": "./dist/vue-mapp-kit-leaflet.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-mapp-kit-leaflet.js",
+      "require": "./dist/vue-mapp-kit-leaflet.umd.cjs"
+    },
+    "./lib/*": {
+      "import": "./lib/*"
+    }
+  },
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "yarn build:dist && yarn copy-lib",
-    "build:dist": "vue-cli-service build --target lib --name mapp-kit-leaflet './src/main.js'",
-    "copy-lib": "cp -R ./src/ ./lib",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
     "leaflet": "^1.9.3",
-    "vue": "^2.6.12"
+    "mitt": "^3.0.0",
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-plugin-unit-jest": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "leaflet": "^1.7.1",
-    "vue-template-compiler": "^2.6.12",
-    "vuex": "^3.1.1",
-    "webpack-node-externals": "^3.0.0"
-  },
-  "gitHead": "116644517c4bf2de75c805205a6a267948af0645"
+    "@vitejs/plugin-vue": "^4.0.0",
+    "eslint": "^8.34.0",
+    "eslint-plugin-vue": "^9.9.0",
+    "vite": "^4.1.4"
+  }
 }

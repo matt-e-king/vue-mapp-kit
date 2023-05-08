@@ -1,0 +1,29 @@
+{
+  "name": "@vue-mapp-kit/examples",
+  "private": true,
+  "version": "5.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@arcgis/core": "^4.26.5",
+    "@vue-mapp-kit/esri": "*",
+    "@vue-mapp-kit/leaflet": "*",
+    "@vue-mapp-kit/esri-leaflet": "*",
+    "add": "^2.0.6",
+    "esri-leaflet": "^3.0.8",
+    "esri-leaflet-cluster": "^3.0.0",
+    "leaflet.markercluster": "^1.5.3",
+    "vue": "^3.2.47",
+    "vue-router": "4",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "sass": "^1.62.0",
+    "vite": "^4.1.4"
+  }
+}

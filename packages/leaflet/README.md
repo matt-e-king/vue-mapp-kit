@@ -3,7 +3,7 @@
 A component driven approach to managing Leaflet objects using Vue. Each component supported in this library has an almost identical interface to each respective class in [Leaflet](https://leafletjs.com/reference-1.7.1.html).
 
 ### Table of Contents
- - [v4 Changes](#v4-changes)
+ - [v5 Changes](#v5-changes)
  - [Importing](#importing)
  - [Getting Started](#getting-started)
  - [Quick Start Guide](#quick-start-guide)
@@ -14,25 +14,26 @@ A component driven approach to managing Leaflet objects using Vue. Each componen
    - [Working with popups](#working-with-popups)
    - [Events](#events)
    - [Groups](#feature-and-layer-groups)
- - [GeoJSON](../../packages/leaflet-examples/src/components/UsingGeoJson.vue)
-   - [GeoJSON Collection](../../packages/leaflet-examples/src/components/CustomGeoJsonCollection.vue): custom component dealing with multiple geotypes in same `FeatureCollection`
- - [More Code Examples Here](../../packages/leaflet-examples/src/components)
+ - [GeoJSON](../../packages/examples/src/pages/leaflet/UsingGeoJson.vue)
+   - [GeoJSON Collection](../../packages/examples/src/pages/leaflet/CustomGeoJsonCollection.vue): custom component dealing with multiple geotypes in same `FeatureCollection`
+ - [More Code Examples Here](../../packages/examples/src/pages/leaflet)
  - [EsriLeaflet (@vue-mapp-kit/esri-leaflet)](https://github.com/matt-e-king/vue-mapp-kit/tree/master/packages/esri-leaflet)
 
 ### Demo
-Clone repo and `cd` into `/packages/leaflet-examples` and run `yarn install && yarn serve`
+Clone repo and `cd` into `/packages/examples` and run `yarn install && yarn dev`
 
 ----------
 
-## V4 BREAKING CHANGES
- * A Vuex store is no longer managed
- * Components are not automatically registered into your Vue app. Components need to be imported manually. See examples below.
+## V5 Changes
+ - Migrated to Vue 3
+ - Uses `mitt` to emulate old Vue 2 event system
+ - Direct import paths changed to include `lib`
+  - Old: `import LMap from '@vue-mapp-kit/leaflet/LMap/LMap'`
+  - News: `import LMap from '@vue-mapp-kit/leaflet/lib/LMap/LMap.vue'`
 
 ----------
 
 ## Importing
-This library build targets are UMD and individual components. The individual components (at the moment) require `vue-loader`.
-
 Import components as UMD:
 ```
 import { LMap, LMarker } from '@vue-mapp-kit/leaflet'
@@ -40,8 +41,8 @@ import { LMap, LMarker } from '@vue-mapp-kit/leaflet'
 
 Import individual components:
 ```
-import LMap from '@vue-mapp-kit/leaflet/LMap/LMap'
-import LMarker from '@vue-mapp-kit/leaflet/ui/LMarker/LMarker'
+import LMap from '@vue-mapp-kit/leaflet/lib/LMap/LMap.vue'
+import LMarker from '@vue-mapp-kit/leaflet/lib/ui/LMarker/LMarker.vue'
 ```
 
 See the `lib` directory after adding this package to your `node_modules` for other import paths.
@@ -53,33 +54,35 @@ npm install --save leaflet @vue-mapp-kit/leaflet
 yarn add leaflet @vue-mapp-kit/leaflet
 ```
 
-Assuming you are using a `vue-cli` template, your `src/main.js` will look something like this:
-```
-import Vue from 'vue'
+Assuming you are using `vite` as your build/bundler, your `src/main.js` will look something like this:
+```javascript
+import { createApp } from 'vue'
+import router from './router'
+import './style.css'
 import App from './App.vue'
-import MappKitLeaflet from '@vue-mapp-kit/leaflet'
+import VueMappKitLeafet from '@vue-mapp-kit/leaflet'
 
-Vue.use(MappKitLeaflet)
-Vue.config.productionTip = false
+const a = createApp(App)
+a.use(VueMappKitLeafet)
+a.use(router)
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+a.mount('#app')
+
 ```
 ### CSS
 The consumer is also responsible for importing the Leaflet styles:
-```
+```javascript
 @import "leaflet/dist/leaflet.css"
 ```
 
 ## Quick Start Guide
-These simple examples mirrors the effort in the [Leaflet Quick Start Guide](http://leafletjs.com/examples/quick-start/). These examples use the single file component structure, loaded by `vue-loader`
+These simple examples mirror the effort in the [Leaflet Quick Start Guide](http://leafletjs.com/examples/quick-start/).
 
 ----------
 
 ### Preparing your page
 Create a new Vue component with a container `div`:
-```
+```javascript
 <template>
   <div class="example-map"></div>
 </template>
@@ -105,7 +108,7 @@ export default {
 
 ### Setting up the map
 Import and add `<LMap />` which takes a string prop called `mapId` and object props called `options`. You'll notice this follows a similar interface as the [`Leaflet.map`](https://leafletjs.com/reference-1.7.1.html#map-example). **All MappKitLeaflet components aspire to have a similar pattern; utilizing the same instantiating signature used to create its corresponding Leaflet object.** `map-id` string value becomes the `div#id` the Leaflet map will mount into:
-```
+```javascript
 <template>
   <div class="map-container">
     <LMap
@@ -131,7 +134,7 @@ export default {
 You should have a blank, gray, tile-less map :) The `<LMap />` component uses the Vue provide/inject in order to add nested children to the map.
 
 Now let's add a `<LTileLayer/>` component as a nested child to `<LMap/>`. The `<LTileLayer/>` component accepts two props, `urlTemplate` and `options`:
-```
+```javascript
 <template>
   <div class="map-container">
     <LMap
@@ -172,7 +175,7 @@ Woo hoo! You should now see a map hovering over a place in London.
 ----------
 ### Markers, circles and polygons
 Easily add other layers to your map! Let's add a marker:
-```
+```javascript
 <template>
   <div class="map-container">
     <LMap
@@ -205,7 +208,7 @@ export default {
 </script>
 ```
 Adding a circle and polygon are fairly similar:
-```
+```javascript
 <LMarker :latlng="[51.5, -0.09]"/>
 <LCircle
   :latlng="[51.508, -0.11]"
@@ -238,7 +241,7 @@ Popups starts to expose some of the flexibility of VueMappKit. You can handle po
 Every component in VueMappKit comes with a `@ready` event that passes back the instantiated Leaflet object. Technically, you could use the `@ready` event on `<LMap />` to then create the rest of your map functionality instead of this nest-component driven approach.
 
 The `popup` prop is custom to VueMappKit.
-```
+```javascript
 ...
 
 <LMarker
@@ -278,16 +281,16 @@ The `popup` prop is custom to VueMappKit.
   }"
 />
 ```
-See full Quick Start example [here](../../packages/leaflet-examples/src/components/QuickStart.vue)
+See full Quick Start example [here](../../packages/examples/src/pages/leaflet/QuickStart.vue)
 
 ### Events
 Pass in an array events (as strings) that are supported by the layer type. Each event passed will then be registered as a listener on the component. See [Leaflets docs](https://leafletjs.com/reference-1.7.1.html) for events. There is a "ready" event that is handle by MappKitLeaflet for you :). Each Leaflet supported event `$emits` an `{ event, module }` object.
 
 Additionaly, you can pass a boolean prop called `enable-bus` which will registered each event passed in `events` prop on the global `this.$mappKitBus` bus.
 
-See full working example [here](../../packages/leaflet-examples/src/components/WorkingWithEvents.vue).
+See full working example [here](../../packages/examples/src/pages/leaflet/WorkingWithEvents.vue).
 
 ----------
 
 ### Feature and Layer groups
-Similar to `<LMap />`, both `<LFeatureGroup />` and `<LLayerGroup />` use the Vue provide/inject to add any nested child layers to the appropriate parent layer. See full working example [here](../../packages/leaflet-examples/src/components/GroupsAndControls.vue).
+Similar to `<LMap />`, both `<LFeatureGroup />` and `<LLayerGroup />` use the Vue provide/inject to add any nested child layers to the appropriate parent layer. See full working example [here](../../packages/examples/src/pages/leaflet/GroupsAndControls.vue).

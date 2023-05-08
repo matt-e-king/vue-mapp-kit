@@ -6,11 +6,12 @@
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^5.3.0"
+    "lerna": "^5.6.2"
   },
   "scripts": {
     "build": "npx lerna run build",
     "build:publish-beta": "yarn build && npx lerna publish --dist-tag beta",
-    "build:publish-latest": "yarn build && npx lerna publish --dist-tag latest"
+    "build:publish-latest": "yarn build && npx lerna publish --dist-tag latest",
+    "build:rc": "yarn build && npx lerna publish --dist-tag rc"
   }
 }

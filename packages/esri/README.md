@@ -2,16 +2,15 @@
 
 A component driven approach to managing Esri ArcGIS Javascript API 4.x objects using VueJS. Each component supported in this library has an almost identical interface to each respective class in [Esri](https://developers.arcgis.com/javascript/latest/api-reference/).
 
-## v4.x.x breaking changes
+** Note ** Nuxt documentation coming soon.
 
-v4 of @vue-mapp-kit/esri is now using the ESM imports from `@arcgis/core` and the following must be considered:
- - Consumer must install the `@arcgis/core` dependency
- - Consumer must place import Esri global css, e.g. `@import "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/themes/dark/main.css";`
-   - https://developers.arcgis.com/javascript/latest/es-modules/
- - Tree shaking
-   - by default the library expects consumer to import the modules needed in their components
-     - e.g. `import EMap from '@vue-mapp-kit/esri/src/components/EMap/EMap'`
- - Removed `loadModules`, consumer can use `@arcgis/core` for any additional Esri modules that are not included in this library
+## v5.x.x breaking changes
+
+ - Migrated to Vue 3
+ - Uses `mitt` to emulate old Vue 2 event system
+
+### Demo
+Clone repo and `cd` into `/packages/examples` and run `yarn install && yarn dev`
 
 ----------
 ## Getting Started
@@ -20,39 +19,45 @@ npm install --save @vue-mapp-kit/esri
 yarn add @vue-mapp-kit/esri
 ```
 
-Assuming you are using a `vue-cli` template, your `src/main.js` will look something like this:
+Assuming you are using `vite` as your build/bundler, your `src/main.js` will look something like this:
 
 ```javascript
-import Vue from 'vue'
+import { createApp } from 'vue'
+import router from './router'
+import './style.css'
 import App from './App.vue'
-import MappKitEsri from '@vue-mapp-kit/esri'
+import VueMappKitEsri from '@vue-mapp-kit/esri'
 
-// must use Vue.use if you want to use $mappKitBus
-Vue.use(MappKitEsri)
+const a = createApp(App)
+a.use(VueMappKitEsri)
+a.use(router)
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+a.mount('#app')
 ```
 
+** Note ** you don't need to install `@vue-mapp-kit/esri` unless you want access to the built-in event system.
+
  - Code examples in the [`examples`](../../packages/examples/src/pages/esri) package.
- - Supported components in the [src/components](src/components) directory, which follow a similar organizational structure as the [API Reference](https://developers.arcgis.com/javascript/latest/api-reference/)
+ - Supported components in the [src/lib](src/lib) directory, which follow a similar organizational structure as the [API Reference](https://developers.arcgis.com/javascript/latest/api-reference/)
 
 ## Component Properties
 As mentioned above, this library strives to have an almost identical interface to each respective class in the [Esri Javsacript ArcGIS API](https://developers.arcgis.com/javascript/latest/api-reference/). Each suppported component in this library will have a `properties` prop:
 ```javascript
+import EMap from '@vue-mapp-kit/esri/lib/EMap/EMap.vue'
+
 <EMap
   :properties="{
     basemap: 'streets-vector'
   }"
 >
 </EMap>
-
 ```
 See [Map Properties](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#properties-summary) in the Esri Api Reference. The pattern is followed for each supported component in this library. 
 
 For example, here is a GeoJSON layer:
 ```javascript
+import EGeoJsonLayer from '@vue-mapp-kit/esri/lib/layers/EGeoJsonLayer/EGeoJsonLayer.vue'
+
 <EGeoJsonLayer
   :properties="{
     url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson',
@@ -72,6 +77,8 @@ Tada!
 
 All events provided by the Esri ArcGIS api are supported in this library but need to be explicity passed in a special `events` prop. The name of the event is also the name of the emitter which passes up event object:
 ```javascript
+import EMapView from '@vue-mapp-kit/esri/lib/views/EMapView/EMapView.vue'
+
 <EMapView
   :events="['click', 'double-click']"
   @click="() => {}"
@@ -162,12 +169,22 @@ export default {
 </template>
 
 <script>
+import EMap from '@vue-mapp-kit/esri/lib/EMap/EMap.vue'
+import EMapView from '@vue-mapp-kit/esri/lib/views/EMapView/EMapView.vue'
+import EBasemapToggle from '@vue-mapp-kit/esri/lib/widgets/EBasemapToggle/EBasemapToggle.vue'
+
 export default {
-  name: 'BasicMap'
+  name: 'BasicMap',
+
+  components: {
+    EMap,
+    EMapView,
+    EBasemapToggle
+  }
 }
 </script>
 ```
-The MapView is a nested component under the Map component.
+The MapView is a nested component under the Map component. [See more here](../../packages/examples/src/pages/esri/BasicMap.vue).
 
 ----------
 
@@ -218,3 +235,4 @@ Notice how the second `EGraphicsLayer` has a prop called `add-to`? This is a spe
 ## More info
  - More code examples in the [`examples`](../../packages/examples/src/components) package.
  - Supported components in the [src/components](src/components) directory.
+ - Nuxt documentation coming soon...
