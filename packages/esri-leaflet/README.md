@@ -24,10 +24,10 @@ Clone repo and `cd` into `/packages/leaflet-examples` and run `yarn install && y
   - New: `import FeatureLayer from '@vue-mapp-kit/esr-leaflet/lib/FeatureLayer/FeatureLayer.vue'`
 
 ----------
-## Getting Started
+## Getting Started (release candidates)
 ```
-npm install --save leaflet esri-leaflet @vue-mapp-kit/leaflet @vue-mapp-kit/esri-leaflet
-yarn add leaflet esri-leaflet @vue-mapp-kit/leaflet @vue-mapp-kit/esri-leaflet
+npm install --save leaflet esri-leaflet @vue-mapp-kit/leaflet@5.0.0-rc.0 @vue-mapp-kit/esri-leaflet@5.0.0-rc.0
+yarn add leaflet esri-leaflet @vue-mapp-kit/leaflet@5.0.0-rc.0 @vue-mapp-kit/esri-leaflet@5.0.0-rc.0
 ```
 
 `@vue-mapp-kit/esri-leaflet` is just a collection of components and doesn't require an install, but `@vue-mapp-kit/leaflet` as it's dependency still does require an install. 

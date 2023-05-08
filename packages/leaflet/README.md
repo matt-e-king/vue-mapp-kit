@@ -48,10 +48,10 @@ import LMarker from '@vue-mapp-kit/leaflet/lib/ui/LMarker/LMarker.vue'
 See the `lib` directory after adding this package to your `node_modules` for other import paths.
 
 
-## Getting Started
+## Getting Started (release candidat)
 ```
-npm install --save leaflet @vue-mapp-kit/leaflet
-yarn add leaflet @vue-mapp-kit/leaflet
+npm install --save leaflet @vue-mapp-kit/leaflet@5.0.0-rc.0
+yarn add leaflet @vue-mapp-kit/leaflet@5.0.0-rc.0
 ```
 
 Assuming you are using `vite` as your build/bundler, your `src/main.js` will look something like this:

@@ -2,7 +2,7 @@
 
 A component driven approach to managing Esri ArcGIS Javascript API 4.x objects using VueJS. Each component supported in this library has an almost identical interface to each respective class in [Esri](https://developers.arcgis.com/javascript/latest/api-reference/).
 
-** Note ** Nuxt documentation coming soon.
+**Note** Nuxt documentation coming soon.
 
 ## v5.x.x breaking changes
 
@@ -13,10 +13,10 @@ A component driven approach to managing Esri ArcGIS Javascript API 4.x objects u
 Clone repo and `cd` into `/packages/examples` and run `yarn install && yarn dev`
 
 ----------
-## Getting Started
+## Getting Started (Currenlty just a release candidate)
 ```
-npm install --save @vue-mapp-kit/esri
-yarn add @vue-mapp-kit/esri
+npm install --save @vue-mapp-kit/esri@5.0.0-rc.0
+yarn add @vue-mapp-kit/esri@5.0.0-rc.0
 ```
 
 Assuming you are using `vite` as your build/bundler, your `src/main.js` will look something like this:
