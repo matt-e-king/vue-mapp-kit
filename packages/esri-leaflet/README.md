@@ -3,6 +3,9 @@
 
 This library (or set of components) uses [@vue-mapp-kit/leaflet](https://github.com/matt-e-king/vue-mapp-kit) as its primary dependency. Similar to how @vue-mapp-kit/leaflet provides a "vuetified" approach to handling EsriLeaflet objects, MappKitEsriLeaflet provides the same methodology for handling EsriLeaflet objects.
 
+## Vue 3 Upgrade
+ * https://github.com/matt-e-king/vue-mapp-kit/tree/release/5.0.0/packages/esri-leaflet
+
 **This project is currently in development with ZERO test coverage! Use at your own risk :)** 
  - [v4 Changes](#v4-changes)
  - [Getting Started](#getting-started)

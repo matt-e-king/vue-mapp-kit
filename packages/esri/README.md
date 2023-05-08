@@ -2,6 +2,9 @@
 
 A component driven approach to managing Esri ArcGIS Javascript API 4.x objects using VueJS. Each component supported in this library has an almost identical interface to each respective class in [Esri](https://developers.arcgis.com/javascript/latest/api-reference/).
 
+## Vue 3 Upgrade
+ * https://github.com/matt-e-king/vue-mapp-kit/tree/release/5.0.0/packages/esri
+
 ## v4.x.x breaking changes
 
 v4 of @vue-mapp-kit/esri is now using the ESM imports from `@arcgis/core` and the following must be considered:

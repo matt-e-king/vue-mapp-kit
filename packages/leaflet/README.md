@@ -2,6 +2,9 @@
 
 A component driven approach to managing Leaflet objects using Vue. Each component supported in this library has an almost identical interface to each respective class in [Leaflet](https://leafletjs.com/reference-1.7.1.html).
 
+## Vue 3 Upgrade
+ * https://github.com/matt-e-king/vue-mapp-kit/tree/release/5.0.0/packages/leaflet
+
 ### Table of Contents
  - [v4 Changes](#v4-changes)
  - [Importing](#importing)
