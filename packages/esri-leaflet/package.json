@@ -1,6 +1,6 @@
 {
   "name": "@vue-mapp-kit/esri-leaflet",
-  "version": "5.0.0",
+  "version": "5.0.0-rc.0",
   "description": "A component driven approach to managing EsriLeaflet objects",
   "type": "module",
   "repository": {
@@ -42,8 +42,8 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@vue-mapp-kit/leaflet": "*",
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vue-mapp-kit/leaflet": "^5.0.0-rc.0",
     "eslint": "^8.34.0",
     "eslint-plugin-vue": "^9.9.0",
     "vite": "^4.1.4"
