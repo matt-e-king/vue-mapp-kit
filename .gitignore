@@ -1,15 +1,6 @@
 .DS_Store
 node_modules
-/packages/esri/lib/
-/packages/esri-leaflet/lib/
-/packages/leaflet/lib/
 /packages/**/dist/
-!/projects/
-/projects/*
-!/projects/esri-leaflet-example/
-!/projects/leaflet-example/
-!/projects/esri-example/
-!/projects/examples/
 /dist
 robots.txt
 src.zip
