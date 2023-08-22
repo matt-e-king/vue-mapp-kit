@@ -1,6 +1,6 @@
 {
   "name": "@vue-mapp-kit/esri",
-  "version": "5.0.0-rc.0",
+  "version": "5.0.1-rc.0",
   "description": "A component driven approach to managing Esri ArcGIS 4.x objects",
   "type": "module",
   "repository": {

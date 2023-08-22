@@ -1,7 +1,7 @@
 {
   "name": "@vue-mapp-kit/examples",
   "private": true,
-  "version": "5.0.0-rc.0",
+  "version": "5.0.1-rc.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@arcgis/core": "^4.26.5",
-    "@vue-mapp-kit/esri": "^5.0.0-rc.0",
-    "@vue-mapp-kit/esri-leaflet": "^5.0.0-rc.0",
-    "@vue-mapp-kit/leaflet": "^5.0.0-rc.0",
+    "@vue-mapp-kit/esri": "^5.0.1-rc.0",
+    "@vue-mapp-kit/esri-leaflet": "^5.0.1-rc.0",
+    "@vue-mapp-kit/leaflet": "^5.0.1-rc.0",
     "add": "^2.0.6",
     "esri-leaflet": "^3.0.8",
     "esri-leaflet-cluster": "^3.0.0",
