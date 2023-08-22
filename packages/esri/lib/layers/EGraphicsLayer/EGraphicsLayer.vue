@@ -26,7 +26,7 @@ export default {
   provide() {
     return {
       // this will get injected into all children
-      getGraphicsLayer: this.getGraphicsLayer
+      getGraphicsLayer: this.innerGetGraphicsLayer
     }
   },
 
@@ -41,7 +41,7 @@ export default {
   },
 
   methods: {
-    getGraphicsLayer () {
+    innerGetGraphicsLayer () {
       return this.module
     }
   }
