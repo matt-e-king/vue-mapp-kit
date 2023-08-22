@@ -2,7 +2,7 @@
   <div>
     <slot
       v-if="booted"
-      :groupLayer="module.GroupLayer"
+      :groupLayer="module"
     />
   </div>
 </template>

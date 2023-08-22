@@ -2,7 +2,7 @@
   <div>
     <slot
       v-if="booted"
-      :graphicsLayer="module.GraphicsLayer"
+      :graphicsLayer="module"
     />
   </div>
 </template>

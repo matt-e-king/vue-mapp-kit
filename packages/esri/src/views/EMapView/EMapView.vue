@@ -2,7 +2,7 @@
   <div class="mapView">
     <slot
       v-if="booted"
-      :mapView="module.MapView"
+      :mapView="module"
     />
   </div>
 </template>

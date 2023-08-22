@@ -1,6 +1,9 @@
 <template>
   <div class="sceneView">
-    <slot v-if="booted" v-bind:sceneView="module.SceneView"/>
+    <slot
+      v-if="booted"
+      :sceneView="module"
+    />
   </div>
 </template>
 
