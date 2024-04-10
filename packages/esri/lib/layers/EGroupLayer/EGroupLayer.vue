@@ -2,46 +2,38 @@
   <div>
     <slot
       v-if="booted"
-      :groupLayer="module.GroupLayer"
+      :groupLayer="getEsriObject()"
     />
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, inject, provide, onBeforeUnmount } from 'vue'
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html
 import GroupLayer from '@arcgis/core/layers/GroupLayer'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
+import { useConstructor, ConstructionProps, layerEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'EGroupLayer',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(layerEvents)
+const getMap = inject('getMap')
+const parent = props.addTo || (getMap && getMap())
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin
-  ],
+const {
+  instantiate,
+  booted,
+  getEsriObject
+} = useConstructor({
+  name: 'GroupLayer'
+}, props, emit)
 
-  provide() {
-    return {
-      // this will get injected into all children
-      getGroupLayer: this.groupLayer
-    }
-  },
+instantiate(GroupLayer, parent)
 
-  data() {
-    return {
-      name: 'GroupLayer'
-    }
-  },
+provide('getGroupLayer', getEsriObject)
 
-  created () {
-    this.instantiate(GroupLayer)
-  },
+onBeforeUnmount(() => {
+  parent.remove(getEsriObject())
 
-  methods: {
-    groupLayer () {
-      return this.module
-    }
-  }
-}
+  emit('remove', getEsriObject())
+})
+
 </script>

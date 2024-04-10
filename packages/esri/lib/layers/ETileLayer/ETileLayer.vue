@@ -1,29 +1,29 @@
 <template></template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, inject, onBeforeUnmount } from 'vue'
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-TileLayer.html
 import TileLayer from '@arcgis/core/layers/TileLayer'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
-import injectGroupLayer from '../../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, layerEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'ETileLayer',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(layerEvents)
+const getMap = inject('getMap')
+const getGroupLayer = inject('getGroupLayer', undefined)
+const parent = props.addTo || (getGroupLayer && getGroupLayer()) || (getMap && getMap())
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin,
-    injectGroupLayer
-  ],
+const {
+  instantiate,
+  getEsriObject
+} = useConstructor({
+  name: 'TileLayer'
+}, props, emit)
 
-  data() {
-    return {
-      name: 'TileLayer'
-    }
-  },
+instantiate(TileLayer, parent)
 
-  created () {
-    this.instantiate(TileLayer)
-  }
-}
+onBeforeUnmount(() => {
+  parent.remove(getEsriObject())
+
+  emit('remove', getEsriObject())
+})
 </script>

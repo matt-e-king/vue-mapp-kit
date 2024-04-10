@@ -1,44 +1,33 @@
 <template></template>
 
-<script>
+<script setup>
+import { defineProps, inject } from 'vue'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapViewMixin from '../../mixins/injectMapViewMixin.js'
+import { useConstructor, ConstructionProps } from '../../composables/useConstructor'
 
-export default {
-  name: 'EBasemapToggle',
-
-  mixins: [
-    constructorMixin,
-    injectMapViewMixin
-  ],
-
-  props: {
-    position: {
-      type: String,
-      default: 'top-right'
-    }
-  },
-
-  data() {
-    return {
-      name: 'BasemapToggle'
-    }
-  },
-
-  created () {
-    this.instantiate(BasemapToggle)
-  },
-
-  methods: {
-    addToHook() {
-      if (!this.getMapView()) console.error('[EBasemapToggle] no MapView')
-      this.getMapView().ui.add(this.module.BasemapToggle, this.position)
-    },
-    mergePropsHook () {
-      if (!this.getMapView()) console.error('[EBasemapToggle] no MapView')
-      return this.properties.view ? {} : { view: this.getMapView() }
-    }
+const props = defineProps({
+  ...ConstructionProps,
+  position: {
+    type: String,
+    default: 'bottom-left'
   }
-}
+})
+const getMapView = inject('getMapView')
+
+const {
+  instantiate
+} = useConstructor({
+  addToHook: (module) => {
+    if (!getMapView()) console.error('[EBasemapToggle] no map view')
+    getMapView().ui.add(module, props.position)
+  },
+  mergePropsHook: () => {
+    if (!getMapView()) { console.error('[EBasemapToggle] No map instance for MapView') }
+    return props.properties.view ? {} : { view: getMapView() }
+  },
+  name: 'BasemapToggle'
+}, props)
+
+instantiate(BasemapToggle)
 </script>

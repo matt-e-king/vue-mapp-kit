@@ -20,16 +20,19 @@
         <EImageryLayer
           :properties="{
             ...getRenderedImageryLayerProps(),
-            title: 'Custom Render Rule'
+            title: 'Custom Render Rule',
+            opacity: opacity
           }"
         />
         <EImageryLayer
           :properties="{
             title: 'Simple Example',
             url: sharedUrl,
-            format: 'jpgpng'
+            format: 'jpgpng',
+            opacity: opacity
           }"
         />
+        <ELegend />
         <ELayerList />
       </EMapView>
     </EMap>
@@ -41,6 +44,7 @@ import EMap from '@vue-mapp-kit/esri/lib/EMap/EMap.vue'
 import EMapView from '@vue-mapp-kit/esri/lib/views/EMapView/EMapView.vue'
 import EImageryLayer from '@vue-mapp-kit/esri/lib/layers/EImageryLayer/EImageryLayer.vue'
 import ELayerList from '@vue-mapp-kit/esri/lib/widgets/ELayerList/ELayerList.vue'
+import ELegend from '@vue-mapp-kit/esri/lib/widgets/ELegend/ELegend.vue'
 
 import RasterFunction from '@arcgis/core/layers/support/RasterFunction.js'
 import MosaicRule from '@arcgis/core/layers/support/MosaicRule.js'
@@ -52,7 +56,8 @@ export default {
     EMap,
     EMapView,
     EImageryLayer,
-    ELayerList
+    ELayerList,
+    ELegend
   },
 
   async mounted () {
@@ -61,6 +66,10 @@ export default {
       method: 'center',
       operation: 'last'
     })
+
+    setTimeout(() => {
+      this.opacity = 0.3
+    }, 5000)
 
     const remapRF = new RasterFunction({
       functionName: 'Remap',
@@ -79,7 +88,7 @@ export default {
       }
     })
 
-    this.renderingRule = new RasterFunction({
+    this.rasterFunction = new RasterFunction({
       functionName: 'Colormap',
       functionArguments: {
         colormap: [
@@ -102,6 +111,7 @@ export default {
 
   data () {
     return {
+      opacity: 1,
       booted: false,
       sharedUrl: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer'
     }
@@ -111,7 +121,7 @@ export default {
     getRenderedImageryLayerProps () {
       return {
         url: this.sharedUrl,
-        renderingRule: this.renderingRule,
+        rasterFunction: this.rasterFunction,
         mosaicRule: this.mosaicRule
       }
     }

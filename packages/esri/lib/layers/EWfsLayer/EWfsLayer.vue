@@ -1,29 +1,29 @@
 <template></template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, inject, onBeforeUnmount } from 'vue'
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-WFSLayer.html
 import WFSLayer from '@arcgis/core/layers/WFSLayer'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
-import injectGroupLayer from '../../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, layerEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'EWfsLayer',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(layerEvents)
+const getMap = inject('getMap')
+const getGroupLayer = inject('getGroupLayer', undefined)
+const parent = props.addTo || (getGroupLayer && getGroupLayer()) || (getMap && getMap())
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin,
-    injectGroupLayer
-  ],
+const {
+  instantiate,
+  getEsriObject
+} = useConstructor({
+  name: 'WFSLayer'
+}, props, emit)
 
-  data() {
-    return {
-      name: 'WFSLayer'
-    }
-  },
+instantiate(WFSLayer, parent)
 
-  created () {
-    this.instantiate(WFSLayer)
-  }
-}
+onBeforeUnmount(() => {
+  parent.remove(getEsriObject())
+
+  emit('remove', getEsriObject())
+})
 </script>

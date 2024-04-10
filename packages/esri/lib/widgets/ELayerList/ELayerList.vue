@@ -1,45 +1,33 @@
 <template></template>
 
-<script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html
+<script setup>
+import { defineProps, inject } from 'vue'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html
 import LayerList from '@arcgis/core/widgets/LayerList'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapViewMixin from '../../mixins/injectMapViewMixin.js'
+import { useConstructor, ConstructionProps } from '../../composables/useConstructor'
 
-export default {
-  name: 'ELayerList',
-
-  // constructor handles created()
-  mixins: [constructorMixin, injectMapViewMixin],
-
-  props: {
-    position: {
-      type: String,
-      default: 'top-right'
-    }
-  },
-
-  data() {
-    return {
-      name: 'LayerList'
-    }
-  },
-
-  created () {
-    this.instantiate(LayerList)
-  },
-
-  methods: {
-    addToHook() {
-      if (!this.getMapView()) console.error('[ELayerList] no map view')
-      this.getMapView().ui.add(this.module, this.position)
-    },
-    mergePropsHook () {
-      if (!this.getMapView()) console.error('[ELayerList] no map view')
-      return this.properties.view ? {} : { view: this.getMapView() }
-    }
+const props = defineProps({
+  ...ConstructionProps,
+  position: {
+    type: String,
+    default: 'top-right'
   }
-}
-</script>
+})
+const getMapView = inject('getMapView')
 
-<style scoped></style>
+const {
+  instantiate
+} = useConstructor({
+  addToHook: (module) => {
+    if (!getMapView()) console.error('[ELayerList] no map view')
+    getMapView().ui.add(module, props.position)
+  },
+  mergePropsHook: () => {
+    if (!getMapView()) { console.error('[ELayerList] No map instance for MapView') }
+    return props.properties.view ? {} : { view: getMapView() }
+  },
+  name: 'LayerList'
+}, props)
+
+instantiate(LayerList)
+</script>

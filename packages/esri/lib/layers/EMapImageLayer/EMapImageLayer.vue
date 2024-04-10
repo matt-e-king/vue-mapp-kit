@@ -1,29 +1,28 @@
 <template></template>
 
-<script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryTileLayer.html
+<script setup>
+import { defineEmits, defineProps, inject, onBeforeUnmount } from 'vue'
 import MapImageLayer from '@arcgis/core/layers/MapImageLayer'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
-import injectGroupLayer from '../../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, layerEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'EMapImageLayer',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(layerEvents)
+const getMap = inject('getMap')
+const getGroupLayer = inject('getGroupLayer', undefined)
+const parent = props.addTo || (getGroupLayer && getGroupLayer()) || (getMap && getMap())
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin,
-    injectGroupLayer
-  ],
+const {
+  instantiate,
+  getEsriObject
+} = useConstructor({
+  name: 'MapImageLayer'
+}, props, emit)
 
-  data() {
-    return {
-      name: 'MapImageLayer'
-    }
-  },
+instantiate(MapImageLayer, parent)
 
-  created () {
-    this.instantiate(MapImageLayer)
-  }
-}
+onBeforeUnmount(() => {
+  parent.remove(getEsriObject())
+
+  emit('remove', getEsriObject())
+})
 </script>

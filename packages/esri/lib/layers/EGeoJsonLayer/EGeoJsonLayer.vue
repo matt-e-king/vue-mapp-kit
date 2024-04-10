@@ -1,29 +1,29 @@
 <template></template>
 
-<script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GeoJSONLayer.html
+<script setup>
+import { defineEmits, defineProps, inject, onBeforeUnmount } from 'vue'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html
 import GeoJSONLayer from '@arcgis/core/layers/GeoJSONLayer'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
-import injectGroupLayer from '../../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, layerEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'EGeoJsonLayer',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(layerEvents)
+const getMap = inject('getMap')
+const getGroupLayer = inject('getGroupLayer', undefined)
+const parent = props.addTo || (getGroupLayer && getGroupLayer()) || (getMap && getMap())
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin,
-    injectGroupLayer
-  ],
+const {
+  instantiate,
+  getEsriObject
+} = useConstructor({
+  name: 'GeoJSONLayer'
+}, props, emit)
 
-  data() {
-    return {
-      name: 'GeoJSONLayer'
-    }
-  },
+instantiate(GeoJSONLayer, parent)
 
-  created () {
-    this.instantiate(GeoJSONLayer)
-  }
-}
+onBeforeUnmount(() => {
+  parent.remove(getEsriObject())
+
+  emit('remove', getEsriObject())
+})
 </script>

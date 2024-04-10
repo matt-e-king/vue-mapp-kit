@@ -1,64 +1,56 @@
 <template></template>
 
-<script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html
+<script setup>
+import { defineProps, defineEmits, inject, watch } from 'vue'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html
 import SketchViewModel from '@arcgis/core/widgets/Sketch/SketchViewModel'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapViewMixin from '../../mixins/injectMapViewMixin.js'
-import injectGraphicsLayer from '../../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, sketchEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'e-sketch-view-model',
-
-  mixins: [constructorMixin, injectMapViewMixin, injectGraphicsLayer],
-
-  props: {
-    tool: {
-      type: String,
-      default: ''
-    },
-    toolMode: {
-      type: Object,
-      default: () => ({ mode: 'hybrid' })
-    }
+const props = defineProps({
+  ...ConstructionProps,
+  tool: {
+    type: String,
+    default: ''
   },
+  toolMode: {
+    type: Object,
+    default: () => ({ mode: 'hybrid' })
+  }
+})
+const emit = defineEmits(sketchEvents)
+const getMapView = inject('getMapView')
+const getGraphicsLayer = inject('getGraphicsLayer', undefined)
 
-  data() {
+const {
+  instantiate,
+  getEsriObject
+} = useConstructor({
+  addToHook: () => {},
+  mergePropsHook: () => {
+    if (!getMapView() || !getGraphicsLayer()) {
+      console.error('[ESketchViewModel] no map view or no graphics layers')
+    }
     return {
-      name: 'SketchViewModel'
+      ...(props.properties.layer ? {} : { layer: getGraphicsLayer() }),
+      ...(props.properties.view ? {} : { view: getMapView() })
     }
   },
+  name: 'SketchViewModel'
+}, props, emit)
 
-  created () {
-    this.instantiate(SketchViewModel)
-  },
+instantiate(SketchViewModel)
 
-  watch: {
-    tool: 'setTool'
-  },
-
-  // @todo use "watchUtils" to watch this.module.activeTool
-  // or think of some way to keep tool active on.create success
-
-  methods: {
-    // override
-    addToHook() {},
-    mergePropsHook () {
-      if (!this.getMapView() || !this.getGraphicsLayer()) {
-        console.error('[ESketch] no map view or no graphics layers')
-      }
-      return {
-        ...(this.properties.layer ? {} : { layer: this.getGraphicsLayer() }),
-        ...(this.properties.view ? {} : { view: this.getMapView() })
-      }
-    },
-    setTool (tool) {
-      if (tool) {
-        this.module.create(tool, this.toolMode)
-      } else {
-        // this.module.SketchViewModel.cancel()
-      }
-    }
+const setTool = (tool) => {
+  if (tool) {
+    console.log(tool)
+    getEsriObject().create(tool, props.toolMode)
+  } else {
+    // this.module.SketchViewModel.cancel()
   }
 }
+
+watch(
+  () => props.tool,
+  setTool
+)
 </script>

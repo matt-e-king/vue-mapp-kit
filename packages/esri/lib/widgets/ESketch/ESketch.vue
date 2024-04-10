@@ -1,52 +1,40 @@
 <template></template>
 
-<script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch.html
+<script setup>
+import { defineProps, inject, defineEmits } from 'vue'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html
 import Sketch from '@arcgis/core/widgets/Sketch'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapViewMixin from '../../mixins/injectMapViewMixin.js'
-import injectGraphicsLayer from '../../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, sketchEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'ESketch',
-
-  mixins: [
-    constructorMixin,
-    injectMapViewMixin,
-    injectGraphicsLayer
-  ],
-
-  props: {
-    position: {
-      type: String,
-      default: 'top-right'
-    }
-  },
-
-  data() {
-    return {
-      name: 'Sketch'
-    }
-  },
-
-  created () {
-    this.instantiate(Sketch)
-  },
-
-  methods: {
-    addToHook() {
-      if (!this.getMapView()) { console.error('[ESketch] no map view') }
-      this.getMapView().ui.add(this.module, this.position)
-    },
-    mergePropsHook () {
-      if (!this.getMapView() || !this.getGraphicsLayer()) {
-        console.error('[ESketch] no map view or no graphics layers')
-      }
-      return {
-        ...(this.properties.layer ? {} : { layer: this.getGraphicsLayer() }),
-        ...(this.properties.view ? {} : { view: this.getMapView() })
-      }
-    }
+const props = defineProps({
+  ...ConstructionProps,
+  position: {
+    type: String,
+    default: 'top-right'
   }
-}
+})
+const emit = defineEmits(sketchEvents)
+const getMapView = inject('getMapView')
+const getGraphicsLayer = inject('getGraphicsLayer', undefined)
+
+const {
+  instantiate
+} = useConstructor({
+  addToHook: (module) => {
+    if (!getMapView()) console.error('[ESketch] no map view')
+    getMapView().ui.add(module, props.position)
+  },
+  mergePropsHook: () => {
+    if (!getMapView() || !getGraphicsLayer()) {
+      console.error('[ESketch] no map view or no graphics layers')
+    }
+    return {
+      ...(props.properties.layer ? {} : { layer: getGraphicsLayer() }),
+      ...(props.properties.view ? {} : { view: getMapView() })
+    }
+  },
+  name: 'Sketch'
+}, props, emit)
+
+instantiate(Sketch)
 </script>

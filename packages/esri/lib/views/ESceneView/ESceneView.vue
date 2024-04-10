@@ -1,49 +1,41 @@
 <template>
   <div class="sceneView">
-    <slot v-if="booted" v-bind:sceneView="module.SceneView"/>
+    <slot
+      v-if="booted"
+      :sceneView="getEsriObject()"
+    />
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, inject, provide, onBeforeUnmount } from 'vue'
 import SceneView from '@arcgis/core/views/SceneView'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
+import { useConstructor, ConstructionProps, viewEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'ESceneView',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(viewEvents)
+const getMap = inject('getMap')
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin
-  ],
-
-  provide() {
-    return {
-      // this will get injected into all children
-      getMapView: this.getMapView
-    }
-  },
-
-  data() {
-    return {
-      name: 'SceneView'
-    }
-  },
-
-  created () {
-    this.instantiate(SceneView)
-  },
-
-  methods: {
-    // override
-    addToHook() {},
-    mergePropsHook () {
-      if (!this.getMap()) console.error('[ESceneView] no parent map found')
-      return this.properties.map ? {} : { map: this.getMap() }
-    },
-    getMapView() {
-      return this.module
-    }
+const {
+  instantiate,
+  booted,
+  getEsriObject
+} = useConstructor({
+  name: 'SceneView',
+  addToHook: () => {},
+  mergePropsHook: () => {
+    if (!getMap()) { console.error('[ESceneView] No map instance for SceneView') }
+    return props.properties.map ? {} : { map: getMap() }
   }
-}
+}, props, emit)
+
+instantiate(SceneView)
+
+provide('getMapView', getEsriObject)
+
+onBeforeUnmount(() => {
+  emit('remove', getEsriObject())
+  getMap().remove(getEsriObject())
+})
+
 </script>

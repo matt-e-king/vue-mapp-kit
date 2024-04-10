@@ -1,44 +1,34 @@
 <template></template>
 
-<script>
+<script setup>
+import { defineProps, inject } from 'vue'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html
 import ScaleBar from '@arcgis/core/widgets/ScaleBar'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapViewMixin from '../../mixins/injectMapViewMixin.js'
+import { useConstructor, ConstructionProps } from '../../composables/useConstructor'
 
-export default {
-  name: 'EScaleBar',
-
-  mixins: [
-    constructorMixin,
-    injectMapViewMixin
-  ],
-
-  props: {
-    position: {
-      type: String,
-      default: 'bottom-left'
-    }
-  },
-
-  data() {
-    return {
-      name: 'ScaleBar'
-    }
-  },
-
-  created () {
-    this.instantiate(ScaleBar)
-  },
-
-  methods: {
-    addToHook() {
-      if (!this.getMapView()) console.error('[EScaleBar] no map view')
-      this.getMapView().ui.add(this.module, this.position)
-    },
-    mergePropsHook () {
-      if (!this.getMapView()) console.error('[EScaleBar] no map view')
-      return this.properties.view ? {} : { view: this.getMapView() }
-    }
+const props = defineProps({
+  ...ConstructionProps,
+  position: {
+    type: String,
+    default: 'bottom-left'
   }
-}
+})
+const getMapView = inject('getMapView')
+
+const {
+  instantiate
+} = useConstructor({
+  addToHook: (module) => {
+    if (!getMapView()) console.error('[EScaleBar] no map view')
+    getMapView().ui.add(module, props.position)
+  },
+  mergePropsHook: () => {
+    if (!getMapView()) { console.error('[EMapView] No map instance for MapView') }
+    return props.properties.view ? {} : { view: getMapView() }
+  },
+  name: 'ScaleBar'
+}, props)
+
+instantiate(ScaleBar)
+
 </script>

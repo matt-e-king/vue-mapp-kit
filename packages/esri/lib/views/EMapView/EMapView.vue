@@ -2,62 +2,40 @@
   <div class="mapView">
     <slot
       v-if="booted"
-      :mapView="module.MapView"
+      :mapView="getEsriObject()"
     />
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, inject, provide, onBeforeUnmount } from 'vue'
 import MapView from '@arcgis/core/views/MapView'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
+import { useConstructor, ConstructionProps, viewEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'EMapView',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(viewEvents)
+const getMap = inject('getMap')
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin
-  ],
-
-  provide() {
-    return {
-      // this will get injected into all children
-      getMapView: this.getMapView
-    }
-  },
-
-  props: {
-    events: {
-      type: Array,
-      default: () => ([]) // TODO: add validator
-    }
-  },
-
-  data() {
-    return {
-      name: 'MapView'
-    }
-  },
-
-  created () {
-    this.instantiate(MapView)
-  },
-
-  methods: {
-    // override
-    addToHook() {},
-    /**
-     * MapView requires a property that references the map
-     * Using a method to ensure the map instance doesn't become an observable
-     */
-    mergePropsHook () {
-      if (!this.getMap()) { console.error('[EMapView] No map instance for MapView') }
-      return this.properties.map ? {} : { map: this.getMap() }
-    },
-    getMapView() {
-      return this.module
-    }
+const {
+  instantiate,
+  booted,
+  getEsriObject
+} = useConstructor({
+  name: 'MapView',
+  addToHook: () => {},
+  mergePropsHook: () => {
+    if (!getMap()) { console.error('[EMapView] No map instance for MapView') }
+    return props.properties.map ? {} : { map: getMap() }
   }
-}
+}, props, emit)
+
+instantiate(MapView)
+
+provide('getMapView', getEsriObject)
+
+onBeforeUnmount(() => {
+  emit('remove', getEsriObject())
+  getMap().remove(getEsriObject())
+})
+
 </script>

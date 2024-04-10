@@ -1,29 +1,29 @@
 <template></template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, inject, onBeforeUnmount } from 'vue'
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-ImageryLayer.html
 import ImageryLayer from '@arcgis/core/layers/ImageryLayer'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
-import injectGroupLayer from '../../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, layerEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'EImageryLayer',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(layerEvents)
+const getMap = inject('getMap')
+const getGroupLayer = inject('getGroupLayer', undefined)
+const parent = props.addTo || (getGroupLayer && getGroupLayer()) || (getMap && getMap())
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin,
-    injectGroupLayer
-  ],
+const {
+  instantiate,
+  getEsriObject
+} = useConstructor({
+  name: 'ImageryLayer'
+}, props, emit)
 
-  data() {
-    return {
-      name: 'ImageryLayer'
-    }
-  },
+instantiate(ImageryLayer, parent)
 
-  created () {
-    this.instantiate(ImageryLayer)
-  }
-}
+onBeforeUnmount(() => {
+  parent.remove(getEsriObject())
+
+  emit('remove', getEsriObject())
+})
 </script>

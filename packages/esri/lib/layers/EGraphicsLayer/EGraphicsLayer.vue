@@ -2,48 +2,39 @@
   <div>
     <slot
       v-if="booted"
-      :graphicsLayer="module.GraphicsLayer"
+      :graphicsLayer="getEsriObject()"
     />
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, inject, provide, onBeforeUnmount } from 'vue'
 // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GraphicsLayer.html
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'
-import constructorMixin from '../../mixins/constructorMixin.js'
-import injectMapMixin from '../../mixins/injectMapMixin.js'
-import injectGroupLayer from '../../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, layerEvents } from '../../composables/useConstructor'
 
-export default {
-  name: 'EGraphicsLayer',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits(layerEvents)
+const getMap = inject('getMap')
+const getGroupLayer = inject('getGroupLayer', undefined)
+const parent = props.addTo || (getGroupLayer && getGroupLayer()) || (getMap && getMap())
 
-  mixins: [
-    constructorMixin,
-    injectMapMixin,
-    injectGroupLayer
-  ],
+const {
+  instantiate,
+  booted,
+  getEsriObject
+} = useConstructor({
+  name: 'GraphicsLayer'
+}, props, emit)
 
-  provide() {
-    return {
-      // this will get injected into all children
-      getGraphicsLayer: this.innerGetGraphicsLayer
-    }
-  },
+instantiate(GraphicsLayer, parent)
 
-  data() {
-    return {
-      name: 'GraphicsLayer'
-    }
-  },
+provide('getGraphicsLayer', getEsriObject)
 
-  created () {
-    this.instantiate(GraphicsLayer)
-  },
+onBeforeUnmount(() => {
+  parent.remove(getEsriObject())
 
-  methods: {
-    innerGetGraphicsLayer () {
-      return this.module
-    }
-  }
-}
+  emit('remove', getEsriObject())
+})
+
 </script>

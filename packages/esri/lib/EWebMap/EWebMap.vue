@@ -2,62 +2,50 @@
   <div class="webmap">
     <slot
       v-if="booted"
-      :map="module"
+      :map="getEsriObject()"
     />
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, watch, provide } from 'vue'
 import WebMap from '@arcgis/core/WebMap'
-import constructorMixin from '../mixins/constructorMixin.js'
+import { useConstructor, ConstructionProps, defaultEvents } from '../composables/useConstructor'
 
-export default {
-  name: 'EWebMap',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits([...defaultEvents])
 
-  provide() {
-    return {
-      // this will get injected into all children
-      getMap: this.getMap
-    }
-  },
+const {
+  instantiate,
+  booted,
+  getEsriObject
+} = useConstructor({
+  name: 'WebMap',
+  addToHook: () => {}
+}, props, emit)
 
-  mixins: [constructorMixin],
+instantiate(WebMap)
 
-  data () {
-    return {
-      name: 'WebMap'
-    }
-  },
+provide('getMap', getEsriObject)
 
-  created () {
-    this.instantiate(WebMap)
-  },
+const changeBasemap = () => {
+  const {
+    properties: {
+      basemap = ''
+    } = {}
+  } = props
 
-  watch: {
-    'properties.basemap': 'changeBasemap'
-  },
+  if (!basemap) {
+    console.warn('[EWebMap] No basemap in properties')
 
-  methods: {
-    // override
-    addToHook() {},
-    getMap() {
-      return this.module
-    },
-    changeBasemap () {
-      const {
-        properties: {
-          basemap = ''
-        } = {}
-      } = this
-
-      if (!basemap) {
-        console.warn('No basemap in properties')
-
-        return
-      }
-
-      this.getMap().basemap = basemap
-    }
+    return
   }
+
+  getEsriObject().basemap = basemap
 }
+
+watch(
+  () => props.properties.basemap,
+  changeBasemap
+)
 </script>

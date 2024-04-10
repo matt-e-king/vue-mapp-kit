@@ -1,47 +1,28 @@
 <template></template>
 
-<script>
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
+<script setup>
+import { defineEmits, defineProps, inject, onBeforeUnmount } from 'vue'
 import Graphic from '@arcgis/core/Graphic'
-import constructorMixin from '../mixins/constructorMixin.js'
-import injectMapViewMixin from '../mixins/injectMapViewMixin.js'
-import injectGraphicsLayer from '../mixins/injectGraphicsLayer.js'
+import { useConstructor, ConstructionProps, defaultEvents } from '../composables/useConstructor'
 
-export default {
-  name: 'EGraphic',
+const props = defineProps(ConstructionProps)
+const emit = defineEmits([...defaultEvents])
+const getMapView = inject('getMapView')
+const getGraphicsLayer = inject('getGraphicsLayer', undefined)
+const parent = props.addTo || (getGraphicsLayer && getGraphicsLayer()) || (getMapView && getMapView().graphics)
 
-  mixins: [
-    constructorMixin,
-    injectMapViewMixin,
-    injectGraphicsLayer
-  ],
+const {
+  instantiate,
+  getEsriObject
+} = useConstructor({
+  name: 'Graphic'
+}, props, emit)
 
-  data() {
-    return {
-      name: 'Graphic'
-    }
-  },
+instantiate(Graphic, parent)
 
-  created () {
-    this.instantiate(Graphic)
-  },
+onBeforeUnmount(() => {
+  parent.remove(getEsriObject())
 
-  methods: {
-    getParent () {
-      return this.addTo || this.getGraphicsLayer() || this.getMapView().graphics
-    },
-    addToHook() {
-      if (!this.getParent()) console.error('[EGraphic] no parent "add" found')
-      
-      this.getParent().add(this.module)
-    },
-    beforeDestroyHook() {
-      this.getParent().remove(this.module)
-
-      this.$emit('remove', this.module)
-    }
-  }
-}
+  emit('remove', getEsriObject())
+})
 </script>
-
-<style scoped></style>

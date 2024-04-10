@@ -8,6 +8,7 @@
         basemap
       }"
       key="map"
+      @ready="handleMainMapReady"
     >
       <EMapView
         :properties="{
@@ -56,6 +57,9 @@ export default {
   },
 
   methods: {
+    handleMainMapReady (map) {
+      console.log('ITS WORKING: ', map)
+    },
     toggleBasemap () {
       this.basemap = this.basemap === 'streets-vector' ? 'gray-vector' : 'streets-vector'
     }
