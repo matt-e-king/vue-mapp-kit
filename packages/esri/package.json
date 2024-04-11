@@ -34,7 +34,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@arcgis/core": "4.29.7",
+    "@arcgis/core": "^4.29.10",
     "mitt": "^3.0.0",
     "vue": "^3.2.47"
   },
