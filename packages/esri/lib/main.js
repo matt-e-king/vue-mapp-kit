@@ -45,6 +45,8 @@ export {
   EGraphic
 }
 
+export const useMappKitBus = () => ({ mappKitBus: MappKitBus })
+
 export default {
   install (app, options) {
     app.config.globalProperties.$mappKitBus = MappKitBus

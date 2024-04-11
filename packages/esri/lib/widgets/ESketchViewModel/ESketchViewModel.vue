@@ -42,7 +42,6 @@ instantiate(SketchViewModel)
 
 const setTool = (tool) => {
   if (tool) {
-    console.log(tool)
     getEsriObject().create(tool, props.toolMode)
   } else {
     // this.module.SketchViewModel.cancel()
