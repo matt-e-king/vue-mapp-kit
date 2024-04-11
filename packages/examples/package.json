@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@arcgis/core": "^4.26.5",
+    "@arcgis/core": "^4.29.10",
     "@vue-mapp-kit/esri": "^5.1.0-rc.0",
     "@vue-mapp-kit/esri-leaflet": "^5.0.1-rc.0",
     "@vue-mapp-kit/leaflet": "^5.0.1-rc.0",
