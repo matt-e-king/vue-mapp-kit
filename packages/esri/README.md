@@ -13,10 +13,10 @@ A component driven approach to managing Esri ArcGIS Javascript API 4.x objects u
 Clone repo and `cd` into `/packages/examples` and run `yarn install && yarn dev`
 
 ----------
-## Getting Started (Currenlty just a release candidate)
+## Getting Started (Currently just a release candidate)
 ```
-npm install --save @vue-mapp-kit/esri@5.0.0-rc.0
-yarn add @vue-mapp-kit/esri@5.0.0-rc.0
+npm install --save @vue-mapp-kit/esri@beta
+yarn add @vue-mapp-kit/esri@beta
 ```
 
 Assuming you are using `vite` as your build/bundler, your `src/main.js` will look something like this:
@@ -39,6 +39,18 @@ a.mount('#app')
 
  - Code examples in the [`examples`](../../packages/examples/src/pages/esri) package.
  - Supported components in the [src/lib](src/lib) directory, which follow a similar organizational structure as the [API Reference](https://developers.arcgis.com/javascript/latest/api-reference/)
+
+## Nuxt
+This is not an officially supported Nuxt module so it's as simple as importing the components directly and a small `nuxt.config` entry. See the following:
+
+#### `nuxt.config`
+```javascript
+vite: {
+  optimizeDeps: {
+    exclude: ['@arcgis/core']
+  }
+}
+```
 
 ## Component Properties
 As mentioned above, this library strives to have an almost identical interface to each respective class in the [Esri Javsacript ArcGIS API](https://developers.arcgis.com/javascript/latest/api-reference/). Each suppported component in this library will have a `properties` prop:
@@ -234,5 +246,4 @@ Notice how the second `EGraphicsLayer` has a prop called `add-to`? This is a spe
 
 ## More info
  - More code examples in the [`examples`](../../packages/examples/src/components) package.
- - Supported components in the [src/components](src/components) directory.
- - Nuxt documentation coming soon...
+ - Supported components in the [lib](lib) directory.
